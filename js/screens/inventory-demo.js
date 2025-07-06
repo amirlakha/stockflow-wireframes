@@ -115,7 +115,45 @@ const inventoryDemoControls = {
     
     updateProductTable() {
         console.log('Refreshing product table with current data');
-        // Phase 3: Refresh the product table with current data
+        
+        // Check if we're in functional mode and table exists
+        const tableBody = document.getElementById('productTableBody');
+        if (!tableBody || this.isPreviewMode) {
+            console.log('Table update skipped - not in functional mode or table not found');
+            return;
+        }
+        
+        try {
+            // For now, use all current products (filtering will come later)
+            const products = this.currentProducts;
+            
+            // Build table rows HTML
+            const rowsHTML = products.map(product => {
+                const statusClass = product.status;
+                const statusIcon = product.status === 'good' ? '✓' : '!';
+                const statusText = product.status === 'good' ? 'GOOD' : 
+                                  product.status === 'warning' ? 'LOW' : 'CRITICAL';
+                
+                return `
+                    <tr class="product-row ${statusClass}">
+                        <td><span class="status-indicator ${statusClass}">${statusIcon}</span>${product.name}</td>
+                        <td>${product.sku}</td>
+                        <td><span class="stock-number ${statusClass}">${product.stock}</span></td>
+                        <td>${product.minLevel}</td>
+                        <td>£${product.price.toFixed(2)}</td>
+                        <td><span class="status-text ${statusClass}">${statusText}</span></td>
+                        <td>${product.updated}</td>
+                    </tr>
+                `;
+            }).join('');
+            
+            // Update table body
+            tableBody.innerHTML = rowsHTML;
+            
+            console.log(`Updated table with ${products.length} products`);
+        } catch (error) {
+            console.error('Error updating product table:', error);
+        }
     },
     
     handleSearch(searchTerm) {
@@ -170,6 +208,9 @@ const inventoryDemoControls = {
                 if (this.currentProducts.length === 0) {
                     this.initializeInventory();
                 }
+                
+                // Update the product table
+                this.updateProductTable();
             }
         } else {
             console.error('Could not find preview or functional containers');
