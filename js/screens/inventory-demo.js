@@ -12,6 +12,9 @@ const inventoryDemoControls = {
     // Toggle mode for Phase 3
     isPreviewMode: true,
     
+    // Search state
+    searchTerm: '',
+    
     // Sample product data
     sampleProducts: [
         {
@@ -124,8 +127,16 @@ const inventoryDemoControls = {
         }
         
         try {
-            // For now, use all current products (filtering will come later)
-            const products = this.currentProducts;
+            // Filter products based on search term
+            let products = this.currentProducts;
+            
+            if (this.searchTerm) {
+                products = products.filter(product => 
+                    product.name.toLowerCase().includes(this.searchTerm) ||
+                    product.sku.toLowerCase().includes(this.searchTerm) ||
+                    (product.category && product.category.toLowerCase().includes(this.searchTerm))
+                );
+            }
             
             // Build table rows HTML
             const rowsHTML = products.map(product => {
@@ -138,6 +149,7 @@ const inventoryDemoControls = {
                     <tr class="product-row ${statusClass}">
                         <td><span class="status-indicator ${statusClass}">${statusIcon}</span>${product.name}</td>
                         <td>${product.sku}</td>
+                        <td>${product.category}</td>
                         <td><span class="stock-number ${statusClass}">${product.stock}</span></td>
                         <td>${product.minLevel}</td>
                         <td>£${product.price.toFixed(2)}</td>
@@ -158,7 +170,14 @@ const inventoryDemoControls = {
     
     handleSearch(searchTerm) {
         console.log(`Filtering products by search term: ${searchTerm}`);
-        // Phase 3: Filter products based on search input
+        
+        if (this.isPreviewMode) return; // Don't search in preview mode
+        
+        // Update search term
+        this.searchTerm = searchTerm.toLowerCase().trim();
+        
+        // Update the table with filtered results
+        this.updateProductTable();
     },
     
     handleSort(column) {
@@ -174,6 +193,28 @@ const inventoryDemoControls = {
     generatePagination() {
         console.log('Generating pagination controls');
         // Phase 3: Create pagination controls for large datasets
+    },
+    
+    // Initialize search functionality
+    initializeSearch() {
+        const searchInput = document.getElementById('productSearchInput');
+        if (!searchInput) {
+            console.log('Search input not found, skipping initialization');
+            return;
+        }
+        
+        // Remove any existing listeners first
+        searchInput.removeEventListener('input', this.handleSearchInput);
+        
+        // Create bound handler to maintain 'this' context
+        this.handleSearchInput = (e) => {
+            this.handleSearch(e.target.value);
+        };
+        
+        // Add new listener
+        searchInput.addEventListener('input', this.handleSearchInput);
+        
+        console.log('Search functionality initialized');
     },
     
     // Toggle between preview and functional modes
@@ -208,6 +249,9 @@ const inventoryDemoControls = {
                 if (this.currentProducts.length === 0) {
                     this.initializeInventory();
                 }
+                
+                // Initialize search functionality
+                this.initializeSearch();
                 
                 // Update the product table
                 this.updateProductTable();
