@@ -22,19 +22,20 @@ Each step will be non-breaking, tested, and committed separately before proceedi
 - [x] **User Testing Required**
 - [x] Commit: "Create directory structure for modular refactoring"
 
-### Step 2: Extract CSS - Base and Navigation 🔄
+### Step 2: Extract CSS - Base and Navigation ✅
 - [x] Extract base.css (lines 8-93)
 - [x] Extract navigation.css (lines 94-148)
 - [x] Create new index.html that includes these CSS files
 - [x] Remove extracted CSS from inline styles
-- [ ] Verify styling still works
-- [ ] **User Testing Required**
-- [ ] Commit: "Extract base and navigation CSS modules"
+- [x] Verify styling still works
+- [x] **User Testing Required**
+- [x] Commit: "Extract base and navigation CSS modules"
 
-### Step 3: Extract CSS - Components ⏳
-- [ ] Extract demo-controls.css (lines 149-208)
-- [ ] Extract notes.css (lines 209-308)
-- [ ] Update index.html to include these files
+### Step 3: Extract CSS - Components 🔄
+- [x] Extract demo-controls.css to css/components/demo-controls.css
+- [x] Extract notes.css to css/components/notes.css
+- [x] Update index.html to include these files
+- [x] Remove extracted CSS from inline styles
 - [ ] Verify demo controls and notes styling
 - [ ] **User Testing Required**
 - [ ] Commit: "Extract component CSS modules"

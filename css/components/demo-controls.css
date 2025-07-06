@@ -1,0 +1,58 @@
+/* ==================== MODULE: demo-controls.css ==================== */
+/* Demo controls section styles */
+
+.demo-controls-section {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    margin-bottom: 30px;
+    border-left: 4px solid #6c757d;
+}
+
+.demo-controls-section h3 {
+    color: #333;
+    font-size: 18px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.demo-controls-section p {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.demo-controls-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.demo-controls-content {
+    display: none;
+}
+
+.demo-controls-content.active {
+    display: block;
+}
+
+.demo-button {
+    background: #6c757d;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s ease;
+    flex: 1;
+    min-width: 120px;
+}
+
+.demo-button:hover {
+    background: #5a6268;
+}
