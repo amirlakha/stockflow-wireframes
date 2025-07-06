@@ -59,17 +59,18 @@ Each step will be non-breaking, tested, and committed separately before proceedi
 - [x] **User Testing Required**
 - [x] Commit: "Extract responsive CSS module"
 
-### Step 6: Extract JavaScript - Configuration 🔄
+### Step 6: Extract JavaScript - Configuration ✅
 - [x] Create js/config.js with screens configuration object
 - [x] Update index.html to include config.js
 - [x] Remove extracted configuration from inline script
-- [ ] Verify configuration is accessible
-- [ ] **User Testing Required**
-- [ ] Commit: "Extract JavaScript configuration"
+- [x] Verify configuration is accessible
+- [x] **User Testing Required**
+- [x] Commit: "Extract JavaScript configuration"
 
-### Step 7: Extract JavaScript - Core Module ⏳
-- [ ] Extract js/core.js (lines 2,481-2,630)
-- [ ] Update index.html to include core.js
+### Step 7: Extract JavaScript - Core Module 🔄
+- [x] Extract js/core.js with navigation and screen management
+- [x] Update index.html to include core.js
+- [x] Remove extracted core functions from inline script
 - [ ] Verify navigation still works
 - [ ] **User Testing Required**
 - [ ] Commit: "Extract core JavaScript module"
