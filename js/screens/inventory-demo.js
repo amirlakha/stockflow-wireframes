@@ -17,6 +17,10 @@ const inventoryDemoControls = {
     categoryFilter: 'all',
     stockLevelFilter: 'all',
     
+    // Sorting state
+    sortColumn: 'name',
+    sortDirection: 'asc',
+    
     // Sample product data
     sampleProducts: [
         {
@@ -176,7 +180,47 @@ const inventoryDemoControls = {
     
     handleSort(column) {
         console.log(`Sorting products by column: ${column}`);
-        // Phase 3: Sort products by specified column
+        
+        if (this.isPreviewMode) return;
+        
+        // Toggle direction if same column, otherwise reset to ascending
+        if (this.sortColumn === column) {
+            this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            this.sortColumn = column;
+            this.sortDirection = 'asc';
+        }
+        
+        // Sort the products
+        this.currentProducts.sort((a, b) => {
+            let aVal = a[column];
+            let bVal = b[column];
+            
+            // Handle undefined values
+            if (aVal === undefined) aVal = '';
+            if (bVal === undefined) bVal = '';
+            
+            // Numeric comparison for numeric fields
+            if (column === 'stock' || column === 'minLevel' || column === 'price') {
+                aVal = parseFloat(aVal) || 0;
+                bVal = parseFloat(bVal) || 0;
+                return this.sortDirection === 'asc' ? aVal - bVal : bVal - aVal;
+            }
+            
+            // String comparison for text fields
+            aVal = String(aVal).toLowerCase();
+            bVal = String(bVal).toLowerCase();
+            
+            if (this.sortDirection === 'asc') {
+                return aVal.localeCompare(bVal);
+            } else {
+                return bVal.localeCompare(aVal);
+            }
+        });
+        
+        // Update the table and indicators
+        this.updateSortIndicators();
+        this.updateProductTable();
     },
     
     filterProducts(criteria) {
@@ -290,6 +334,55 @@ const inventoryDemoControls = {
         console.log('Stock level filter initialized');
     },
     
+    // Initialize column sorting
+    initializeSorting() {
+        const headers = document.querySelectorAll('.inventory-functional .sortable-header');
+        if (!headers.length) {
+            console.log('No sortable headers found, skipping sorting initialization');
+            return;
+        }
+        
+        headers.forEach(header => {
+            // Remove any existing listeners
+            header.removeEventListener('click', this.handleHeaderClick);
+            
+            // Add cursor style
+            header.style.cursor = 'pointer';
+            
+            // Create bound handler
+            this.handleHeaderClick = (e) => {
+                if (this.isPreviewMode) return;
+                
+                const column = e.currentTarget.dataset.column;
+                if (column) {
+                    this.handleSort(column);
+                }
+            };
+            
+            // Add listener
+            header.addEventListener('click', this.handleHeaderClick);
+        });
+        
+        console.log('Column sorting initialized');
+        this.updateSortIndicators();
+    },
+    
+    // Update visual sort indicators
+    updateSortIndicators() {
+        const headers = document.querySelectorAll('.inventory-functional .sortable-header');
+        
+        headers.forEach(header => {
+            const column = header.dataset.column;
+            // Remove any existing indicators
+            header.textContent = header.textContent.replace(/ ↑| ↓/g, '');
+            
+            // Add indicator for active sort column
+            if (column === this.sortColumn) {
+                header.textContent += this.sortDirection === 'asc' ? ' ↑' : ' ↓';
+            }
+        });
+    },
+    
     // Toggle between preview and functional modes
     togglePreviewMode() {
         this.isPreviewMode = !this.isPreviewMode;
@@ -327,6 +420,7 @@ const inventoryDemoControls = {
                 this.initializeSearch();
                 this.initializeCategoryFilter();
                 this.initializeStockLevelFilter();
+                this.initializeSorting();
                 
                 // Update the product table
                 this.updateProductTable();

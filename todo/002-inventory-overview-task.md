@@ -63,13 +63,13 @@ Each step will be non-breaking, tested, and committed separately before proceedi
 - [x] **User Testing Required**
 - [x] Commit: "Implement category and stock level filters"
 
-### Step 7: Implement Column Sorting ⏳
-- [ ] Add initializeSorting() with click handlers
-- [ ] Implement handleSort() for each column type
-- [ ] Add sort direction tracking and visual indicators
-- [ ] Handle numeric vs text sorting appropriately
-- [ ] **User Testing Required**
-- [ ] Commit: "Add column sorting functionality"
+### Step 7: Implement Column Sorting ✅
+- [x] Add initializeSorting() with click handlers
+- [x] Implement handleSort() for each column type
+- [x] Add sort direction tracking and visual indicators
+- [x] Handle numeric vs text sorting appropriately
+- [x] **User Testing Required**
+- [x] Commit: "Add column sorting functionality"
 
 ### Step 8: Implement Pagination ⏳
 - [ ] Add pagination HTML structure to functional container

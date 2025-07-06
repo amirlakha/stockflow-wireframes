@@ -453,3 +453,13 @@
     color: #28a745;
     font-weight: bold;
 }
+/* Sortable header styles */
+.sortable-header {
+    cursor: pointer;
+    user-select: none;
+}
+
+.sortable-header:hover {
+    background: #f0f0f0;
+    text-decoration: underline;
+}
