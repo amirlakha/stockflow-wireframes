@@ -67,20 +67,21 @@ Each step will be non-breaking, tested, and committed separately before proceedi
 - [x] **User Testing Required**
 - [x] Commit: "Extract JavaScript configuration"
 
-### Step 7: Extract JavaScript - Core Module 🔄
+### Step 7: Extract JavaScript - Core Module ✅
 - [x] Extract js/core.js with navigation and screen management
 - [x] Update index.html to include core.js
 - [x] Remove extracted core functions from inline script
-- [ ] Verify navigation still works
-- [ ] **User Testing Required**
-- [ ] Commit: "Extract core JavaScript module"
+- [x] Verify navigation still works
+- [x] **User Testing Required**
+- [x] Commit: "Extract core JavaScript module"
 
-### Step 8: Extract JavaScript - Screen Modules ⏳
-- [ ] Extract js/screens/login-demo.js (lines 2,631-2,723)
-- [ ] Extract js/screens/dashboard-demo.js (lines 2,724-2,847)
-- [ ] Extract js/screens/inventory-demo.js (lines 2,848-2,986)
-- [ ] Extract js/screens/store-selection-demo.js (lines 2,987-3,149)
-- [ ] Update index.html to include all screen JS files
+### Step 8: Extract JavaScript - Screen Modules 🔄
+- [x] Extract js/screens/login-demo.js with login demo controls
+- [x] Extract js/screens/dashboard-demo.js with dashboard demo functionality
+- [x] Extract js/screens/inventory-demo.js with inventory demo and Phase 2 data
+- [x] Extract js/screens/store-selection-demo.js with store filtering controls
+- [x] Update index.html to include all screen JS files
+- [x] Remove extracted screen modules from inline script
 - [ ] Verify all demo controls work
 - [ ] **User Testing Required**
 - [ ] Commit: "Extract screen JavaScript modules"

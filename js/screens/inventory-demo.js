@@ -1,0 +1,137 @@
+/* ==================== MODULE: screens/inventory-demo.js ==================== */
+/* Inventory Overview screen demo controls and functionality - Phase 2 */
+
+const inventoryDemoControls = {
+    // Current state
+    currentProducts: [],
+    currentStore: 'oxford-street',
+    currentFilter: 'all',
+    currentSort: 'name',
+    currentPage: 1,
+    
+    // Sample product data
+    sampleProducts: [
+        {
+            id: 1, name: 'Classic Cotton T-Shirt', sku: 'TSH-001',
+            stock: 45, minLevel: 10, price: 19.99, status: 'good',
+            updated: '2 hrs ago', category: 'Clothing'
+        },
+        {
+            id: 2, name: 'Denim Jeans - Blue', sku: 'JN-004', 
+            stock: 8, minLevel: 15, price: 49.99, status: 'warning',
+            updated: '5 hrs ago', category: 'Clothing'
+        },
+        {
+            id: 3, name: 'Summer Dress - Floral', sku: 'DR-012',
+            stock: 2, minLevel: 20, price: 34.99, status: 'critical',
+            updated: '1 day ago', category: 'Clothing'
+        },
+        {
+            id: 4, name: 'Leather Jacket - Black', sku: 'JK-007',
+            stock: 12, minLevel: 5, price: 199.99, status: 'good',
+            updated: '3 hrs ago', category: 'Clothing'
+        },
+        {
+            id: 5, name: 'Running Shoes - White', sku: 'SH-023',
+            stock: 6, minLevel: 12, price: 89.99, status: 'warning',
+            updated: '6 hrs ago', category: 'Footwear'
+        },
+        {
+            id: 6, name: 'Wool Sweater - Navy', sku: 'SW-015',
+            stock: 28, minLevel: 8, price: 79.99, status: 'good',
+            updated: '1 hr ago', category: 'Clothing'
+        },
+        {
+            id: 7, name: 'Casual Sneakers - Black', sku: 'SN-041',
+            stock: 3, minLevel: 15, price: 65.99, status: 'critical',
+            updated: '8 hrs ago', category: 'Footwear'
+        },
+        {
+            id: 8, name: 'Business Shirt - White', sku: 'SH-089',
+            stock: 22, minLevel: 12, price: 45.99, status: 'good',
+            updated: '4 hrs ago', category: 'Clothing'
+        }
+    ],
+    
+    // Demo control functions
+    showNormalInventory() {
+        console.log('Demo: Showing normal inventory mix');
+        this.currentProducts = this.sampleProducts.slice();
+        // Phase 3: Will update product table display
+        alert('Demo: Normal Inventory Mix\n\nShowing balanced stock levels with good/warning/critical items mixed.');
+    },
+    
+    showCriticalAlerts() {
+        console.log('Demo: Highlighting critical stock alerts');
+        // Filter to show more critical items
+        this.currentProducts = this.sampleProducts.filter(p => p.status === 'critical' || p.status === 'warning');
+        // Phase 3: Will emphasize low stock items in table
+        alert('Demo: Critical Alerts Focus\n\nFiltering to show only products with low stock warnings.');
+    },
+    
+    showLargeInventory() {
+        console.log('Demo: Demonstrating pagination with large dataset');
+        // Simulate larger dataset
+        const expandedProducts = [];
+        for (let i = 0; i < 50; i++) {
+            const baseProduct = this.sampleProducts[i % this.sampleProducts.length];
+            expandedProducts.push({
+                ...baseProduct,
+                id: i + 1,
+                name: `${baseProduct.name} (Variant ${i + 1})`,
+                sku: `${baseProduct.sku}-${String(i + 1).padStart(3, '0')}`
+            });
+        }
+        this.currentProducts = expandedProducts;
+        // Phase 3: Will demonstrate pagination controls
+        alert('Demo: Large Inventory Dataset\n\nSimulating 50 products to demonstrate pagination functionality.');
+    },
+    
+    simulateStockUpdate() {
+        console.log('Demo: Simulating real-time stock level changes');
+        // Randomly update some stock levels
+        this.currentProducts.forEach(product => {
+            if (Math.random() < 0.3) { // 30% chance to update
+                const change = Math.floor(Math.random() * 10) - 5; // -5 to +5
+                product.stock = Math.max(0, product.stock + change);
+                product.status = product.stock <= product.minLevel ? 
+                    (product.stock <= product.minLevel * 0.5 ? 'critical' : 'warning') : 'good';
+                product.updated = 'just now';
+            }
+        });
+        // Phase 3: Will refresh table with updated values
+        alert('Demo: Live Stock Updates\n\nSimulating real-time inventory changes with random stock adjustments.');
+    },
+
+    // Utility functions (ready for Phase 3)
+    initializeInventory() {
+        console.log('Initializing inventory display');
+        this.currentProducts = this.sampleProducts.slice();
+        // Phase 3: Set up initial inventory display
+    },
+    
+    updateProductTable() {
+        console.log('Refreshing product table with current data');
+        // Phase 3: Refresh the product table with current data
+    },
+    
+    handleSearch(searchTerm) {
+        console.log(`Filtering products by search term: ${searchTerm}`);
+        // Phase 3: Filter products based on search input
+    },
+    
+    handleSort(column) {
+        console.log(`Sorting products by column: ${column}`);
+        // Phase 3: Sort products by specified column
+    },
+    
+    filterProducts(criteria) {
+        console.log(`Applying filter criteria: ${criteria}`);
+        // Phase 3: Filter products based on category, status, etc.
+    },
+    
+    generatePagination() {
+        console.log('Generating pagination controls');
+        // Phase 3: Create pagination controls for large datasets
+    }
+};
