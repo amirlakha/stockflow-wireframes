@@ -31,21 +31,22 @@ Each step will be non-breaking, tested, and committed separately before proceedi
 - [x] **User Testing Required**
 - [x] Commit: "Extract base and navigation CSS modules"
 
-### Step 3: Extract CSS - Components 🔄
+### Step 3: Extract CSS - Components ✅
 - [x] Extract demo-controls.css to css/components/demo-controls.css
 - [x] Extract notes.css to css/components/notes.css
 - [x] Update index.html to include these files
 - [x] Remove extracted CSS from inline styles
-- [ ] Verify demo controls and notes styling
-- [ ] **User Testing Required**
-- [ ] Commit: "Extract component CSS modules"
+- [x] Verify demo controls and notes styling
+- [x] **User Testing Required**
+- [x] Commit: "Extract component CSS modules"
 
-### Step 4: Extract CSS - Screen Styles ⏳
-- [ ] Extract screens/login.css (lines 309-447)
-- [ ] Extract screens/dashboard.css (lines 448-722)
-- [ ] Extract screens/store-selection.css (lines 723-1,104)
-- [ ] Extract screens/inventory-overview.css (lines 1,105-1,561)
-- [ ] Update index.html to include all screen CSS files
+### Step 4: Extract CSS - Screen Styles 🔄
+- [x] Extract screens/login.css to css/screens/login.css
+- [x] Extract screens/dashboard.css to css/screens/dashboard.css
+- [x] Extract screens/store-selection.css to css/screens/store-selection.css
+- [x] Extract screens/inventory-overview.css to css/screens/inventory-overview.css
+- [x] Update index.html to include all screen CSS files
+- [x] Remove extracted CSS from inline styles
 - [ ] Verify each screen displays correctly
 - [ ] **User Testing Required**
 - [ ] Commit: "Extract screen-specific CSS modules"
