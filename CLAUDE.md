@@ -75,3 +75,10 @@ Each screen follows this pattern:
 ## CONSTRAINTS:
 - Must remain deployable as static site (GitHub Pages compatible)
 - Preserve all interactive demo controls and functionality
+
+## IMPORTANT PROJECT-SPECIFIC INSTRUCTIONS:
+1. **Always create local todo files**: For every major task, create a separate todo file in the `todo/` directory with a numbered filename corresponding to the task (e.g., `001-refactoring-task.md`, `002-feature-xyz.md`)
+2. **Update todo files continuously**: The todo file should be updated as you progress through the task
+3. **Non-breaking steps with user verification**: Every task should be split into non-breaking steps that allow testing between commits
+4. **Testing before commits**: Always follow this order: make changes → user testing/verification → then commit (never commit before user approval)
+5. **Incremental approach**: Each step should be atomic and reversible if issues arise
