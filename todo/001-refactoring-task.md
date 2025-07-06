@@ -40,20 +40,21 @@ Each step will be non-breaking, tested, and committed separately before proceedi
 - [x] **User Testing Required**
 - [x] Commit: "Extract component CSS modules"
 
-### Step 4: Extract CSS - Screen Styles 🔄
+### Step 4: Extract CSS - Screen Styles ✅
 - [x] Extract screens/login.css to css/screens/login.css
 - [x] Extract screens/dashboard.css to css/screens/dashboard.css
 - [x] Extract screens/store-selection.css to css/screens/store-selection.css
 - [x] Extract screens/inventory-overview.css to css/screens/inventory-overview.css
 - [x] Update index.html to include all screen CSS files
 - [x] Remove extracted CSS from inline styles
-- [ ] Verify each screen displays correctly
-- [ ] **User Testing Required**
-- [ ] Commit: "Extract screen-specific CSS modules"
+- [x] Verify each screen displays correctly
+- [x] **User Testing Required**
+- [x] Commit: "Extract screen-specific CSS modules"
 
-### Step 5: Extract CSS - Responsive ⏳
-- [ ] Extract responsive.css (lines 1,562-1,666)
-- [ ] Update index.html to include responsive CSS last
+### Step 5: Extract CSS - Responsive 🔄
+- [x] Extract responsive.css to css/responsive.css
+- [x] Update index.html to include responsive CSS last
+- [x] Remove extracted CSS from inline styles
 - [ ] Test responsive design on different screen sizes
 - [ ] **User Testing Required**
 - [ ] Commit: "Extract responsive CSS module"
