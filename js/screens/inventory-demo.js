@@ -9,6 +9,9 @@ const inventoryDemoControls = {
     currentSort: 'name',
     currentPage: 1,
     
+    // Toggle mode for Phase 3
+    isPreviewMode: true,
+    
     // Sample product data
     sampleProducts: [
         {
@@ -133,5 +136,15 @@ const inventoryDemoControls = {
     generatePagination() {
         console.log('Generating pagination controls');
         // Phase 3: Create pagination controls for large datasets
+    },
+    
+    // Toggle between preview and functional modes
+    togglePreviewMode() {
+        this.isPreviewMode = !this.isPreviewMode;
+        console.log(`Inventory mode switched to: ${this.isPreviewMode ? 'Preview' : 'Functional'}`);
+        
+        // Phase 3: Will toggle visibility of preview vs functional containers
+        // For now, just log the mode change
+        console.log('Toggle preview mode called - Phase 3 implementation pending');
     }
 };
