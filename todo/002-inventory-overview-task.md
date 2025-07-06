@@ -31,13 +31,13 @@ Each step will be non-breaking, tested, and committed separately before proceedi
 - [x] **User Testing Required**
 - [x] Commit: "Add functional container structure for inventory"
 
-### Step 3: Add Mode Toggle Control ⏳
-- [ ] Add toggle button to inventory demo controls section
-- [ ] Implement togglePreviewMode() to show/hide preview vs functional
-- [ ] Add mode indicator text showing current mode
-- [ ] Verify toggle switches between views correctly
-- [ ] **User Testing Required**
-- [ ] Commit: "Implement preview/functional mode toggle"
+### Step 3: Add Mode Toggle Control ✅
+- [x] Add toggle button to inventory demo controls section
+- [x] Implement togglePreviewMode() to show/hide preview vs functional
+- [x] Add mode indicator text showing current mode
+- [x] Verify toggle switches between views correctly
+- [x] **User Testing Required**
+- [x] Commit: "Implement preview/functional mode toggle"
 
 ### Step 4: Implement Product Table Rendering ⏳
 - [ ] Create updateProductTable() function with mode checking

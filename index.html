@@ -652,9 +652,19 @@
                     <button class="demo-button" onclick="inventoryDemoControls.showLargeInventory()">Large Inventory</button>
                     <button class="demo-button" onclick="inventoryDemoControls.simulateStockUpdate()">Live Update</button>
                 </div>
+                <div style="margin-top: 15px; padding: 15px; background: #f0f8ff; border: 1px solid #b0d4ff; border-radius: 8px;">
+                    <div style="display: flex; align-items: center; justify-content: space-between;">
+                        <div>
+                            <strong>Mode:</strong> <span id="modeIndicator" style="color: #0066cc;">Preview Mode</span>
+                        </div>
+                        <button class="demo-button" onclick="inventoryDemoControls.togglePreviewMode()" style="background: #0066cc; color: white;">
+                            Toggle Preview/Functional Mode
+                        </button>
+                    </div>
+                </div>
                 <p style="margin-top: 15px; font-size: 13px; color: #666;">
                     <strong>Phase 2 Foundation:</strong> Demo controls are working with console logging and sample data structure. 
-                    <strong>Phase 3:</strong> Will connect to interactive product table display.
+                    <strong>Phase 3:</strong> Toggle to functional mode to see live interactive display.
                 </p>
             </div>
 

@@ -143,8 +143,36 @@ const inventoryDemoControls = {
         this.isPreviewMode = !this.isPreviewMode;
         console.log(`Inventory mode switched to: ${this.isPreviewMode ? 'Preview' : 'Functional'}`);
         
-        // Phase 3: Will toggle visibility of preview vs functional containers
-        // For now, just log the mode change
-        console.log('Toggle preview mode called - Phase 3 implementation pending');
+        // Get the containers
+        const previewDiv = document.querySelector('.inventory-in-progress');
+        const functionalDiv = document.querySelector('.inventory-functional');
+        const modeIndicator = document.getElementById('modeIndicator');
+        
+        if (previewDiv && functionalDiv) {
+            if (this.isPreviewMode) {
+                // Show preview, hide functional
+                previewDiv.style.display = 'block';
+                functionalDiv.style.display = 'none';
+                if (modeIndicator) {
+                    modeIndicator.textContent = 'Preview Mode';
+                    modeIndicator.style.color = '#0066cc';
+                }
+            } else {
+                // Hide preview, show functional
+                previewDiv.style.display = 'none';
+                functionalDiv.style.display = 'block';
+                if (modeIndicator) {
+                    modeIndicator.textContent = 'Functional Mode';
+                    modeIndicator.style.color = '#28a745';
+                }
+                
+                // Initialize inventory if switching to functional mode
+                if (this.currentProducts.length === 0) {
+                    this.initializeInventory();
+                }
+            }
+        } else {
+            console.error('Could not find preview or functional containers');
+        }
     }
 };
