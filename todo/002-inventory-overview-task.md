@@ -55,13 +55,13 @@ Each step will be non-breaking, tested, and committed separately before proceedi
 - [x] **User Testing Required**
 - [x] Commit: "Add search functionality to inventory"
 
-### Step 6: Implement Category & Stock Filters ⏳
-- [ ] Add initializeCategoryFilter() function
-- [ ] Add initializeStockLevelFilter() function
-- [ ] Implement getFilteredProducts() combining all filters
-- [ ] Update table when filters change
-- [ ] **User Testing Required**
-- [ ] Commit: "Implement category and stock level filters"
+### Step 6: Implement Category & Stock Filters ✅
+- [x] Add initializeCategoryFilter() function
+- [x] Add initializeStockLevelFilter() function
+- [x] Implement getFilteredProducts() combining all filters
+- [x] Update table when filters change
+- [x] **User Testing Required**
+- [x] Commit: "Implement category and stock level filters"
 
 ### Step 7: Implement Column Sorting ⏳
 - [ ] Add initializeSorting() with click handlers

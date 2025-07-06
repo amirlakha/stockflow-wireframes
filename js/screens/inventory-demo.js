@@ -12,8 +12,10 @@ const inventoryDemoControls = {
     // Toggle mode for Phase 3
     isPreviewMode: true,
     
-    // Search state
+    // Search and filter state
     searchTerm: '',
+    categoryFilter: 'all',
+    stockLevelFilter: 'all',
     
     // Sample product data
     sampleProducts: [
@@ -127,16 +129,8 @@ const inventoryDemoControls = {
         }
         
         try {
-            // Filter products based on search term
-            let products = this.currentProducts;
-            
-            if (this.searchTerm) {
-                products = products.filter(product => 
-                    product.name.toLowerCase().includes(this.searchTerm) ||
-                    product.sku.toLowerCase().includes(this.searchTerm) ||
-                    (product.category && product.category.toLowerCase().includes(this.searchTerm))
-                );
-            }
+            // Filter products based on all criteria
+            let products = this.getFilteredProducts();
             
             // Build table rows HTML
             const rowsHTML = products.map(product => {
@@ -190,6 +184,33 @@ const inventoryDemoControls = {
         // Phase 3: Filter products based on category, status, etc.
     },
     
+    // Get filtered products based on all active filters
+    getFilteredProducts() {
+        let products = [...this.currentProducts];
+        
+        // Apply search filter
+        if (this.searchTerm) {
+            products = products.filter(product => 
+                product.name.toLowerCase().includes(this.searchTerm) ||
+                product.sku.toLowerCase().includes(this.searchTerm) ||
+                (product.category && product.category.toLowerCase().includes(this.searchTerm))
+            );
+        }
+        
+        // Apply category filter
+        if (this.categoryFilter && this.categoryFilter !== 'all') {
+            products = products.filter(product => product.category === this.categoryFilter);
+        }
+        
+        // Apply stock level filter
+        if (this.stockLevelFilter && this.stockLevelFilter !== 'all') {
+            products = products.filter(product => product.status === this.stockLevelFilter);
+        }
+        
+        console.log(`Filtered ${products.length} products from ${this.currentProducts.length} total`);
+        return products;
+    },
+    
     generatePagination() {
         console.log('Generating pagination controls');
         // Phase 3: Create pagination controls for large datasets
@@ -215,6 +236,58 @@ const inventoryDemoControls = {
         searchInput.addEventListener('input', this.handleSearchInput);
         
         console.log('Search functionality initialized');
+    },
+    
+    // Initialize category filter
+    initializeCategoryFilter() {
+        const categoryFilter = document.getElementById('categoryFilter');
+        if (!categoryFilter) {
+            console.log('Category filter not found, skipping initialization');
+            return;
+        }
+        
+        // Remove any existing listeners
+        categoryFilter.removeEventListener('change', this.handleCategoryChange);
+        
+        // Create bound handler
+        this.handleCategoryChange = (e) => {
+            if (this.isPreviewMode) return;
+            
+            this.categoryFilter = e.target.value;
+            console.log(`Category filter changed to: ${this.categoryFilter}`);
+            this.updateProductTable();
+        };
+        
+        // Add listener
+        categoryFilter.addEventListener('change', this.handleCategoryChange);
+        
+        console.log('Category filter initialized');
+    },
+    
+    // Initialize stock level filter
+    initializeStockLevelFilter() {
+        const stockLevelFilter = document.getElementById('stockLevelFilter');
+        if (!stockLevelFilter) {
+            console.log('Stock level filter not found, skipping initialization');
+            return;
+        }
+        
+        // Remove any existing listeners
+        stockLevelFilter.removeEventListener('change', this.handleStockLevelChange);
+        
+        // Create bound handler
+        this.handleStockLevelChange = (e) => {
+            if (this.isPreviewMode) return;
+            
+            this.stockLevelFilter = e.target.value;
+            console.log(`Stock level filter changed to: ${this.stockLevelFilter}`);
+            this.updateProductTable();
+        };
+        
+        // Add listener
+        stockLevelFilter.addEventListener('change', this.handleStockLevelChange);
+        
+        console.log('Stock level filter initialized');
     },
     
     // Toggle between preview and functional modes
@@ -250,8 +323,10 @@ const inventoryDemoControls = {
                     this.initializeInventory();
                 }
                 
-                // Initialize search functionality
+                // Initialize search and filter functionality
                 this.initializeSearch();
+                this.initializeCategoryFilter();
+                this.initializeStockLevelFilter();
                 
                 // Update the product table
                 this.updateProductTable();
