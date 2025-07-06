@@ -484,6 +484,79 @@
                                 </div>
                             </div>
                         </div>
+                        
+                        <!-- Functional Container (Phase 3) -->
+                        <div class="inventory-functional" style="display: none;">
+                            <!-- Search and Filter Section -->
+                            <div class="inventory-search-filter-section">
+                                <h3>Product Inventory</h3>
+                                <div class="inventory-search-controls">
+                                    <input id="productSearchInput" class="product-search-input" 
+                                        placeholder="🔍 Search products by name, SKU, or description...">
+                                    <select id="categoryFilter" class="inventory-filter-dropdown">
+                                        <option value="all">All Categories ▼</option>
+                                        <option value="Clothing">Clothing</option>
+                                        <option value="Footwear">Footwear</option>
+                                    </select>
+                                    <select id="stockLevelFilter" class="inventory-filter-dropdown">
+                                        <option value="all">Stock Level ▼</option>
+                                        <option value="good">Good Stock</option>
+                                        <option value="warning">Low Stock</option>
+                                        <option value="critical">Critical</option>
+                                    </select>
+                                    <div class="view-toggle-inventory" id="viewToggleInventory">⊞</div>
+                                </div>
+                            </div>
+
+                            <!-- Quick Actions Toolbar -->
+                            <div class="quick-actions-toolbar">
+                                <button class="action-btn action-btn-record-sale">Record Sale</button>
+                                <button class="action-btn action-btn-add-stock">Add Stock</button>
+                                <button class="action-btn action-btn-adjust-stock">Adjust Stock</button>
+                                <button class="action-btn action-btn-export">Export</button>
+                            </div>
+
+                            <!-- Products Table -->
+                            <div class="products-table-section">
+                                <table class="products-table">
+                                    <thead>
+                                        <tr>
+                                            <th class="sortable-header" data-column="name">Product Name</th>
+                                            <th class="sortable-header" data-column="sku">SKU</th>
+                                            <th class="sortable-header" data-column="stock">Stock</th>
+                                            <th class="sortable-header" data-column="minLevel">Min Level</th>
+                                            <th class="sortable-header" data-column="price">Price</th>
+                                            <th class="sortable-header" data-column="status">Status</th>
+                                            <th class="sortable-header" data-column="updated">Updated</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="productTableBody">
+                                        <!-- Products will be rendered here -->
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Pagination -->
+                            <div class="pagination-section">
+                                <div class="pagination-info" id="paginationInfo">Showing 0-0 of 0 products</div>
+                                <div class="pagination-controls" id="paginationControls">
+                                    <!-- Pagination buttons will be rendered here -->
+                                </div>
+                            </div>
+
+                            <!-- Summary Bar -->
+                            <div class="inventory-summary-bar">
+                                <div class="summary-stats" id="summaryStats">
+                                    <div class="summary-title">Stock Summary:</div>
+                                    <span id="totalProducts">0</span> total products • 
+                                    <span id="goodStock">0</span> good stock • 
+                                    <span id="lowStock">0</span> low stock • 
+                                    <span id="criticalAlerts">0</span> critical alerts • 
+                                    Last sync: <span id="lastSync">never</span>
+                                </div>
+                                <button class="sync-button" id="syncButton">🔄 Sync Inventory</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
