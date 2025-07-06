@@ -83,4 +83,4 @@ Each screen follows this pattern:
 4. **Testing before commits**: Always follow this order: make changes → user testing/verification → then commit (never commit before user approval)
 5. **Incremental approach**: Each step should be atomic and reversible if issues arise
 6. **Model usage preference**: Use Opus for planning and designing solutions, then switch to Sonnet for executing the implementation plan
-7. **Git workflow**: ALWAYS show full `git status` output (not `git status --porcelain`) before asking user to stage files with `git add -A`. User needs to see complete file change details before approving staging.
+7. **Git workflow**: ALWAYS show full `git status` output (not `git status --porcelain`) before asking user to stage files with `git add -A`. If the git status output gets truncated (showing "... +n lines"), provide a complete summary of all changes including: branch status, ahead/behind commits, modified files, untracked files, and staged files. User needs to see complete file change details before approving staging.
