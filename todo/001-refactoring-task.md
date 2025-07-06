@@ -14,18 +14,19 @@ Each step will be non-breaking, tested, and committed separately before proceedi
 
 ## Steps
 
-### Step 1: Create Directory Structure 🔄
+### Step 1: Create Directory Structure ✅
 - [x] Create css/ directory with subdirectories (components/, screens/)
 - [x] Create js/ directory with subdirectory (screens/)
 - [x] Create components/ directory with subdirectory (screens/)
 - [x] Verify structure is created correctly
-- [ ] **User Testing Required**
-- [ ] Commit: "Create directory structure for modular refactoring"
+- [x] **User Testing Required**
+- [x] Commit: "Create directory structure for modular refactoring"
 
-### Step 2: Extract CSS - Base and Navigation ⏳
-- [ ] Extract base.css (lines 8-93)
-- [ ] Extract navigation.css (lines 94-148)
-- [ ] Create new index.html that includes these CSS files
+### Step 2: Extract CSS - Base and Navigation 🔄
+- [x] Extract base.css (lines 8-93)
+- [x] Extract navigation.css (lines 94-148)
+- [x] Create new index.html that includes these CSS files
+- [x] Remove extracted CSS from inline styles
 - [ ] Verify styling still works
 - [ ] **User Testing Required**
 - [ ] Commit: "Extract base and navigation CSS modules"

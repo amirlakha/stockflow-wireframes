@@ -1,0 +1,84 @@
+/* ==================== MODULE: base.css ==================== */
+/* Global styles, resets, and core layout */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f2f5;
+    min-height: 100vh;
+}
+
+.wireframe-container {
+    padding: 40px 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.wireframe-info {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.wireframe-info h2 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.wireframe-info p {
+    color: #666;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.wireframe-display {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    min-height: 600px;
+    margin-bottom: 30px;
+}
+
+.screen-content {
+    display: none;
+}
+
+.screen-content.active {
+    display: block;
+}
+
+/* Coming Soon placeholder styles */
+.coming-soon {
+    text-align: center;
+    padding: 60px 20px;
+    color: #666;
+}
+
+.coming-soon h3 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.coming-soon p {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.coming-soon .preview-note {
+    background: #f8f9fa;
+    border-left: 4px solid #d4a574;
+    padding: 20px;
+    margin-top: 30px;
+    text-align: left;
+    border-radius: 0 8px 8px 0;
+}

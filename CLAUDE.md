@@ -82,3 +82,4 @@ Each screen follows this pattern:
 3. **Non-breaking steps with user verification**: Every task should be split into non-breaking steps that allow testing between commits
 4. **Testing before commits**: Always follow this order: make changes → user testing/verification → then commit (never commit before user approval)
 5. **Incremental approach**: Each step should be atomic and reversible if issues arise
+6. **Model usage preference**: Use Opus for planning and designing solutions, then switch to Sonnet for executing the implementation plan
