@@ -107,8 +107,16 @@ function selectStore(storeId) {
     const store = getStoreById(storeId);
     console.log('Store selected:', store);
     
-    // Keep the alert for now (non-breaking)
-    alert(`Selecting ${storeId} store...\n\n→ Navigating to Inventory Overview\n\nThis would load the inventory screen for the selected store location.`);
+    // Pass store data to inventory before navigation
+    if (store && inventoryDemoControls) {
+        inventoryDemoControls.setSelectedStore(store);
+    }
+    
+    // Keep the alert for now (non-breaking) to show what's happening
+    alert(`Selecting ${store ? store.name : storeId} store...\n\n→ Navigating to Inventory Overview\n\nThis will load the inventory screen for the selected store location.`);
+    
+    // Navigate to inventory after alert
+    navigateTo('inventory');
 }
 
 function showMoreStores() {

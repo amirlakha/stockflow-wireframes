@@ -13,17 +13,17 @@ Wire up the store selection screen to properly navigate to the inventory overvie
 - [x] **User Testing Required**
 - [x] Commit: "Add store context infrastructure"
 
-### Step 2: Update Navigation Function 🔄
+### Step 2: Update Navigation Function ✅
 - [x] Modify `selectStore()` to accept store object
 - [x] Keep existing alert for now (non-breaking)
 - [x] Add console.log to verify store data passed
-- [ ] **User Testing Required**
-- [ ] Commit: "Update selectStore to accept store data"
+- [x] **User Testing Required**
+- [x] Commit: "Update selectStore to accept store data"
 
-### Step 3: Pass Store Context During Navigation ⏳
-- [ ] Update `selectStore()` to call `navigateTo('inventory')` after alert
-- [ ] Pass store data to inventory before navigation
-- [ ] Keep alert to show what's happening
+### Step 3: Pass Store Context During Navigation 🔄
+- [x] Update `selectStore()` to call `navigateTo('inventory')` after alert
+- [x] Pass store data to inventory before navigation
+- [x] Keep alert to show what's happening
 - [ ] **User Testing Required**
 - [ ] Commit: "Pass store context during navigation"
 
@@ -39,6 +39,8 @@ Wire up the store selection screen to properly navigate to the inventory overvie
 - [ ] Extend store data array with 8 total stores
 - [ ] Add stores: Camden, Westfield, Kings Road
 - [ ] Each with unique metrics and status
+- [ ] Update product counts to be between 8-50 for realism
+- [ ] Ensure alert counts are reasonable (0-5 for good, 6-10 for warning, 11+ for critical)
 - [ ] **User Testing Required**
 - [ ] Commit: "Add more sample stores for pagination"
 
@@ -59,10 +61,12 @@ Wire up the store selection screen to properly navigate to the inventory overvie
 - [ ] Commit: "Make store pagination interactive"
 
 ### Step 8: Connect Store Context to Products ⏳
-- [ ] Add store-specific product sets (simulation)
+- [ ] Add store-specific product sets (8-50 products per store)
 - [ ] Filter products based on selected store
 - [ ] Update product count in header
 - [ ] Update alerts count based on filtered products
+- [ ] Remove "Large Inventory" demo button (no longer needed)
+- [ ] Update "Live Update" button to also update header summary when alerts change
 - [ ] **User Testing Required**
 - [ ] Commit: "Connect store context to products"
 
