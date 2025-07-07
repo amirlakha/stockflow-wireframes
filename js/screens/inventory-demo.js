@@ -90,6 +90,7 @@ const inventoryDemoControls = {
             if (stockSelect) stockSelect.value = 'all';
             
             this.updateProductTable();
+            this.updateSummaryStats();
         } else {
             alert('Demo: Normal Inventory Mix\n\nShowing balanced stock levels with good/warning/critical items mixed.');
         }
@@ -108,6 +109,7 @@ const inventoryDemoControls = {
             if (stockSelect) stockSelect.value = 'critical';
             
             this.updateProductTable();
+            this.updateSummaryStats();
             
             // Show a brief notification
             const count = this.getFilteredProducts().length;
@@ -136,6 +138,7 @@ const inventoryDemoControls = {
         if (!this.isPreviewMode) {
             this.currentPage = 1; // Reset to first page
             this.updateProductTable();
+            this.updateSummaryStats();
         } else {
             alert('Demo: Large Inventory Dataset\n\nSimulating 50 products to demonstrate pagination functionality.');
         }
@@ -168,6 +171,7 @@ const inventoryDemoControls = {
             
             // Refresh the table to show updates
             this.updateProductTable();
+            this.updateSummaryStats();
             
             console.log(`Stock update complete: ${updateCount} products updated`);
         } else {
@@ -657,6 +661,32 @@ const inventoryDemoControls = {
         console.log(`Exported ${products.length} products to CSV`);
     },
     
+    // Update summary statistics
+    updateSummaryStats() {
+        console.log('Updating summary statistics');
+        
+        if (this.isPreviewMode) return;
+        
+        // Get all products and calculate stats
+        const allProducts = this.currentProducts;
+        const goodStockCount = allProducts.filter(p => p.status === 'good').length;
+        const warningStockCount = allProducts.filter(p => p.status === 'warning').length;
+        const criticalStockCount = allProducts.filter(p => p.status === 'critical').length;
+        
+        // Update the summary stats elements
+        const totalProductsEl = document.getElementById('totalProducts');
+        const goodStockEl = document.getElementById('goodStock');
+        const lowStockEl = document.getElementById('lowStock');
+        const criticalAlertsEl = document.getElementById('criticalAlerts');
+        
+        if (totalProductsEl) totalProductsEl.textContent = allProducts.length;
+        if (goodStockEl) goodStockEl.textContent = goodStockCount;
+        if (lowStockEl) lowStockEl.textContent = warningStockCount;
+        if (criticalAlertsEl) criticalAlertsEl.textContent = criticalStockCount;
+        
+        console.log(`Stats updated: ${allProducts.length} total, ${goodStockCount} good, ${warningStockCount} low, ${criticalStockCount} critical`);
+    },
+    
     // Toggle between preview and functional modes
     togglePreviewMode() {
         this.isPreviewMode = !this.isPreviewMode;
@@ -697,8 +727,9 @@ const inventoryDemoControls = {
                 this.initializeSorting();
                 this.initializeQuickActions();
                 
-                // Update the product table
+                // Update the product table and stats
                 this.updateProductTable();
+                this.updateSummaryStats();
             }
         } else {
             console.error('Could not find preview or functional containers');
