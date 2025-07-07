@@ -84,18 +84,21 @@ function setupStoreSelectionFilters() {
 
         if (searchInput) {
             searchInput.addEventListener('input', function() {
+                storeSelectionDemoControls.currentStorePage = 1;
                 handleStoreFiltering();
             });
         }
 
         if (regionFilter) {
             regionFilter.addEventListener('change', function() {
+                storeSelectionDemoControls.currentStorePage = 1;
                 handleStoreFiltering();
             });
         }
 
         if (alertFilter) {
             alertFilter.addEventListener('change', function() {
+                storeSelectionDemoControls.currentStorePage = 1;
                 handleStoreFiltering();
             });
         }
@@ -121,7 +124,13 @@ function selectStore(storeId) {
 }
 
 function showMoreStores() {
-    alert('Loading more stores...\n\nThis would show additional store locations with pagination.');
+    storeSelectionDemoControls.currentStorePage++;
+    handleStoreFiltering();
+}
+
+function showPreviousStores() {
+    storeSelectionDemoControls.currentStorePage--;
+    handleStoreFiltering();
 }
 
 function toggleGridView() {
@@ -360,10 +369,8 @@ function handleStoreFiltering() {
         return true;
     });
 
-    // Reset to page 1 when filters change
-    if (searchTerm || selectedRegion !== 'All Regions ▼' || selectedAlertLevel !== 'All Alerts ▼') {
-        storeSelectionDemoControls.currentStorePage = 1;
-    }
+    // Remove the automatic reset - we'll handle it differently
+    // The page should only reset when filters change via user input, not during pagination
     
     // Paginate the filtered stores
     const currentPage = storeSelectionDemoControls.currentStorePage;
@@ -386,6 +393,19 @@ function handleStoreFiltering() {
             </div>
         `;
     } else {
+        // Add "Previous" pagination card if on page 2+
+        if (currentPage > 1) {
+            const previousCount = (currentPage - 2) * storesPerPage + storesPerPage;
+            storesHTML += `
+                <div class="store-card pagination" onclick="showPreviousStores()">
+                    <div class="pagination-circle">←</div>
+                    <div class="pagination-text">Previous Stores</div>
+                    <div class="pagination-subtitle">Back to previous page</div>
+                    <button class="view-more-button">← GO BACK</button>
+                </div>
+            `;
+        }
+        
         paginatedStores.forEach(store => {
             const statusClass = store.status;
             const statusIcon = store.status === 'good' ? '✓' : '!';
@@ -407,7 +427,7 @@ function handleStoreFiltering() {
             `;
         });
 
-        // Add pagination card if there are more stores to show
+        // Add "Next" pagination card if there are more stores to show
         if (remainingStores > 0) {
             storesHTML += `
                 <div class="store-card pagination" onclick="showMoreStores()">
