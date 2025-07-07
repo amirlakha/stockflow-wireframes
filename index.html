@@ -324,169 +324,9 @@
                             <button class="inventory-back-button" onclick="navigateTo('store-selection')">← Back</button>
                         </div>
 
-                        <!-- Preview Content -->
-                        <div class="inventory-in-progress">
-                            <h3>Inventory Overview - Phase 2 Complete ✅</h3>
-                            <p>JavaScript foundation implemented with working demo controls and sample data structure. Ready for Phase 3 interactive implementation.</p>
-                            
-                            <div style="background: #e8f5e8; border: 1px solid #c3e6c3; border-radius: 8px; padding: 20px; margin-bottom: 30px;">
-                                <h4 style="color: #2d5a2d; margin-bottom: 15px;">🎯 Phase 2 Achievements</h4>
-                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; font-size: 13px; color: #2d5a2d;">
-                                    <div>✅ inventoryDemoControls object structure</div>
-                                    <div>✅ 8 sample products with realistic data</div>
-                                    <div>✅ Working demo control buttons</div>
-                                    <div>✅ Utility functions for Phase 3</div>
-                                    <div>✅ Console logging for verification</div>
-                                    <div>✅ No breaking changes to existing code</div>
-                                </div>
-                                <p style="margin-top: 15px; font-size: 12px; color: #2d5a2d; font-style: italic;">
-                                    <strong>Test the demo controls above!</strong> Check browser console to see logging output from each function.
-                                </p>
-                            </div>
-                            
-                            <div class="inventory-preview">
-                                <h4 style="color: #d4a574; margin-bottom: 20px;">📋 Wireframe Components Preview</h4>
-                                
-                                <div class="preview-components">
-                                    <div class="preview-component">
-                                        <h4>🔍 Search & Filter Controls</h4>
-                                        <ul>
-                                            <li>Real-time product search</li>
-                                            <li>Category filtering dropdown</li>
-                                            <li>Stock level filtering</li>
-                                            <li>Grid/List view toggle</li>
-                                        </ul>
-                                    </div>
-                                    
-                                    <div class="preview-component">
-                                        <h4>⚡ Quick Action Toolbar</h4>
-                                        <ul>
-                                            <li>Record Sale (brown button)</li>
-                                            <li>Add Stock (green button)</li>
-                                            <li>Adjust Stock (blue button)</li>
-                                            <li>Export Data (grey button)</li>
-                                        </ul>
-                                    </div>
-                                    
-                                    <div class="preview-component">
-                                        <h4>📊 Product Data Table</h4>
-                                        <ul>
-                                            <li>Sortable columns</li>
-                                            <li>Color-coded status indicators</li>
-                                            <li>Stock level warnings</li>
-                                            <li>Real-time update timestamps</li>
-                                        </ul>
-                                    </div>
-                                    
-                                    <div class="preview-component">
-                                        <h4>📈 Summary & Pagination</h4>
-                                        <ul>
-                                            <li>Aggregate inventory statistics</li>
-                                            <li>Manual sync functionality</li>
-                                            <li>Pagination for large catalogs</li>
-                                            <li>Record count indicators</li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                                <!-- Static Style Previews -->
-                                <div style="margin-top: 30px;">
-                                    <h4 style="color: #333; margin-bottom: 15px;">🎨 Component Style Previews</h4>
-                                    
-                                    <!-- Search Controls Preview -->
-                                    <div class="inventory-search-filter-section" style="margin-bottom: 15px;">
-                                        <h3>Product Inventory</h3>
-                                        <div class="inventory-search-controls">
-                                            <input class="product-search-input" placeholder="🔍 Search products by name, SKU, or description..." readonly>
-                                            <select class="inventory-filter-dropdown" disabled>
-                                                <option>All Categories ▼</option>
-                                            </select>
-                                            <select class="inventory-filter-dropdown" disabled>
-                                                <option>Stock Level ▼</option>
-                                            </select>
-                                            <div class="view-toggle-inventory">⊞</div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Quick Actions Preview -->
-                                    <div class="quick-actions-toolbar" style="margin-bottom: 15px;">
-                                        <button class="action-btn action-btn-record-sale">Record Sale</button>
-                                        <button class="action-btn action-btn-add-stock">Add Stock</button>
-                                        <button class="action-btn action-btn-adjust-stock">Adjust Stock</button>
-                                        <button class="action-btn action-btn-export">Export</button>
-                                    </div>
-
-                                    <!-- Table Preview -->
-                                    <div class="products-table-section" style="margin-bottom: 15px;">
-                                        <table class="products-table">
-                                            <thead>
-                                                <tr>
-                                                    <th>Product Name</th>
-                                                    <th>SKU</th>
-                                                    <th>Stock</th>
-                                                    <th>Min Level</th>
-                                                    <th>Price</th>
-                                                    <th>Status</th>
-                                                    <th>Updated</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr class="product-row good">
-                                                    <td><span class="status-indicator good">✓</span>Classic Cotton T-Shirt</td>
-                                                    <td>TSH-001</td>
-                                                    <td><span class="stock-number">45</span></td>
-                                                    <td>10</td>
-                                                    <td>£19.99</td>
-                                                    <td><span class="status-text good">GOOD</span></td>
-                                                    <td>2 hrs ago</td>
-                                                </tr>
-                                                <tr class="product-row warning">
-                                                    <td><span class="status-indicator warning">!</span>Denim Jeans - Blue</td>
-                                                    <td>JN-004</td>
-                                                    <td><span class="stock-number warning">8</span></td>
-                                                    <td>15</td>
-                                                    <td>£49.99</td>
-                                                    <td><span class="status-text warning">LOW</span></td>
-                                                    <td>5 hrs ago</td>
-                                                </tr>
-                                                <tr class="product-row critical">
-                                                    <td><span class="status-indicator critical">!</span>Summer Dress - Floral</td>
-                                                    <td>DR-012</td>
-                                                    <td><span class="stock-number critical">2</span></td>
-                                                    <td>20</td>
-                                                    <td>£34.99</td>
-                                                    <td><span class="status-text critical">CRITICAL</span></td>
-                                                    <td>1 day ago</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-
-                                    <!-- Pagination Preview -->
-                                    <div class="pagination-section" style="margin-bottom: 15px;">
-                                        <div class="pagination-info">Showing 1-6 of 847 products</div>
-                                        <div class="pagination-controls">
-                                            <button class="page-btn">← 1</button>
-                                            <button class="page-btn active">2</button>
-                                            <button class="page-btn">3</button>
-                                            <button class="page-btn">→</button>
-                                        </div>
-                                    </div>
-
-                                    <!-- Summary Bar Preview -->
-                                    <div class="inventory-summary-bar">
-                                        <div class="summary-stats">
-                                            <div class="summary-title">Stock Summary:</div>
-                                            847 total products • 798 good stock • 46 low stock • 3 critical alerts • Last sync: 2 mins ago
-                                        </div>
-                                        <button class="sync-button">🔄 Sync Inventory</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         
                         <!-- Functional Container (Phase 3) -->
-                        <div class="inventory-functional" style="display: none;">
+                        <div class="inventory-functional">
                             <!-- Search and Filter Section -->
                             <div class="inventory-search-filter-section">
                                 <h3>Product Inventory</h3>
@@ -650,19 +490,9 @@
                     <button class="demo-button" onclick="inventoryDemoControls.showLargeInventory()">Large Inventory</button>
                     <button class="demo-button" onclick="inventoryDemoControls.simulateStockUpdate()">Live Update</button>
                 </div>
-                <div style="margin-top: 15px; padding: 15px; background: #f0f8ff; border: 1px solid #b0d4ff; border-radius: 8px;">
-                    <div style="display: flex; align-items: center; justify-content: space-between;">
-                        <div>
-                            <strong>Mode:</strong> <span id="modeIndicator" style="color: #0066cc;">Preview Mode</span>
-                        </div>
-                        <button class="demo-button" onclick="inventoryDemoControls.togglePreviewMode()" style="background: #0066cc; color: white;">
-                            Toggle Preview/Functional Mode
-                        </button>
-                    </div>
-                </div>
                 <p style="margin-top: 15px; font-size: 13px; color: #666;">
                     <strong>Phase 2 Foundation:</strong> Demo controls are working with console logging and sample data structure. 
-                    <strong>Phase 3:</strong> Toggle to functional mode to see live interactive display.
+                    <strong>Phase 3:</strong> Interactive functionality with search, filters, and sorting.
                 </p>
             </div>
 

@@ -9,9 +9,6 @@ const inventoryDemoControls = {
     currentSort: 'name',
     currentPage: 1,
     
-    // Toggle mode for Phase 3
-    isPreviewMode: true,
-    
     // Search and filter state
     searchTerm: '',
     categoryFilter: 'all',
@@ -73,50 +70,42 @@ const inventoryDemoControls = {
         console.log('Demo: Showing normal inventory mix');
         this.currentProducts = this.sampleProducts.slice();
         
-        if (!this.isPreviewMode) {
-            // Reset filters and show all products
-            this.searchTerm = '';
-            this.categoryFilter = 'all';
-            this.stockLevelFilter = 'all';
-            this.currentPage = 1;
-            
-            // Update UI elements
-            const searchInput = document.getElementById('productSearchInput');
-            const categorySelect = document.getElementById('categoryFilter');
-            const stockSelect = document.getElementById('stockLevelFilter');
-            
-            if (searchInput) searchInput.value = '';
-            if (categorySelect) categorySelect.value = 'all';
-            if (stockSelect) stockSelect.value = 'all';
-            
-            this.updateProductTable();
-            this.updateSummaryStats();
-        } else {
-            alert('Demo: Normal Inventory Mix\n\nShowing balanced stock levels with good/warning/critical items mixed.');
-        }
+        // Reset filters and show all products
+        this.searchTerm = '';
+        this.categoryFilter = 'all';
+        this.stockLevelFilter = 'all';
+        this.currentPage = 1;
+        
+        // Update UI elements
+        const searchInput = document.getElementById('productSearchInput');
+        const categorySelect = document.getElementById('categoryFilter');
+        const stockSelect = document.getElementById('stockLevelFilter');
+        
+        if (searchInput) searchInput.value = '';
+        if (categorySelect) categorySelect.value = 'all';
+        if (stockSelect) stockSelect.value = 'all';
+        
+        this.updateProductTable();
+        this.updateSummaryStats();
     },
     
     showCriticalAlerts() {
         console.log('Demo: Highlighting critical stock alerts');
         
-        if (!this.isPreviewMode) {
-            // Set stock level filter to show critical items
-            this.stockLevelFilter = 'critical';
-            this.currentPage = 1;
-            
-            // Update the stock level dropdown
-            const stockSelect = document.getElementById('stockLevelFilter');
-            if (stockSelect) stockSelect.value = 'critical';
-            
-            this.updateProductTable();
-            this.updateSummaryStats();
-            
-            // Show a brief notification
-            const count = this.getFilteredProducts().length;
-            console.log(`Showing ${count} critical stock items`);
-        } else {
-            alert('Demo: Critical Alerts Focus\n\nFiltering to show only products with low stock warnings.');
-        }
+        // Set stock level filter to show critical items
+        this.stockLevelFilter = 'critical';
+        this.currentPage = 1;
+        
+        // Update the stock level dropdown
+        const stockSelect = document.getElementById('stockLevelFilter');
+        if (stockSelect) stockSelect.value = 'critical';
+        
+        this.updateProductTable();
+        this.updateSummaryStats();
+        
+        // Show a brief notification
+        const count = this.getFilteredProducts().length;
+        console.log(`Showing ${count} critical stock items`);
     },
     
     showLargeInventory() {
@@ -134,65 +123,52 @@ const inventoryDemoControls = {
         }
         this.currentProducts = expandedProducts;
         
-        // Update the table if in functional mode
-        if (!this.isPreviewMode) {
-            this.currentPage = 1; // Reset to first page
-            this.updateProductTable();
-            this.updateSummaryStats();
-        } else {
-            alert('Demo: Large Inventory Dataset\n\nSimulating 50 products to demonstrate pagination functionality.');
-        }
+        // Update the table
+        this.currentPage = 1; // Reset to first page
+        this.updateProductTable();
+        this.updateSummaryStats();
     },
     
     simulateStockUpdate() {
         console.log('Demo: Simulating real-time stock level changes');
         
-        if (!this.isPreviewMode) {
-            let updateCount = 0;
-            
-            // Randomly update some stock levels
-            this.currentProducts.forEach(product => {
-                if (Math.random() < 0.3) { // 30% chance to update
-                    const change = Math.floor(Math.random() * 10) - 5; // -5 to +5
-                    const oldStock = product.stock;
-                    product.stock = Math.max(0, product.stock + change);
-                    
-                    // Update status based on new stock level
-                    const oldStatus = product.status;
-                    product.status = product.stock <= product.minLevel ? 
-                        (product.stock <= product.minLevel * 0.5 ? 'critical' : 'warning') : 'good';
-                    
-                    product.updated = 'just now';
-                    updateCount++;
-                    
-                    console.log(`Updated ${product.name}: stock ${oldStock} → ${product.stock}, status ${oldStatus} → ${product.status}`);
-                }
-            });
-            
-            // Refresh the table to show updates
-            this.updateProductTable();
-            this.updateSummaryStats();
-            
-            console.log(`Stock update complete: ${updateCount} products updated`);
-        } else {
-            alert('Demo: Live Stock Updates\n\nSimulating real-time inventory changes with random stock adjustments.');
-        }
+        let updateCount = 0;
+        
+        // Randomly update some stock levels
+        this.currentProducts.forEach(product => {
+            if (Math.random() < 0.3) { // 30% chance to update
+                const change = Math.floor(Math.random() * 10) - 5; // -5 to +5
+                const oldStock = product.stock;
+                product.stock = Math.max(0, product.stock + change);
+                
+                // Update status based on new stock level
+                const oldStatus = product.status;
+                product.status = product.stock <= product.minLevel ? 
+                    (product.stock <= product.minLevel * 0.5 ? 'critical' : 'warning') : 'good';
+                
+                product.updated = 'just now';
+                updateCount++;
+                
+                console.log(`Updated ${product.name}: stock ${oldStock} → ${product.stock}, status ${oldStatus} → ${product.status}`);
+            }
+        });
+        
+        // Refresh the table to show updates
+        this.updateProductTable();
+        this.updateSummaryStats();
+        
+        console.log(`Stock update complete: ${updateCount} products updated`);
     },
 
     // Utility functions (ready for Phase 3)
     initializeInventory() {
-        console.log('Initializing inventory display');
         this.currentProducts = this.sampleProducts.slice();
-        // Phase 3: Set up initial inventory display
     },
     
     updateProductTable() {
-        console.log('Refreshing product table with current data');
-        
-        // Check if we're in functional mode and table exists
+        // Check if table exists
         const tableBody = document.getElementById('productTableBody');
-        if (!tableBody || this.isPreviewMode) {
-            console.log('Table update skipped - not in functional mode or table not found');
+        if (!tableBody) {
             return;
         }
         
@@ -230,8 +206,6 @@ const inventoryDemoControls = {
             // Update table body
             tableBody.innerHTML = rowsHTML;
             
-            console.log(`Updated table with ${products.length} products`);
-            
             // Update pagination controls
             this.generatePagination();
         } catch (error) {
@@ -240,10 +214,6 @@ const inventoryDemoControls = {
     },
     
     handleSearch(searchTerm) {
-        console.log(`Filtering products by search term: ${searchTerm}`);
-        
-        if (this.isPreviewMode) return; // Don't search in preview mode
-        
         // Update search term
         this.searchTerm = searchTerm.toLowerCase().trim();
         
@@ -256,8 +226,6 @@ const inventoryDemoControls = {
     
     handleSort(column) {
         console.log(`Sorting products by column: ${column}`);
-        
-        if (this.isPreviewMode) return;
         
         // Toggle direction if same column, otherwise reset to ascending
         if (this.sortColumn === column) {
@@ -337,7 +305,7 @@ const inventoryDemoControls = {
         const paginationInfo = document.getElementById('paginationInfo');
         const paginationControls = document.getElementById('paginationControls');
         
-        if (!paginationInfo || !paginationControls || this.isPreviewMode) {
+        if (!paginationInfo || !paginationControls) {
             return;
         }
         
@@ -435,8 +403,6 @@ const inventoryDemoControls = {
     goToPage(pageNumber) {
         console.log(`Navigating to page ${pageNumber}`);
         
-        if (this.isPreviewMode) return;
-        
         const filteredProducts = this.getFilteredProducts();
         const totalPages = Math.ceil(filteredProducts.length / this.itemsPerPage);
         
@@ -486,8 +452,6 @@ const inventoryDemoControls = {
         
         // Create bound handler
         this.handleCategoryChange = (e) => {
-            if (this.isPreviewMode) return;
-            
             this.categoryFilter = e.target.value;
             console.log(`Category filter changed to: ${this.categoryFilter}`);
             this.currentPage = 1; // Reset to first page
@@ -513,8 +477,6 @@ const inventoryDemoControls = {
         
         // Create bound handler
         this.handleStockLevelChange = (e) => {
-            if (this.isPreviewMode) return;
-            
             this.stockLevelFilter = e.target.value;
             console.log(`Stock level filter changed to: ${this.stockLevelFilter}`);
             this.currentPage = 1; // Reset to first page
@@ -544,8 +506,6 @@ const inventoryDemoControls = {
             
             // Create bound handler
             this.handleHeaderClick = (e) => {
-                if (this.isPreviewMode) return;
-                
                 const column = e.currentTarget.dataset.column;
                 if (column) {
                     this.handleSort(column);
@@ -607,8 +567,8 @@ const inventoryDemoControls = {
     
     // Quick action handlers
     handleRecordSale() {
-        console.log('Record Sale clicked');
-        alert('Record Sale\n\nThis would open a dialog to record a sale transaction.\n\nFeatures:\n• Product selection\n• Quantity input\n• Customer details\n• Payment processing');
+        console.log('Record Sale clicked - navigating to Record Sale screen');
+        navigateTo('record-sale');
     },
     
     handleAddStock() {
@@ -624,48 +584,62 @@ const inventoryDemoControls = {
     handleExport() {
         console.log('Export clicked');
         
-        // Simple CSV export implementation
-        const products = this.getFilteredProducts();
-        if (products.length === 0) {
-            alert('No products to export');
-            return;
+        const btn = document.querySelector('.inventory-functional .action-btn-export');
+        if (btn) {
+            btn.disabled = true;
+            btn.textContent = 'Exporting...';
         }
         
-        // Create CSV content
-        const headers = ['Name', 'SKU', 'Category', 'Stock', 'Min Level', 'Price', 'Status', 'Last Updated'];
-        const csvContent = [
-            headers.join(','),
-            ...products.map(p => [
-                `"${p.name}"`,
-                p.sku,
-                p.category,
-                p.stock,
-                p.minLevel,
-                p.price,
-                p.status,
-                `"${p.updated}"`
-            ].join(','))
-        ].join('\n');
-        
-        // Create and download file
-        const blob = new Blob([csvContent], { type: 'text/csv' });
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `inventory-export-${new Date().toISOString().split('T')[0]}.csv`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);
-        
-        console.log(`Exported ${products.length} products to CSV`);
+        try {
+            // Simple CSV export implementation
+            const products = this.getFilteredProducts();
+            if (products.length === 0) {
+                alert('No products to export');
+                return;
+            }
+            
+            // Create CSV content
+            const headers = ['Name', 'SKU', 'Category', 'Stock', 'Min Level', 'Price', 'Status', 'Last Updated'];
+            const csvContent = [
+                headers.join(','),
+                ...products.map(p => [
+                    `"${p.name}"`,
+                    p.sku,
+                    p.category,
+                    p.stock,
+                    p.minLevel,
+                    p.price,
+                    p.status,
+                    `"${p.updated}"`
+                ].join(','))
+            ].join('\n');
+            
+            // Create and download file
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `inventory-export-${new Date().toISOString().split('T')[0]}.csv`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            console.log(`Exported ${products.length} products to CSV`);
+        } catch (error) {
+            console.error('Export failed:', error);
+            alert('Export failed. Please try again.');
+        } finally {
+            if (btn) {
+                btn.disabled = false;
+                btn.textContent = 'Export';
+            }
+        }
     },
     
     // Update summary statistics
     updateSummaryStats() {
         console.log('Updating summary statistics');
-        
-        if (this.isPreviewMode) return;
         
         // Get all products and calculate stats
         const allProducts = this.currentProducts;
@@ -685,54 +659,5 @@ const inventoryDemoControls = {
         if (criticalAlertsEl) criticalAlertsEl.textContent = criticalStockCount;
         
         console.log(`Stats updated: ${allProducts.length} total, ${goodStockCount} good, ${warningStockCount} low, ${criticalStockCount} critical`);
-    },
-    
-    // Toggle between preview and functional modes
-    togglePreviewMode() {
-        this.isPreviewMode = !this.isPreviewMode;
-        console.log(`Inventory mode switched to: ${this.isPreviewMode ? 'Preview' : 'Functional'}`);
-        
-        // Get the containers
-        const previewDiv = document.querySelector('.inventory-in-progress');
-        const functionalDiv = document.querySelector('.inventory-functional');
-        const modeIndicator = document.getElementById('modeIndicator');
-        
-        if (previewDiv && functionalDiv) {
-            if (this.isPreviewMode) {
-                // Show preview, hide functional
-                previewDiv.style.display = 'block';
-                functionalDiv.style.display = 'none';
-                if (modeIndicator) {
-                    modeIndicator.textContent = 'Preview Mode';
-                    modeIndicator.style.color = '#0066cc';
-                }
-            } else {
-                // Hide preview, show functional
-                previewDiv.style.display = 'none';
-                functionalDiv.style.display = 'block';
-                if (modeIndicator) {
-                    modeIndicator.textContent = 'Functional Mode';
-                    modeIndicator.style.color = '#28a745';
-                }
-                
-                // Initialize inventory if switching to functional mode
-                if (this.currentProducts.length === 0) {
-                    this.initializeInventory();
-                }
-                
-                // Initialize search and filter functionality
-                this.initializeSearch();
-                this.initializeCategoryFilter();
-                this.initializeStockLevelFilter();
-                this.initializeSorting();
-                this.initializeQuickActions();
-                
-                // Update the product table and stats
-                this.updateProductTable();
-                this.updateSummaryStats();
-            }
-        } else {
-            console.error('Could not find preview or functional containers');
-        }
     }
 };

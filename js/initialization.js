@@ -47,6 +47,29 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize store selection demo controls
     storeSelectionDemoControls.initialize();
     
+    // Initialize inventory screen when it becomes active
+    const inventoryScreen = document.getElementById('inventory');
+    if (inventoryScreen) {
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.target.classList.contains('active')) {
+                    // Initialize inventory when screen becomes active
+                    if (inventoryDemoControls.currentProducts.length === 0) {
+                        inventoryDemoControls.initializeInventory();
+                    }
+                    inventoryDemoControls.initializeSearch();
+                    inventoryDemoControls.initializeCategoryFilter();
+                    inventoryDemoControls.initializeStockLevelFilter();
+                    inventoryDemoControls.initializeSorting();
+                    inventoryDemoControls.initializeQuickActions();
+                    inventoryDemoControls.updateProductTable();
+                    inventoryDemoControls.updateSummaryStats();
+                }
+            });
+        });
+        observer.observe(inventoryScreen, { attributes: true, attributeFilter: ['class'] });
+    }
+    
     // Add event listeners for store selection filters
     setupStoreSelectionFilters();
 });
