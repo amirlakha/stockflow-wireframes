@@ -24,26 +24,74 @@ function showScreenAndActivate(buttonElement, screenId) {
 // Main screen switching function
 function showScreen(screenId) {
     try {
-        // Hide all screens
-        document.querySelectorAll('.screen-content').forEach(screen => {
-            screen.classList.remove('active');
-        });
+        // Get currently active screen
+        const currentScreen = document.querySelector('.screen-content.active');
+        const newScreen = document.getElementById(screenId);
         
-        // Hide all notes
-        document.querySelectorAll('.notes-content').forEach(note => {
-            note.classList.remove('active');
-        });
-        
-        // Hide all demo controls
-        document.querySelectorAll('.demo-controls-content').forEach(demo => {
-            demo.classList.remove('active');
-        });
-        
-        // Show selected screen
-        const screenElement = document.getElementById(screenId);
-        if (screenElement) {
-            screenElement.classList.add('active');
+        // If switching screens
+        if (currentScreen && currentScreen !== newScreen) {
+            // Fade out current screen
+            currentScreen.classList.remove('fade-in');
+            
+            setTimeout(() => {
+                // Hide all screens
+                document.querySelectorAll('.screen-content').forEach(screen => {
+                    screen.classList.remove('active', 'fade-in');
+                });
+                
+                // Hide all notes
+                document.querySelectorAll('.notes-content').forEach(note => {
+                    note.classList.remove('active');
+                });
+                
+                // Hide all demo controls
+                document.querySelectorAll('.demo-controls-content').forEach(demo => {
+                    demo.classList.remove('active');
+                });
+                
+                // Show selected screen
+                if (newScreen) {
+                    newScreen.classList.add('active');
+                    // Trigger fade in after display is set
+                    setTimeout(() => {
+                        newScreen.classList.add('fade-in');
+                    }, 10);
+                }
+                
+                // Continue with rest of function
+                showScreenContent(screenId);
+            }, 300); // Match CSS transition duration
+        } else {
+            // First time showing or same screen
+            document.querySelectorAll('.screen-content').forEach(screen => {
+                screen.classList.remove('active', 'fade-in');
+            });
+            
+            document.querySelectorAll('.notes-content').forEach(note => {
+                note.classList.remove('active');
+            });
+            
+            document.querySelectorAll('.demo-controls-content').forEach(demo => {
+                demo.classList.remove('active');
+            });
+            
+            if (newScreen) {
+                newScreen.classList.add('active');
+                setTimeout(() => {
+                    newScreen.classList.add('fade-in');
+                }, 10);
+            }
+            
+            showScreenContent(screenId);
         }
+    } catch (error) {
+        console.error('Error in showScreen:', error);
+    }
+}
+
+// Helper function to show screen content (notes, demo controls, etc.)
+function showScreenContent(screenId) {
+    try {
         
         // Show corresponding notes
         const notesElement = document.getElementById(screenId + '-notes');
@@ -82,7 +130,7 @@ function showScreen(screenId) {
         }
         
     } catch (error) {
-        console.error('Error in showScreen:', error);
+        console.error('Error in showScreenContent:', error);
     }
 }
 

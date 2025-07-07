@@ -50,10 +50,16 @@ body {
 
 .screen-content {
     display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
 }
 
 .screen-content.active {
     display: block;
+}
+
+.screen-content.fade-in {
+    opacity: 1;
 }
 
 /* Coming Soon placeholder styles */

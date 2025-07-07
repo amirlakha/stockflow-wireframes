@@ -60,7 +60,7 @@ Wire up the store selection screen to properly navigate to the inventory overvie
 - [x] **User Testing Required**
 - [x] Commit: "Make store pagination interactive"
 
-### Step 8: Connect Store Context to Products 🔄
+### Step 8: Connect Store Context to Products ✅
 - [x] Add store-specific product sets (8-50 products per store)
 - [x] Generate additional products dynamically to match store counts
 - [x] Filter products based on selected store
@@ -68,15 +68,15 @@ Wire up the store selection screen to properly navigate to the inventory overvie
 - [x] Update alerts count based on filtered products
 - [x] Remove "Large Inventory" demo button (no longer needed)
 - [x] Update "Live Update" button to also update header summary when alerts change
-- [ ] **User Testing Required**
-- [ ] Commit: "Connect store context to products"
+- [x] **User Testing Required**
+- [x] Commit: "Connect store context to products"
 
-### Step 9: Polish Navigation Flow ⏳
-- [ ] Remove alert from `selectStore()`
-- [ ] Add smooth transition effect
-- [ ] Ensure back button returns to store selection
-- [ ] Preserve last selected store in session
-- [ ] **User Testing Required**
+### Step 9: Polish Navigation Flow ✅
+- [x] Remove alert from `selectStore()`
+- [x] Add smooth transition effect
+- [x] Ensure back button returns to store selection
+- [x] Preserve last selected store in session
+- [x] **User Testing Required**
 - [ ] Commit: "Polish navigation flow"
 
 ### Step 10: Update Dashboard Summary Cards ⏳

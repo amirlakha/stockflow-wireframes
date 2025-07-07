@@ -53,6 +53,13 @@ document.addEventListener('DOMContentLoaded', function() {
         const observer = new MutationObserver(function(mutations) {
             mutations.forEach(function(mutation) {
                 if (mutation.target.classList.contains('active')) {
+                    // Restore selected store from session if available
+                    const savedStore = sessionStorage.getItem('selectedStore');
+                    if (savedStore && !inventoryDemoControls.selectedStore) {
+                        const store = JSON.parse(savedStore);
+                        inventoryDemoControls.setSelectedStore(store);
+                    }
+                    
                     // Initialize inventory when screen becomes active
                     if (inventoryDemoControls.currentProducts.length === 0) {
                         inventoryDemoControls.initializeInventory();
@@ -114,12 +121,11 @@ function selectStore(storeId) {
     // Pass store data to inventory before navigation
     if (store && inventoryDemoControls) {
         inventoryDemoControls.setSelectedStore(store);
+        // Save selected store to session storage
+        sessionStorage.setItem('selectedStore', JSON.stringify(store));
     }
     
-    // Keep the alert for now (non-breaking) to show what's happening
-    alert(`Selecting ${store ? store.name : storeId} store...\n\n→ Navigating to Inventory Overview\n\nThis will load the inventory screen for the selected store location.`);
-    
-    // Navigate to inventory after alert
+    // Navigate directly to inventory without alert
     navigateTo('inventory');
 }
 
