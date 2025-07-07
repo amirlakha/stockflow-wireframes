@@ -48,6 +48,7 @@ Each screen follows this pattern:
 - **Phase 1 Complete**: Login, Dashboard, Store Selection (fully interactive)
 - **Phase 2 Complete**: Inventory Overview JavaScript foundation
 - **Phase 3 Complete**: Inventory Overview (fully interactive with search, filters, sorting, pagination, and summary stats)
+- **Phase 4 Complete**: Store-Inventory Connection (context passing, dynamic products, real dashboard data)
 - **Future Screens Planned**: Record Sale, Alerts Dashboard
 
 ## Key Development Patterns
@@ -55,6 +56,7 @@ Each screen follows this pattern:
 2. **Console Logging**: All demo actions log to browser console for debugging
 3. **Realistic Data**: Uses sample data that matches the actual business context
 4. **State Management**: JavaScript modules handle screen state and transitions
+5. **Store Context System**: Store selection passes context (id, name, products, alerts) to inventory screen via `setSelectedStore()`. Context persisted in sessionStorage for navigation consistency.
 
 ## Important Files
 - `/documentation/` folder contains the complete StockFlow design specification and system diagrams
@@ -64,6 +66,8 @@ Each screen follows this pattern:
 ## Development Tips
 - Check console logs when testing demo functionality
 - The inventory screen auto-initializes when navigated to
+- Dashboard shows real data calculated from all 8 stores
+- Store selection maintains context through navigation
 - Sync concept was removed as this is a desktop app with local DB
 
 ## IMPORTANT PROJECT-SPECIFIC INSTRUCTIONS:
