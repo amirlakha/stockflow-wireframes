@@ -93,7 +93,7 @@ Wire up the store selection screen to properly navigate to the inventory overvie
 - [x] Update CLAUDE.md with completion status
 - [x] Create review section in todo
 - [x] **User Acceptance**
-- [ ] Commit: "Update documentation for store-inventory connection"
+- [x] Commit: "Update documentation for store-inventory connection"
 
 ## Testing Checklist (After Each Step)
 - [ ] All screens display correctly
