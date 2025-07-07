@@ -171,6 +171,28 @@ const inventoryDemoControls = {
     setSelectedStore(store) {
         this.selectedStore = store;
         console.log('Store context set:', store);
+        this.updateInventoryHeader();
+    },
+    
+    updateInventoryHeader() {
+        // Default to Oxford Street if no store selected
+        const store = this.selectedStore || {
+            name: 'Oxford Street',
+            products: 847,
+            alerts: 3
+        };
+        
+        // Update breadcrumb
+        const breadcrumb = document.querySelector('.inventory-breadcrumb');
+        if (breadcrumb) {
+            breadcrumb.textContent = `Dashboard > Store Selection > ${store.name} Inventory`;
+        }
+        
+        // Update store info badge
+        const badge = document.querySelector('.store-info-badge');
+        if (badge) {
+            badge.innerHTML = `${store.name}<br>${store.products} Products • ${store.alerts} Alert${store.alerts !== 1 ? 's' : ''}`;
+        }
     },
     
     updateProductTable() {

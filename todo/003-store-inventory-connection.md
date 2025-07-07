@@ -20,18 +20,18 @@ Wire up the store selection screen to properly navigate to the inventory overvie
 - [x] **User Testing Required**
 - [x] Commit: "Update selectStore to accept store data"
 
-### Step 3: Pass Store Context During Navigation 🔄
+### Step 3: Pass Store Context During Navigation ✅
 - [x] Update `selectStore()` to call `navigateTo('inventory')` after alert
 - [x] Pass store data to inventory before navigation
 - [x] Keep alert to show what's happening
-- [ ] **User Testing Required**
-- [ ] Commit: "Pass store context during navigation"
+- [x] **User Testing Required**
+- [x] Commit: "Pass store context during navigation"
 
-### Step 4: Update Inventory Header ⏳
-- [ ] Read store context in inventory initialization
-- [ ] Update store badge to show selected store name
-- [ ] Update breadcrumb with store name
-- [ ] Default to "Oxford Street" if no store selected
+### Step 4: Update Inventory Header 🔄
+- [x] Read store context in inventory initialization
+- [x] Update store badge to show selected store name
+- [x] Update breadcrumb with store name
+- [x] Default to "Oxford Street" if no store selected
 - [ ] **User Testing Required**
 - [ ] Commit: "Update inventory header with store context"
 

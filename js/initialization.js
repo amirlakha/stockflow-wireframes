@@ -57,6 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (inventoryDemoControls.currentProducts.length === 0) {
                         inventoryDemoControls.initializeInventory();
                     }
+                    inventoryDemoControls.updateInventoryHeader();
                     inventoryDemoControls.initializeSearch();
                     inventoryDemoControls.initializeCategoryFilter();
                     inventoryDemoControls.initializeStockLevelFilter();
