@@ -79,12 +79,13 @@ Each step will be non-breaking, tested, and committed separately before proceedi
 - [x] **User Testing Required**
 - [x] Commit: "Implement pagination system"
 
-### Step 9: Wire Up Demo Controls ⏳
-- [ ] Update showNormalInventory() to work in both modes
-- [ ] Update showCriticalAlerts() with live filtering
-- [ ] Update showLargeInventory() with pagination demo
-- [ ] Update simulateStockUpdate() with live updates
-- [ ] **User Testing Required**
+### Step 9: Wire Up Demo Controls ✅
+- [x] Update showNormalInventory() to work in both modes
+- [x] Update showCriticalAlerts() with live filtering
+- [x] Update showLargeInventory() with pagination demo
+- [x] Update simulateStockUpdate() with live updates
+- [x] Wire up Back button to navigate to Store Selection
+- [x] **User Testing Required**
 - [ ] Commit: "Update demo controls for functional mode"
 
 ### Step 10: Implement Quick Actions ⏳

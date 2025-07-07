@@ -72,16 +72,49 @@ const inventoryDemoControls = {
     showNormalInventory() {
         console.log('Demo: Showing normal inventory mix');
         this.currentProducts = this.sampleProducts.slice();
-        // Phase 3: Will update product table display
-        alert('Demo: Normal Inventory Mix\n\nShowing balanced stock levels with good/warning/critical items mixed.');
+        
+        if (!this.isPreviewMode) {
+            // Reset filters and show all products
+            this.searchTerm = '';
+            this.categoryFilter = 'all';
+            this.stockLevelFilter = 'all';
+            this.currentPage = 1;
+            
+            // Update UI elements
+            const searchInput = document.getElementById('productSearchInput');
+            const categorySelect = document.getElementById('categoryFilter');
+            const stockSelect = document.getElementById('stockLevelFilter');
+            
+            if (searchInput) searchInput.value = '';
+            if (categorySelect) categorySelect.value = 'all';
+            if (stockSelect) stockSelect.value = 'all';
+            
+            this.updateProductTable();
+        } else {
+            alert('Demo: Normal Inventory Mix\n\nShowing balanced stock levels with good/warning/critical items mixed.');
+        }
     },
     
     showCriticalAlerts() {
         console.log('Demo: Highlighting critical stock alerts');
-        // Filter to show more critical items
-        this.currentProducts = this.sampleProducts.filter(p => p.status === 'critical' || p.status === 'warning');
-        // Phase 3: Will emphasize low stock items in table
-        alert('Demo: Critical Alerts Focus\n\nFiltering to show only products with low stock warnings.');
+        
+        if (!this.isPreviewMode) {
+            // Set stock level filter to show critical items
+            this.stockLevelFilter = 'critical';
+            this.currentPage = 1;
+            
+            // Update the stock level dropdown
+            const stockSelect = document.getElementById('stockLevelFilter');
+            if (stockSelect) stockSelect.value = 'critical';
+            
+            this.updateProductTable();
+            
+            // Show a brief notification
+            const count = this.getFilteredProducts().length;
+            console.log(`Showing ${count} critical stock items`);
+        } else {
+            alert('Demo: Critical Alerts Focus\n\nFiltering to show only products with low stock warnings.');
+        }
     },
     
     showLargeInventory() {
@@ -110,18 +143,36 @@ const inventoryDemoControls = {
     
     simulateStockUpdate() {
         console.log('Demo: Simulating real-time stock level changes');
-        // Randomly update some stock levels
-        this.currentProducts.forEach(product => {
-            if (Math.random() < 0.3) { // 30% chance to update
-                const change = Math.floor(Math.random() * 10) - 5; // -5 to +5
-                product.stock = Math.max(0, product.stock + change);
-                product.status = product.stock <= product.minLevel ? 
-                    (product.stock <= product.minLevel * 0.5 ? 'critical' : 'warning') : 'good';
-                product.updated = 'just now';
-            }
-        });
-        // Phase 3: Will refresh table with updated values
-        alert('Demo: Live Stock Updates\n\nSimulating real-time inventory changes with random stock adjustments.');
+        
+        if (!this.isPreviewMode) {
+            let updateCount = 0;
+            
+            // Randomly update some stock levels
+            this.currentProducts.forEach(product => {
+                if (Math.random() < 0.3) { // 30% chance to update
+                    const change = Math.floor(Math.random() * 10) - 5; // -5 to +5
+                    const oldStock = product.stock;
+                    product.stock = Math.max(0, product.stock + change);
+                    
+                    // Update status based on new stock level
+                    const oldStatus = product.status;
+                    product.status = product.stock <= product.minLevel ? 
+                        (product.stock <= product.minLevel * 0.5 ? 'critical' : 'warning') : 'good';
+                    
+                    product.updated = 'just now';
+                    updateCount++;
+                    
+                    console.log(`Updated ${product.name}: stock ${oldStock} → ${product.stock}, status ${oldStatus} → ${product.status}`);
+                }
+            });
+            
+            // Refresh the table to show updates
+            this.updateProductTable();
+            
+            console.log(`Stock update complete: ${updateCount} products updated`);
+        } else {
+            alert('Demo: Live Stock Updates\n\nSimulating real-time inventory changes with random stock adjustments.');
+        }
     },
 
     // Utility functions (ready for Phase 3)
