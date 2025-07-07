@@ -24,7 +24,251 @@ const inventoryDemoControls = {
     // Pagination state
     itemsPerPage: 10,
     
-    // Sample product data
+    // Store-specific product data
+    storeProducts: {
+        'oxford-street': [
+            { id: 1, name: 'Designer Blazer - Black', sku: 'BLZ-001', stock: 12, minLevel: 5, price: 299.99, status: 'good', updated: '2 hrs ago', category: 'Clothing' },
+            { id: 2, name: 'Silk Scarf Collection', sku: 'SCF-002', stock: 8, minLevel: 10, price: 89.99, status: 'warning', updated: '3 hrs ago', category: 'Clothing' },
+            { id: 3, name: 'Leather Handbag - Brown', sku: 'HBG-003', stock: 3, minLevel: 8, price: 450.00, status: 'critical', updated: '1 hr ago', category: 'Clothing' },
+            { id: 4, name: 'Premium Denim Jeans', sku: 'JNS-004', stock: 25, minLevel: 10, price: 129.99, status: 'good', updated: '4 hrs ago', category: 'Clothing' },
+            { id: 5, name: 'Cashmere Sweater - Cream', sku: 'SWT-005', stock: 15, minLevel: 8, price: 199.99, status: 'good', updated: '30 mins ago', category: 'Clothing' },
+            { id: 6, name: 'Oxford Dress Shoes', sku: 'SHO-006', stock: 18, minLevel: 10, price: 175.00, status: 'good', updated: '2 hrs ago', category: 'Footwear' },
+            { id: 7, name: 'Formal Suit - Navy', sku: 'SUT-007', stock: 9, minLevel: 5, price: 599.99, status: 'good', updated: '1 hr ago', category: 'Clothing' },
+            { id: 8, name: 'Designer Belt - Black', sku: 'BLT-008', stock: 22, minLevel: 10, price: 125.00, status: 'good', updated: '3 hrs ago', category: 'Clothing' },
+            // Additional products to reach 45 total
+            { id: 9, name: 'Luxury Watch', sku: 'WCH-009', stock: 4, minLevel: 3, price: 899.99, status: 'good', updated: '5 hrs ago', category: 'Clothing' },
+            { id: 10, name: 'Silk Tie Collection', sku: 'TIE-010', stock: 35, minLevel: 15, price: 79.99, status: 'good', updated: '1 hr ago', category: 'Clothing' }
+        ],
+        'birmingham': [
+            { id: 1, name: 'Cotton T-Shirt - White', sku: 'TSH-101', stock: 45, minLevel: 20, price: 19.99, status: 'good', updated: '1 hr ago', category: 'Clothing' },
+            { id: 2, name: 'Denim Jeans - Blue', sku: 'JNS-102', stock: 12, minLevel: 15, price: 49.99, status: 'warning', updated: '2 hrs ago', category: 'Clothing' },
+            { id: 3, name: 'Running Shoes - Black', sku: 'SHO-103', stock: 28, minLevel: 10, price: 89.99, status: 'good', updated: '30 mins ago', category: 'Footwear' },
+            { id: 4, name: 'Hooded Sweatshirt', sku: 'SWT-104', stock: 33, minLevel: 15, price: 39.99, status: 'good', updated: '3 hrs ago', category: 'Clothing' },
+            { id: 5, name: 'Casual Sneakers', sku: 'SNK-105', stock: 19, minLevel: 10, price: 59.99, status: 'good', updated: '2 hrs ago', category: 'Footwear' },
+            { id: 6, name: 'Basic Polo Shirt', sku: 'PLO-106', stock: 38, minLevel: 20, price: 29.99, status: 'good', updated: '1 hr ago', category: 'Clothing' },
+            { id: 7, name: 'Cargo Shorts', sku: 'SHT-107', stock: 22, minLevel: 10, price: 34.99, status: 'good', updated: '4 hrs ago', category: 'Clothing' },
+            { id: 8, name: 'Baseball Cap', sku: 'CAP-108', stock: 41, minLevel: 15, price: 24.99, status: 'good', updated: '30 mins ago', category: 'Clothing' }
+        ],
+        'manchester': [
+            { id: 1, name: 'Vintage Band T-Shirt', sku: 'VNT-201', stock: 8, minLevel: 10, price: 34.99, status: 'warning', updated: '2 hrs ago', category: 'Clothing' },
+            { id: 2, name: 'Leather Boots - Brown', sku: 'BOT-202', stock: 5, minLevel: 8, price: 149.99, status: 'warning', updated: '1 hr ago', category: 'Footwear' },
+            { id: 3, name: 'Flannel Shirt - Red', sku: 'FLN-203', stock: 2, minLevel: 10, price: 44.99, status: 'critical', updated: '3 hrs ago', category: 'Clothing' },
+            { id: 4, name: 'Ripped Jeans - Black', sku: 'RJN-204', stock: 9, minLevel: 12, price: 69.99, status: 'warning', updated: '30 mins ago', category: 'Clothing' },
+            { id: 5, name: 'Canvas Backpack', sku: 'BPK-205', stock: 6, minLevel: 8, price: 79.99, status: 'warning', updated: '2 hrs ago', category: 'Clothing' },
+            { id: 6, name: 'Denim Jacket', sku: 'DNJ-206', stock: 4, minLevel: 6, price: 89.99, status: 'warning', updated: '1 hr ago', category: 'Clothing' },
+            { id: 7, name: 'Beanie Hat - Black', sku: 'BNE-207', stock: 15, minLevel: 10, price: 19.99, status: 'good', updated: '4 hrs ago', category: 'Clothing' },
+            { id: 8, name: 'Combat Boots', sku: 'CMB-208', stock: 3, minLevel: 5, price: 129.99, status: 'warning', updated: '30 mins ago', category: 'Footwear' }
+        ],
+        'leeds': [
+            { id: 1, name: 'Sports Jersey - Blue', sku: 'JRS-301', stock: 25, minLevel: 10, price: 59.99, status: 'good', updated: '1 hr ago', category: 'Clothing' },
+            { id: 2, name: 'Training Shorts', sku: 'TRS-302', stock: 30, minLevel: 15, price: 29.99, status: 'good', updated: '2 hrs ago', category: 'Clothing' },
+            { id: 3, name: 'Running Tights', sku: 'TGT-303', stock: 18, minLevel: 10, price: 49.99, status: 'good', updated: '30 mins ago', category: 'Clothing' },
+            { id: 4, name: 'Sports Bra', sku: 'BRA-304', stock: 22, minLevel: 12, price: 39.99, status: 'good', updated: '3 hrs ago', category: 'Clothing' },
+            { id: 5, name: 'Athletic Socks - Pack', sku: 'SOC-305', stock: 45, minLevel: 20, price: 14.99, status: 'good', updated: '1 hr ago', category: 'Clothing' },
+            { id: 6, name: 'Gym Bag', sku: 'GYM-306', stock: 12, minLevel: 8, price: 69.99, status: 'good', updated: '2 hrs ago', category: 'Clothing' }
+        ],
+        'bristol': [
+            { id: 1, name: 'Boho Dress - Floral', sku: 'BHO-401', stock: 1, minLevel: 8, price: 89.99, status: 'critical', updated: '2 hrs ago', category: 'Clothing' },
+            { id: 2, name: 'Sandals - Tan', sku: 'SND-402', stock: 8, minLevel: 10, price: 49.99, status: 'warning', updated: '1 hr ago', category: 'Footwear' },
+            { id: 3, name: 'Sun Hat - Straw', sku: 'HAT-403', stock: 2, minLevel: 5, price: 34.99, status: 'critical', updated: '3 hrs ago', category: 'Clothing' },
+            { id: 4, name: 'Beach Tote Bag', sku: 'TOT-404', stock: 0, minLevel: 8, price: 29.99, status: 'critical', updated: '30 mins ago', category: 'Clothing' },
+            { id: 5, name: 'Maxi Skirt - White', sku: 'SKT-405', stock: 9, minLevel: 12, price: 54.99, status: 'warning', updated: '2 hrs ago', category: 'Clothing' },
+            { id: 6, name: 'Crochet Top', sku: 'CRO-406', stock: 2, minLevel: 8, price: 44.99, status: 'critical', updated: '1 hr ago', category: 'Clothing' },
+            { id: 7, name: 'Linen Pants - Beige', sku: 'LIN-407', stock: 7, minLevel: 10, price: 69.99, status: 'warning', updated: '4 hrs ago', category: 'Clothing' }
+        ],
+        'camden': [
+            { id: 1, name: 'Punk Rock T-Shirt', sku: 'PNK-501', stock: 18, minLevel: 10, price: 29.99, status: 'good', updated: '1 hr ago', category: 'Clothing' },
+            { id: 2, name: 'Doc Martens - Black', sku: 'DOC-502', stock: 8, minLevel: 8, price: 159.99, status: 'warning', updated: '2 hrs ago', category: 'Footwear' },
+            { id: 3, name: 'Studded Belt', sku: 'STD-503', stock: 12, minLevel: 8, price: 39.99, status: 'good', updated: '30 mins ago', category: 'Clothing' },
+            { id: 4, name: 'Plaid Skirt', sku: 'PLD-504', stock: 9, minLevel: 6, price: 49.99, status: 'good', updated: '3 hrs ago', category: 'Clothing' },
+            { id: 5, name: 'Fishnet Stockings', sku: 'FSH-505', stock: 25, minLevel: 15, price: 14.99, status: 'good', updated: '1 hr ago', category: 'Clothing' }
+        ],
+        'westfield': [
+            { id: 1, name: 'Smart Casual Shirt', sku: 'SCS-601', stock: 15, minLevel: 10, price: 79.99, status: 'good', updated: '2 hrs ago', category: 'Clothing' },
+            { id: 2, name: 'Chinos - Khaki', sku: 'CHN-602', stock: 6, minLevel: 12, price: 69.99, status: 'warning', updated: '1 hr ago', category: 'Clothing' },
+            { id: 3, name: 'Loafers - Brown', sku: 'LOF-603', stock: 4, minLevel: 8, price: 119.99, status: 'warning', updated: '3 hrs ago', category: 'Footwear' },
+            { id: 4, name: 'Polo Shirt - Navy', sku: 'POL-604', stock: 8, minLevel: 10, price: 49.99, status: 'warning', updated: '30 mins ago', category: 'Clothing' },
+            { id: 5, name: 'Messenger Bag', sku: 'MSG-605', stock: 3, minLevel: 5, price: 99.99, status: 'warning', updated: '2 hrs ago', category: 'Clothing' },
+            { id: 6, name: 'Smart Watch', sku: 'WCH-606', stock: 5, minLevel: 8, price: 299.99, status: 'warning', updated: '1 hr ago', category: 'Clothing' },
+            { id: 7, name: 'Sunglasses - Aviator', sku: 'SUN-607', stock: 20, minLevel: 12, price: 89.99, status: 'good', updated: '4 hrs ago', category: 'Clothing' }
+        ],
+        'kings-road': [
+            { id: 1, name: 'Designer Dress - Red', sku: 'DES-701', stock: 5, minLevel: 3, price: 599.99, status: 'good', updated: '2 hrs ago', category: 'Clothing' },
+            { id: 2, name: 'High Heels - Black', sku: 'HEL-702', stock: 8, minLevel: 6, price: 249.99, status: 'good', updated: '1 hr ago', category: 'Footwear' },
+            { id: 3, name: 'Clutch Purse - Gold', sku: 'CLT-703', stock: 10, minLevel: 5, price: 179.99, status: 'good', updated: '3 hrs ago', category: 'Clothing' },
+            { id: 4, name: 'Cocktail Dress', sku: 'COC-704', stock: 4, minLevel: 3, price: 399.99, status: 'good', updated: '30 mins ago', category: 'Clothing' }
+        ]
+    },
+    
+    // Store themes for generating additional products
+    storeThemes: {
+        'oxford-street': {
+            prefix: ['Designer', 'Premium', 'Luxury', 'Exclusive', 'High-End'],
+            types: ['Blazer', 'Dress', 'Coat', 'Shirt', 'Trousers', 'Accessories'],
+            priceRange: [150, 600]
+        },
+        'birmingham': {
+            prefix: ['Basic', 'Essential', 'Classic', 'Everyday', 'Casual'],
+            types: ['T-Shirt', 'Jeans', 'Hoodie', 'Shorts', 'Jacket', 'Trainers'],
+            priceRange: [20, 80]
+        },
+        'manchester': {
+            prefix: ['Vintage', 'Retro', 'Urban', 'Street', 'Alternative'],
+            types: ['Band Tee', 'Leather Jacket', 'Boots', 'Flannel', 'Beanie', 'Backpack'],
+            priceRange: [30, 150]
+        },
+        'leeds': {
+            prefix: ['Sport', 'Active', 'Performance', 'Training', 'Athletic'],
+            types: ['Leggings', 'Sports Top', 'Trainers', 'Shorts', 'Track Jacket', 'Gym Wear'],
+            priceRange: [25, 90]
+        },
+        'bristol': {
+            prefix: ['Boho', 'Festival', 'Beach', 'Summer', 'Hippie'],
+            types: ['Maxi Dress', 'Sandals', 'Kimono', 'Hat', 'Jewelry', 'Bag'],
+            priceRange: [30, 100]
+        },
+        'camden': {
+            prefix: ['Punk', 'Gothic', 'Rock', 'Edgy', 'Alternative'],
+            types: ['Band Merch', 'Boots', 'Studded Items', 'Chains', 'Patches', 'Pins'],
+            priceRange: [20, 160]
+        },
+        'westfield': {
+            prefix: ['Smart', 'Business', 'Contemporary', 'Modern', 'Sophisticated'],
+            types: ['Shirt', 'Blazer', 'Chinos', 'Loafers', 'Watch', 'Briefcase'],
+            priceRange: [60, 300]
+        },
+        'kings-road': {
+            prefix: ['Couture', 'Haute', 'Bespoke', 'Limited Edition', 'Designer'],
+            types: ['Evening Dress', 'Heels', 'Handbag', 'Jewelry', 'Scarf', 'Clutch'],
+            priceRange: [200, 1000]
+        }
+    },
+    
+    // Get target alert count for each store
+    getTargetAlerts(storeId) {
+        const alertCounts = {
+            'oxford-street': 3,
+            'birmingham': 1,
+            'manchester': 8,
+            'leeds': 0,
+            'bristol': 15,
+            'camden': 4,
+            'westfield': 7,
+            'kings-road': 2
+        };
+        return alertCounts[storeId] || 0;
+    },
+    
+    // Generate additional products to reach target count
+    generateAdditionalProducts(storeId, existingProducts, targetCount) {
+        const products = [...existingProducts];
+        const theme = this.storeThemes[storeId];
+        if (!theme) return products;
+        
+        let idCounter = existingProducts.length + 1;
+        
+        while (products.length < targetCount) {
+            const prefixIndex = (idCounter - 1) % theme.prefix.length;
+            const typeIndex = (idCounter - 1) % theme.types.length;
+            const prefix = theme.prefix[prefixIndex];
+            const type = theme.types[typeIndex];
+            
+            // Determine stock status based on position (to match store alert counts)
+            let status = 'good';
+            let stock = 20 + (idCounter % 30);
+            let minLevel = 10;
+            
+            // Calculate how many alerts we need vs how many we have
+            const currentAlerts = products.filter(p => p.status === 'warning' || p.status === 'critical').length;
+            const targetAlerts = this.getTargetAlerts(storeId);
+            const needMoreAlerts = currentAlerts < targetAlerts;
+            
+            // Create warning/critical items to match store alert counts
+            // Only create alerts if we still need more
+            if (needMoreAlerts) {
+                if (storeId === 'bristol' && currentAlerts < 15) {
+                    // Bristol needs 15 alerts total (already has 7 in base: 4 critical + 3 warning)
+                    // Need 8 more alerts - mix of warning and critical
+                    if (idCounter >= 8 && idCounter <= 15) {
+                        if (idCounter % 2 === 0) {
+                            status = 'warning';
+                            stock = 6 + (idCounter % 4);
+                            minLevel = 10;
+                        } else {
+                            status = 'critical';
+                            stock = Math.floor(idCounter % 5);
+                            minLevel = 8;
+                        }
+                    }
+                } else if (storeId === 'manchester' && currentAlerts < 8) {
+                    // Manchester needs 8 alerts (already has 7 in base)
+                    // Need 1 more alert
+                    if (idCounter === 9) {
+                        status = 'warning';
+                        stock = 8;
+                        minLevel = 10;
+                    }
+                } else if (storeId === 'westfield' && currentAlerts < 7) {
+                    // Westfield needs 7 alerts (already has 5 in base)
+                    // Need 2 more alerts
+                    if (idCounter === 8 || idCounter === 9) {
+                        status = 'warning';
+                        stock = 7 + (idCounter % 3);
+                        minLevel = 12;
+                    }
+                } else if (storeId === 'oxford-street' && currentAlerts < 3) {
+                    // Oxford needs 3 alerts total (already has 2, need 1 more)
+                    if (idCounter === 11) {
+                        status = 'warning';
+                        stock = 9;
+                        minLevel = 12;
+                    }
+                } else if (storeId === 'camden' && currentAlerts < 4) {
+                    // Camden needs 4 alerts (already has 1)
+                    // Need 3 more alerts
+                    if (idCounter >= 6 && idCounter <= 8) {
+                        status = 'warning';
+                        stock = 8 + (idCounter % 3);
+                        minLevel = 10;
+                    }
+                } else if (storeId === 'kings-road' && currentAlerts < 2) {
+                    // Kings Road needs 2 alerts (already has 0)
+                    if (idCounter === 5 || idCounter === 6) {
+                        status = 'warning';
+                        stock = 7 + idCounter % 2;
+                        minLevel = 8;
+                    }
+                } else if (storeId === 'birmingham' && currentAlerts < 1) {
+                    // Birmingham already has 1 alert in base products, don't add more
+                    // This condition should never be true
+                } else if (storeId === 'leeds' && currentAlerts < 0) {
+                    // Leeds has 0 alerts - keep it that way
+                    // This condition should never be true
+                }
+            }
+            
+            const basePrice = theme.priceRange[0] + 
+                ((theme.priceRange[1] - theme.priceRange[0]) * ((idCounter % 10) / 10));
+            
+            products.push({
+                id: idCounter,
+                name: `${prefix} ${type}`,
+                sku: `${storeId.substring(0, 3).toUpperCase()}-${String(idCounter).padStart(3, '0')}`,
+                stock: stock,
+                minLevel: minLevel,
+                price: Math.round(basePrice * 100) / 100,
+                status: status,
+                updated: `${(idCounter % 12) + 1} hrs ago`,
+                category: type.includes('Shoe') || type.includes('Boot') || type.includes('Trainer') || type.includes('Sandal') || type.includes('Heel') || type.includes('Loafer') ? 'Footwear' : 'Clothing'
+            });
+            
+            idCounter++;
+        }
+        
+        return products;
+    },
+    
+    // Default sample products (for backward compatibility)
     sampleProducts: [
         {
             id: 1, name: 'Classic Cotton T-Shirt', sku: 'TSH-001',
@@ -111,26 +355,6 @@ const inventoryDemoControls = {
         console.log(`Showing ${count} critical stock items`);
     },
     
-    showLargeInventory() {
-        console.log('Demo: Demonstrating pagination with large dataset');
-        // Simulate larger dataset
-        const expandedProducts = [];
-        for (let i = 0; i < 50; i++) {
-            const baseProduct = this.sampleProducts[i % this.sampleProducts.length];
-            expandedProducts.push({
-                ...baseProduct,
-                id: i + 1,
-                name: `${baseProduct.name} (Variant ${i + 1})`,
-                sku: `${baseProduct.sku}-${String(i + 1).padStart(3, '0')}`
-            });
-        }
-        this.currentProducts = expandedProducts;
-        
-        // Update the table
-        this.currentPage = 1; // Reset to first page
-        this.updateProductTable();
-        this.updateSummaryStats();
-    },
     
     simulateStockUpdate() {
         console.log('Demo: Simulating real-time stock level changes');
@@ -159,18 +383,32 @@ const inventoryDemoControls = {
         // Refresh the table to show updates
         this.updateProductTable();
         this.updateSummaryStats();
+        // Update header to reflect any alert changes
+        this.updateInventoryHeader();
         
         console.log(`Stock update complete: ${updateCount} products updated`);
     },
 
     // Utility functions
     initializeInventory() {
-        this.currentProducts = this.sampleProducts.slice();
+        // Use store-specific products if a store is selected
+        if (this.selectedStore && this.storeProducts[this.selectedStore.id]) {
+            const baseProducts = this.storeProducts[this.selectedStore.id];
+            const targetCount = this.selectedStore.products;
+            // Generate additional products to match the store's product count
+            this.currentProducts = this.generateAdditionalProducts(this.selectedStore.id, baseProducts, targetCount);
+        } else {
+            // Default to Oxford Street products with full count
+            const baseProducts = this.storeProducts['oxford-street'];
+            this.currentProducts = this.generateAdditionalProducts('oxford-street', baseProducts, 45);
+        }
     },
     
     setSelectedStore(store) {
         this.selectedStore = store;
         console.log('Store context set:', store);
+        // Reinitialize inventory with store-specific products
+        this.initializeInventory();
         this.updateInventoryHeader();
     },
     
@@ -182,16 +420,20 @@ const inventoryDemoControls = {
             alerts: 3
         };
         
+        // Calculate actual product count and alerts from current products
+        const productCount = this.currentProducts.length;
+        const alertCount = this.currentProducts.filter(p => p.status === 'warning' || p.status === 'critical').length;
+        
         // Update breadcrumb
         const breadcrumb = document.querySelector('.inventory-breadcrumb');
         if (breadcrumb) {
             breadcrumb.textContent = `Dashboard > Store Selection > ${store.name} Inventory`;
         }
         
-        // Update store info badge
+        // Update store info badge with actual counts
         const badge = document.querySelector('.store-info-badge');
         if (badge) {
-            badge.innerHTML = `${store.name}<br>${store.products} Products • ${store.alerts} Alert${store.alerts !== 1 ? 's' : ''}`;
+            badge.innerHTML = `${store.name}<br>${productCount} Products • ${alertCount} Alert${alertCount !== 1 ? 's' : ''}`;
         }
     },
     

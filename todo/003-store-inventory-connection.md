@@ -52,21 +52,22 @@ Wire up the store selection screen to properly navigate to the inventory overvie
 - [x] **User Testing Required**
 - [x] Commit: "Implement store pagination logic"
 
-### Step 7: Make Pagination Interactive 🔄
+### Step 7: Make Pagination Interactive ✅
 - [x] Update `showMoreStores()` to increment page
 - [x] Add "Previous" pagination card when on page 2+
 - [x] Update pagination text with actual remaining count
 - [x] Reset to page 1 when filters change (already done in Step 6)
-- [ ] **User Testing Required**
-- [ ] Commit: "Make store pagination interactive"
+- [x] **User Testing Required**
+- [x] Commit: "Make store pagination interactive"
 
-### Step 8: Connect Store Context to Products ⏳
-- [ ] Add store-specific product sets (8-50 products per store)
-- [ ] Filter products based on selected store
-- [ ] Update product count in header
-- [ ] Update alerts count based on filtered products
-- [ ] Remove "Large Inventory" demo button (no longer needed)
-- [ ] Update "Live Update" button to also update header summary when alerts change
+### Step 8: Connect Store Context to Products 🔄
+- [x] Add store-specific product sets (8-50 products per store)
+- [x] Generate additional products dynamically to match store counts
+- [x] Filter products based on selected store
+- [x] Update product count in header
+- [x] Update alerts count based on filtered products
+- [x] Remove "Large Inventory" demo button (no longer needed)
+- [x] Update "Live Update" button to also update header summary when alerts change
 - [ ] **User Testing Required**
 - [ ] Commit: "Connect store context to products"
 
@@ -78,7 +79,15 @@ Wire up the store selection screen to properly navigate to the inventory overvie
 - [ ] **User Testing Required**
 - [ ] Commit: "Polish navigation flow"
 
-### Step 10: Update Documentation ⏳
+### Step 10: Update Dashboard Summary Cards ⏳
+- [ ] Calculate total stores accessible (8)
+- [ ] Calculate total alerts across all stores
+- [ ] Calculate total products across all stores
+- [ ] Update dashboard cards dynamically
+- [ ] **User Testing Required**
+- [ ] Commit: "Update dashboard summary with real data"
+
+### Step 11: Update Documentation ⏳
 - [ ] Update implementation notes
 - [ ] Document new store context system
 - [ ] Update CLAUDE.md with completion status
