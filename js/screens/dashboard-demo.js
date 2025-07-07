@@ -2,121 +2,48 @@
 /* Dashboard screen demo controls and functionality */
 
 const dashboardDemoControls = {
-    showNormalDashboard() {
-        const storeCount = document.getElementById('storeCount');
-        if (!storeCount) return;
-        
-        storeCount.textContent = '5';
-        document.getElementById('alertCount').textContent = '12';
-        document.getElementById('productCount').textContent = '847';
-        document.getElementById('alertMessage').textContent = '12 products are running low on stock - Click to view';
-        
-        const activityFeed = document.getElementById('activityFeed');
-        if (activityFeed) {
-            activityFeed.innerHTML = `
-                <div class="activity-item">
-                    <span>• Sale recorded: 3x T-Shirts at Oxford Street</span>
-                    <span class="activity-time">(2 mins ago)</span>
-                </div>
-                <div class="activity-item">
-                    <span>• Stock adjustment: +50 Jeans at Birmingham</span>
-                    <span class="activity-time">(15 mins ago)</span>
-                </div>
-                <div class="activity-item">
-                    <span>• Low stock alert: Dresses at Manchester</span>
-                    <span class="activity-time">(1 hour ago)</span>
-                </div>
-                <div class="activity-item">
-                    <span>• New user created: John Smith</span>
-                    <span class="activity-time">(2 hours ago)</span>
-                </div>
-                <div class="activity-item">
-                    <span>• Purchase recorded: 25x Shoes at London</span>
-                    <span class="activity-time">(3 hours ago)</span>
-                </div>
-                <div class="activity-item">
-                    <span>• Report generated: Weekly inventory</span>
-                    <span class="activity-time">(Today, 9:30am)</span>
-                </div>
-            `;
-        }
-    },
-
-    showHighAlerts() {
-        const alertCount = document.getElementById('alertCount');
-        if (!alertCount) return;
-        
-        alertCount.textContent = '47';
-        document.getElementById('alertMessage').textContent = '47 products critically low on stock - Immediate attention required!';
-        
-        const alertBanner = document.getElementById('alertBanner');
-        if (alertBanner) {
-            alertBanner.style.background = '#f8d7da';
-            alertBanner.style.borderColor = '#f5c6cb';
-        }
-    },
-
-    showBusyActivity() {
-        const activityFeed = document.getElementById('activityFeed');
-        if (!activityFeed) return;
-        
-        activityFeed.innerHTML = `
-            <div class="activity-item">
-                <span>• Sale recorded: 5x Jackets at Bristol</span>
-                <span class="activity-time">(30 seconds ago)</span>
-            </div>
-            <div class="activity-item">
-                <span>• Stock delivery: +200 Items at Leeds</span>
-                <span class="activity-time">(1 min ago)</span>
-            </div>
-            <div class="activity-item">
-                <span>• Sale recorded: 3x T-Shirts at Oxford Street</span>
-                <span class="activity-time">(2 mins ago)</span>
-            </div>
-            <div class="activity-item">
-                <span>• Low stock alert: Shoes at Manchester</span>
-                <span class="activity-time">(3 mins ago)</span>
-            </div>
-            <div class="activity-item">
-                <span>• Sale recorded: 8x Dresses at Birmingham</span>
-                <span class="activity-time">(4 mins ago)</span>
-            </div>
-            <div class="activity-item">
-                <span>• Stock adjustment: +30 Shirts at Oxford</span>
-                <span class="activity-time">(5 mins ago)</span>
-            </div>
-        `;
-    },
-
-    simulateNewActivity() {
-        const activityFeed = document.getElementById('activityFeed');
-        if (!activityFeed) return;
-        
-        const activities = [
-            'Sale recorded: 2x Sweaters at Leeds',
-            'Stock received: +75 Items at Bristol', 
-            'Price update: Jackets reduced by 10%',
-            'User logout: Mike Johnson',
-            'Low stock alert: Accessories at Oxford',
-            'Sale recorded: 6x Pants at Manchester'
+    // Calculate real data from all stores
+    calculateDashboardData() {
+        // Define all stores (same as in handleStoreFiltering)
+        const allStores = [
+            { id: 'oxford-street', name: 'Oxford Street', products: 45, alerts: 3 },
+            { id: 'birmingham', name: 'Birmingham Central', products: 38, alerts: 1 },
+            { id: 'manchester', name: 'Manchester Trafford', products: 42, alerts: 8 },
+            { id: 'leeds', name: 'Leeds City Centre', products: 29, alerts: 0 },
+            { id: 'bristol', name: 'Bristol Cabot Circus', products: 35, alerts: 15 },
+            { id: 'camden', name: 'Camden Market', products: 22, alerts: 4 },
+            { id: 'westfield', name: 'Westfield Stratford', products: 50, alerts: 7 },
+            { id: 'kings-road', name: 'Kings Road Chelsea', products: 18, alerts: 2 }
         ];
-        const randomActivity = activities[Math.floor(Math.random() * activities.length)];
         
-        const newItem = document.createElement('div');
-        newItem.className = 'activity-item';
-        newItem.innerHTML = `
-            <span>• ${randomActivity}</span>
-            <span class="activity-time">(just now)</span>
-        `;
-        newItem.style.background = '#e8f5e8';
-        newItem.style.padding = '4px';
-        newItem.style.borderRadius = '3px';
+        const totalStores = allStores.length;
+        const totalAlerts = allStores.reduce((sum, store) => sum + store.alerts, 0);
+        const totalProducts = allStores.reduce((sum, store) => sum + store.products, 0);
         
-        activityFeed.insertBefore(newItem, activityFeed.firstChild);
+        return {
+            stores: totalStores,
+            alerts: totalAlerts,
+            products: totalProducts
+        };
+    },
+    
+    updateDashboardStats() {
+        const data = this.calculateDashboardData();
         
-        setTimeout(() => {
-            newItem.style.background = 'transparent';
-            newItem.style.padding = '0';
-        }, 2000);
-    }
+        const storeCount = document.getElementById('storeCount');
+        const alertCount = document.getElementById('alertCount');
+        const productCount = document.getElementById('productCount');
+        const alertMessage = document.getElementById('alertMessage');
+        
+        if (storeCount) storeCount.textContent = data.stores;
+        if (alertCount) alertCount.textContent = data.alerts;
+        if (productCount) productCount.textContent = data.products;
+        if (alertMessage) {
+            alertMessage.textContent = `${data.alerts} products are running low on stock across all stores - Click to view`;
+        }
+    },
+    
+    // Removed demo control functions as dashboard now shows real data
+    // The calculateDashboardData and updateDashboardStats functions remain
+    // to provide real-time statistics for the dashboard
 };

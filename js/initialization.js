@@ -36,6 +36,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize login screen
     loginDemoControls.showNormalState();
     
+    // Ensure initial screen is visible with fade-in
+    const activeScreen = document.querySelector('.screen-content.active');
+    if (activeScreen) {
+        activeScreen.classList.add('fade-in');
+    }
+    
+    // Initialize dashboard data
+    dashboardDemoControls.updateDashboardStats();
+    
     // Show credential hint for first-time users
     setTimeout(() => {
         if (document.getElementById('login') && document.getElementById('login').classList.contains('active') && !sessionStorage.getItem('loginHintShown')) {

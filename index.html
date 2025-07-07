@@ -441,7 +441,7 @@
         
         <div class="demo-controls-section">
             <h3>🎮 Demo Controls</h3>
-            <p>Use these controls to test different states and interactions for the current wireframe:</p>
+            <p id="demo-controls-description">Use these controls to test different states and interactions for the current wireframe:</p>
             
             <!-- Login Demo Controls -->
             <div id="login-demo" class="demo-controls-content active">
@@ -458,15 +458,7 @@
 
             <!-- Dashboard Demo Controls -->
             <div id="dashboard-demo" class="demo-controls-content">
-                <div class="demo-controls-grid">
-                    <button class="demo-button" onclick="dashboardDemoControls.showNormalDashboard()">Normal State</button>
-                    <button class="demo-button" onclick="dashboardDemoControls.showHighAlerts()">High Alerts</button>
-                    <button class="demo-button" onclick="dashboardDemoControls.showBusyActivity()">Busy Activity</button>
-                    <button class="demo-button" onclick="dashboardDemoControls.simulateNewActivity()">Add Activity</button>
-                </div>
-                <p style="margin-top: 15px; font-size: 13px; color: #666;">
-                    <strong>Try:</strong> Navigate using the sidebar menu, click quick action buttons, or click the alert banner to test interactions.
-                </p>
+                <!-- No demo controls needed - dashboard displays real data automatically -->
             </div>
 
             <!-- Store Selection Demo Controls -->
@@ -565,7 +557,7 @@
                         <li>User arrives after successful login authentication</li>
                         <li>Welcome message displays with personalized user context</li>
                         <li>Navigation menu shows options based on user role and permissions</li>
-                        <li>Quick statistics cards display real-time system metrics</li>
+                        <li>Quick statistics cards display real data: 8 stores, 40 total alerts, 279 total products</li>
                         <li>Recent activity feed shows latest 6 system events</li>
                         <li>Alert banner appears when low-stock conditions exist</li>
                         <li>Quick action buttons provide direct access to common tasks</li>
@@ -581,9 +573,10 @@
                     <div class="note-card">
                         <h5>📊 Real-Time Updates</h5>
                         <ul>
-                            <li>Statistics refresh when returning to dashboard</li>
+                            <li>Statistics automatically calculated from all 8 stores on screen load</li>
                             <li>Activity feed shows chronological system events</li>
-                            <li>Alert counts update based on current stock levels</li>
+                            <li>Alert count reflects total alerts across all stores (40)</li>
+                            <li>Product count shows total across all stores (279)</li>
                             <li>Time-relative display for recent activities</li>
                         </ul>
                     </div>
@@ -600,7 +593,7 @@
                     
                     <div class="note-card">
                         <h5>⚡ Performance Features</h5>
-                        <p>Local data caching for fast dashboard loads. Activity feed limited to recent items for optimal performance.</p>
+                        <p>Dashboard stats calculated dynamically from store data. Smooth fade transitions between screens. Activity feed limited to recent items for optimal performance.</p>
                     </div>
                 </div>
             </div>
@@ -611,23 +604,24 @@
                     <h4>User Flow & Process:</h4>
                     <ul>
                         <li>User arrives from Main Dashboard after clicking "Store Selection"</li>
-                        <li>System queries user_locations table to determine accessible stores</li>
+                        <li>8 stores total are displayed with pagination (5 stores per page)</li>
                         <li>Store cards display with color-coded status indicators</li>
                         <li>Search and filter controls actively filter store display</li>
-                        <li>Alert level filtering now works via dropdown selection</li>
+                        <li>Alert level filtering works via dropdown selection</li>
                         <li>Combined filtering: search + region + alert level simultaneously</li>
                         <li>Real-time updates as user types or changes selections</li>
                         <li>Empty state message when no stores match criteria</li>
-                        <li>User selects store card to access inventory for that location</li>
-                        <li>Context preserved for subsequent inventory operations</li>
-                        <li>Summary statistics show aggregate metrics across all stores</li>
+                        <li>User selects store card to navigate directly to inventory for that location</li>
+                        <li>Store context passed to inventory screen (name, products, alerts)</li>
+                        <li>Selected store persisted in session storage for navigation consistency</li>
+                        <li>Summary statistics show aggregate metrics across filtered stores</li>
                     </ul>
                 </div>
                 
                 <div class="technical-notes">
                     <div class="note-card">
-                        <h5>🔐 Access Control</h5>
-                        <p>Only displays stores the user has permission to access based on user_locations table. Role-based filtering ensures security.</p>
+                        <h5>🔐 Store Access & Navigation</h5>
+                        <p>All 8 stores are accessible in the demo. Store selection passes context to inventory screen including store ID, name, product count, and alert count. Navigation includes smooth fade transitions.</p>
                     </div>
                     
                     <div class="note-card">
@@ -654,8 +648,8 @@
                     </div>
                     
                     <div class="note-card">
-                        <h5>📊 Performance Optimization</h5>
-                        <p>Pagination prevents loading too many stores at once. Status indicators use efficient database queries for real-time updates.</p>
+                        <h5>📊 Pagination & Performance</h5>
+                        <p>Stores displayed 5 per page with "More Stores" and "Previous Stores" navigation cards. Pagination resets when filters change. All store data is maintained in JavaScript for instant filtering.</p>
                     </div>
                 </div>
             </div>
@@ -665,29 +659,31 @@
                 <div class="flow-notes">
                     <h4>Implementation Details:</h4>
                     <ul>
+                        <li>Displays store-specific inventory based on selected store context</li>
+                        <li>Product count dynamically generated to match store's total (8-50 products)</li>
                         <li>Real-time product search across name, SKU, and category fields</li>
                         <li>Dynamic filtering by category and stock level status</li>
                         <li>Sortable columns with ascending/descending toggle</li>
                         <li>Automatic pagination with 10 products per page</li>
                         <li>Summary statistics showing total, good, low, and critical stock counts</li>
                         <li>CSV export functionality for filtered data</li>
-                        <li>Quick action buttons for common operations</li>
+                        <li>Header displays selected store name and metrics</li>
+                        <li>Back button returns to store selection with context preserved</li>
                     </ul>
                 </div>
                 
                 <div class="technical-notes">
                     <div class="note-card">
-                        <h5>📊 Data Management</h5>
-                        <p>Sample dataset includes 8 products with realistic inventory data. Stock levels are color-coded: green (good), orange (low), red (critical).</p>
+                        <h5>📊 Store-Specific Data</h5>
+                        <p>Each store has unique product sets (8-50 items) with themed inventory. Products dynamically generated to match exact store counts. Alert counts precisely match store requirements. Stock levels color-coded: green (good), orange (low), red (critical).</p>
                     </div>
                     
                     <div class="note-card">
                         <h5>🎮 Demo Controls</h5>
                         <ul>
-                            <li>Normal Inventory - Shows standard product mix</li>
-                            <li>Critical Alerts - Filters critical stock items</li>
-                            <li>Large Inventory - Demonstrates pagination (50 items)</li>
-                            <li>Simulate Stock Update - Random stock changes</li>
+                            <li>Normal Stock Mix - Shows all products for selected store</li>
+                            <li>Critical Alerts - Filters to show only critical stock items</li>
+                            <li>Live Update - Simulates random stock changes with animations</li>
                         </ul>
                     </div>
                     
@@ -703,7 +699,7 @@
                     
                     <div class="note-card">
                         <h5>🔧 Technical Features</h5>
-                        <p>Auto-initializes when screen loads. All filters work together seamlessly. Pagination resets when filters change. Export includes only filtered results.</p>
+                        <p>Auto-initializes when screen loads with store context. Session storage preserves selected store. All filters work together seamlessly. Pagination resets when filters change. Export includes only filtered results. Header updates dynamically with store info.</p>
                     </div>
                 </div>
             </div>

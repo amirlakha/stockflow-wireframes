@@ -77,13 +77,13 @@ Wire up the store selection screen to properly navigate to the inventory overvie
 - [x] Ensure back button returns to store selection
 - [x] Preserve last selected store in session
 - [x] **User Testing Required**
-- [ ] Commit: "Polish navigation flow"
+- [x] Commit: "Polish navigation flow"
 
-### Step 10: Update Dashboard Summary Cards ⏳
-- [ ] Calculate total stores accessible (8)
-- [ ] Calculate total alerts across all stores
-- [ ] Calculate total products across all stores
-- [ ] Update dashboard cards dynamically
+### Step 10: Update Dashboard Summary Cards 🔄
+- [x] Calculate total stores accessible (8)
+- [x] Calculate total alerts across all stores
+- [x] Calculate total products across all stores
+- [x] Update dashboard cards dynamically
 - [ ] **User Testing Required**
 - [ ] Commit: "Update dashboard summary with real data"
 

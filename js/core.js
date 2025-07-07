@@ -105,6 +105,16 @@ function showScreenContent(screenId) {
             demoElement.classList.add('active');
         }
         
+        // Hide demo controls section entirely for dashboard
+        const demoSection = document.querySelector('.demo-controls-section');
+        if (demoSection) {
+            if (screenId === 'dashboard') {
+                demoSection.style.display = 'none';
+            } else {
+                demoSection.style.display = 'block';
+            }
+        }
+        
         // Update screen info
         const screenData = screens[screenId];
         if (screenData) {
@@ -127,6 +137,9 @@ function showScreenContent(screenId) {
             setupStoreSelectionFilters();
             // Initialize store display with all stores
             setTimeout(() => handleStoreFiltering(), 100);
+        } else if (screenId === 'dashboard') {
+            // Update dashboard with real data when shown
+            dashboardDemoControls.updateDashboardStats();
         }
         
     } catch (error) {
