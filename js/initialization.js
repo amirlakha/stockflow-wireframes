@@ -360,7 +360,21 @@ function handleStoreFiltering() {
         return true;
     });
 
-    // Generate HTML for filtered stores
+    // Reset to page 1 when filters change
+    if (searchTerm || selectedRegion !== 'All Regions ▼' || selectedAlertLevel !== 'All Alerts ▼') {
+        storeSelectionDemoControls.currentStorePage = 1;
+    }
+    
+    // Paginate the filtered stores
+    const currentPage = storeSelectionDemoControls.currentStorePage;
+    const storesPerPage = storeSelectionDemoControls.storesPerPage;
+    const startIndex = (currentPage - 1) * storesPerPage;
+    const endIndex = startIndex + storesPerPage;
+    const paginatedStores = filteredStores.slice(startIndex, endIndex);
+    const totalPages = Math.ceil(filteredStores.length / storesPerPage);
+    const remainingStores = filteredStores.length - endIndex;
+    
+    // Generate HTML for paginated stores
     let storesHTML = '';
     
     if (filteredStores.length === 0) {
@@ -372,7 +386,7 @@ function handleStoreFiltering() {
             </div>
         `;
     } else {
-        filteredStores.forEach(store => {
+        paginatedStores.forEach(store => {
             const statusClass = store.status;
             const statusIcon = store.status === 'good' ? '✓' : '!';
             const statusLabel = store.status === 'good' ? 'GOOD' : (store.status === 'warning' ? 'WARNING' : 'CRITICAL');
@@ -393,11 +407,11 @@ function handleStoreFiltering() {
             `;
         });
 
-        // Add pagination card if showing all stores and not filtered
-        if (filteredStores.length === allStores.length && searchTerm === '' && selectedRegion === 'All Regions ▼' && selectedAlertLevel === 'All Alerts ▼') {
+        // Add pagination card if there are more stores to show
+        if (remainingStores > 0) {
             storesHTML += `
                 <div class="store-card pagination" onclick="showMoreStores()">
-                    <div class="pagination-circle">+3</div>
+                    <div class="pagination-circle">+${remainingStores}</div>
                     <div class="pagination-text">More Stores</div>
                     <div class="pagination-subtitle">Click to view next page</div>
                     <button class="view-more-button">VIEW MORE →</button>

@@ -35,20 +35,20 @@ Wire up the store selection screen to properly navigate to the inventory overvie
 - [x] **User Testing Required**
 - [x] Commit: "Update inventory header with store context"
 
-### Step 5: Add More Sample Stores 🔄
+### Step 5: Add More Sample Stores ✅
 - [x] Extend store data array with 8 total stores
 - [x] Add stores: Camden, Westfield, Kings Road
 - [x] Each with unique metrics and status
 - [x] Update product counts to be between 8-50 for realism
 - [x] Ensure alert counts are reasonable (0-5 for good, 6-10 for warning, 11+ for critical)
-- [ ] **User Testing Required**
-- [ ] Commit: "Add more sample stores for pagination"
+- [x] **User Testing Required**
+- [x] Commit: "Add more sample stores for pagination"
 
-### Step 6: Implement Store Pagination Logic ⏳
-- [ ] Add `currentStorePage` property to store selection
-- [ ] Add `storesPerPage: 6` configuration
-- [ ] Create `paginateStores()` function
-- [ ] Update `handleStoreFiltering()` to use pagination
+### Step 6: Implement Store Pagination Logic 🔄
+- [x] Add `currentStorePage` property to store selection
+- [x] Add `storesPerPage: 5` configuration (changed from 6 for better layout)
+- [x] Create `paginateStores()` function (integrated into handleStoreFiltering)
+- [x] Update `handleStoreFiltering()` to use pagination
 - [ ] **User Testing Required**
 - [ ] Commit: "Implement store pagination logic"
 

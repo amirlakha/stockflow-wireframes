@@ -4,6 +4,8 @@
 const storeSelectionDemoControls = {
     originalStores: null,
     isGridView: true,
+    currentStorePage: 1,
+    storesPerPage: 5,
 
     initialize() {
         const storesGrid = document.getElementById('storesGrid');
@@ -20,6 +22,9 @@ const storeSelectionDemoControls = {
         if (searchInput) searchInput.value = '';
         if (regionFilter) regionFilter.selectedIndex = 0;
         if (alertFilter) alertFilter.selectedIndex = 0;
+        
+        // Reset to first page
+        this.currentStorePage = 1;
         
         // Trigger the filtering to refresh the display
         setTimeout(() => handleStoreFiltering(), 10);
