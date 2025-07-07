@@ -21,6 +21,9 @@ const inventoryDemoControls = {
     sortColumn: 'name',
     sortDirection: 'asc',
     
+    // Pagination state
+    itemsPerPage: 10,
+    
     // Sample product data
     sampleProducts: [
         {
@@ -95,8 +98,14 @@ const inventoryDemoControls = {
             });
         }
         this.currentProducts = expandedProducts;
-        // Phase 3: Will demonstrate pagination controls
-        alert('Demo: Large Inventory Dataset\n\nSimulating 50 products to demonstrate pagination functionality.');
+        
+        // Update the table if in functional mode
+        if (!this.isPreviewMode) {
+            this.currentPage = 1; // Reset to first page
+            this.updateProductTable();
+        } else {
+            alert('Demo: Large Inventory Dataset\n\nSimulating 50 products to demonstrate pagination functionality.');
+        }
     },
     
     simulateStockUpdate() {
@@ -136,8 +145,14 @@ const inventoryDemoControls = {
             // Filter products based on all criteria
             let products = this.getFilteredProducts();
             
+            // Apply pagination
+            const totalProducts = products.length;
+            const start = (this.currentPage - 1) * this.itemsPerPage;
+            const end = start + this.itemsPerPage;
+            const paginatedProducts = products.slice(start, end);
+            
             // Build table rows HTML
-            const rowsHTML = products.map(product => {
+            const rowsHTML = paginatedProducts.map(product => {
                 const statusClass = product.status;
                 const statusIcon = product.status === 'good' ? '✓' : '!';
                 const statusText = product.status === 'good' ? 'GOOD' : 
@@ -161,6 +176,9 @@ const inventoryDemoControls = {
             tableBody.innerHTML = rowsHTML;
             
             console.log(`Updated table with ${products.length} products`);
+            
+            // Update pagination controls
+            this.generatePagination();
         } catch (error) {
             console.error('Error updating product table:', error);
         }
@@ -173,6 +191,9 @@ const inventoryDemoControls = {
         
         // Update search term
         this.searchTerm = searchTerm.toLowerCase().trim();
+        
+        // Reset to first page when filtering
+        this.currentPage = 1;
         
         // Update the table with filtered results
         this.updateProductTable();
@@ -257,7 +278,122 @@ const inventoryDemoControls = {
     
     generatePagination() {
         console.log('Generating pagination controls');
-        // Phase 3: Create pagination controls for large datasets
+        
+        const paginationInfo = document.getElementById('paginationInfo');
+        const paginationControls = document.getElementById('paginationControls');
+        
+        if (!paginationInfo || !paginationControls || this.isPreviewMode) {
+            return;
+        }
+        
+        // Get filtered products count
+        const filteredProducts = this.getFilteredProducts();
+        const totalProducts = filteredProducts.length;
+        const totalPages = Math.ceil(totalProducts / this.itemsPerPage);
+        
+        // Ensure current page is valid
+        if (this.currentPage > totalPages) {
+            this.currentPage = 1;
+        }
+        
+        // Calculate display range
+        const start = totalProducts === 0 ? 0 : ((this.currentPage - 1) * this.itemsPerPage) + 1;
+        const end = Math.min(this.currentPage * this.itemsPerPage, totalProducts);
+        
+        // Update pagination info
+        paginationInfo.textContent = `Showing ${start}-${end} of ${totalProducts} products`;
+        
+        // Clear existing controls
+        paginationControls.innerHTML = '';
+        
+        // Don't show pagination controls if only one page
+        if (totalPages <= 1) {
+            return;
+        }
+        
+        // Previous button
+        const prevButton = document.createElement('button');
+        prevButton.className = 'pagination-btn';
+        prevButton.textContent = '← Previous';
+        prevButton.disabled = this.currentPage === 1;
+        prevButton.onclick = () => this.goToPage(this.currentPage - 1);
+        paginationControls.appendChild(prevButton);
+        
+        // Page numbers
+        const pageNumbers = this.getPaginationRange(this.currentPage, totalPages);
+        pageNumbers.forEach(pageNum => {
+            if (pageNum === '...') {
+                const ellipsis = document.createElement('span');
+                ellipsis.className = 'pagination-ellipsis';
+                ellipsis.textContent = '...';
+                paginationControls.appendChild(ellipsis);
+            } else {
+                const pageButton = document.createElement('button');
+                pageButton.className = 'pagination-btn';
+                if (pageNum === this.currentPage) {
+                    pageButton.classList.add('active');
+                }
+                pageButton.textContent = pageNum;
+                pageButton.onclick = () => this.goToPage(pageNum);
+                paginationControls.appendChild(pageButton);
+            }
+        });
+        
+        // Next button
+        const nextButton = document.createElement('button');
+        nextButton.className = 'pagination-btn';
+        nextButton.textContent = 'Next →';
+        nextButton.disabled = this.currentPage === totalPages;
+        nextButton.onclick = () => this.goToPage(this.currentPage + 1);
+        paginationControls.appendChild(nextButton);
+    },
+    
+    // Calculate which page numbers to show
+    getPaginationRange(current, total) {
+        const delta = 2; // Pages to show on each side of current
+        const range = [];
+        const rangeWithDots = [];
+        let l;
+
+        for (let i = 1; i <= total; i++) {
+            if (i === 1 || i === total || (i >= current - delta && i <= current + delta)) {
+                range.push(i);
+            }
+        }
+
+        range.forEach((i) => {
+            if (l) {
+                if (i - l === 2) {
+                    rangeWithDots.push(l + 1);
+                } else if (i - l !== 1) {
+                    rangeWithDots.push('...');
+                }
+            }
+            rangeWithDots.push(i);
+            l = i;
+        });
+
+        return rangeWithDots;
+    },
+    
+    // Navigate to specific page
+    goToPage(pageNumber) {
+        console.log(`Navigating to page ${pageNumber}`);
+        
+        if (this.isPreviewMode) return;
+        
+        const filteredProducts = this.getFilteredProducts();
+        const totalPages = Math.ceil(filteredProducts.length / this.itemsPerPage);
+        
+        // Validate page number
+        if (pageNumber < 1 || pageNumber > totalPages) {
+            console.warn(`Invalid page number: ${pageNumber}`);
+            return;
+        }
+        
+        this.currentPage = pageNumber;
+        this.updateProductTable();
+        this.generatePagination();
     },
     
     // Initialize search functionality
@@ -299,6 +435,7 @@ const inventoryDemoControls = {
             
             this.categoryFilter = e.target.value;
             console.log(`Category filter changed to: ${this.categoryFilter}`);
+            this.currentPage = 1; // Reset to first page
             this.updateProductTable();
         };
         
@@ -325,6 +462,7 @@ const inventoryDemoControls = {
             
             this.stockLevelFilter = e.target.value;
             console.log(`Stock level filter changed to: ${this.stockLevelFilter}`);
+            this.currentPage = 1; // Reset to first page
             this.updateProductTable();
         };
         
