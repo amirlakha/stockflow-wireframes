@@ -12,28 +12,29 @@ This is a static HTML project with no build process:
 - **No dependencies**: Pure HTML/CSS/JavaScript implementation
 
 ## Architecture
-The project uses a single-file architecture (`index.html` - 3200+ lines) containing:
+The project has been refactored into a modular structure:
 
-### CSS Module Structure
-```css
-/* Modules are embedded within <style> tags in order: */
-base.css              /* Global styles and CSS variables */
-navigation.css        /* Header and navigation styles */
-demo-controls.css     /* Demo button and control styles */
-notes.css            /* Implementation notes styling */
-screens/*.css        /* Individual screen styles */
-responsive.css       /* Media queries for mobile/tablet */
+### File Structure
 ```
+css/
+  base.css              /* Global styles and CSS variables */
+  navigation.css        /* Header and navigation styles */
+  components/
+    demo-controls.css   /* Demo button and control styles */
+    notes.css          /* Implementation notes styling */
+  screens/            /* Individual screen styles */
+  responsive.css       /* Media queries for mobile/tablet */
 
-### JavaScript Module Pattern
-```javascript
-/* JavaScript modules are embedded within <script> tags: */
-core.js                    /* Main app logic and screen management */
-screens/login-demo.js      /* Login screen demo controls */
-screens/dashboard-demo.js  /* Dashboard demo controls */
-screens/inventory-demo.js  /* Inventory screen demo (Phase 2 complete) */
-screens/store-selection-demo.js /* Store selection demo */
-initialization.js          /* App initialization */
+js/
+  core.js                    /* Main app logic and screen management */
+  screens/
+    login-demo.js           /* Login screen demo controls */
+    dashboard-demo.js       /* Dashboard demo controls */
+    inventory-demo.js       /* Inventory screen demo (Phase 3 complete) */
+    store-selection-demo.js /* Store selection demo */
+  initialization.js         /* App initialization */
+
+index.html             /* Main entry point */
 ```
 
 ### Screen Management
@@ -45,8 +46,9 @@ Each screen follows this pattern:
 
 ## Current Implementation Status
 - **Phase 1 Complete**: Login, Dashboard, Store Selection (fully interactive)
-- **Phase 2 Complete**: Inventory Overview (JavaScript foundation ready)
-- **Phase 3 Planned**: Record Sale, Alerts Dashboard
+- **Phase 2 Complete**: Inventory Overview JavaScript foundation
+- **Phase 3 Complete**: Inventory Overview (fully interactive with search, filters, sorting, pagination, and summary stats)
+- **Future Screens Planned**: Record Sale, Alerts Dashboard
 
 ## Key Development Patterns
 1. **Demo Controls**: Each screen has buttons to demonstrate different states (normal, error, busy)
@@ -55,26 +57,14 @@ Each screen follows this pattern:
 4. **State Management**: JavaScript modules handle screen state and transitions
 
 ## Important Files
-- `/documentation/StockFlow - Design.md` - Complete system design specification
-- `/documentation/Stockflow - Handover.md` - Development handoff notes with Phase 3 requirements
-- `/documentation/*.png` - System diagrams (ERD, data flow, sequence, use case)
+- `/documentation/` folder contains the complete StockFlow design specification and system diagrams
+- `StockFlow - Design.md` - Full system design document with requirements and specifications
+- Various `.png` files - System diagrams (ERD, data flow, sequence, use case)
 
 ## Development Tips
 - Check console logs when testing demo functionality
-- Refer to handover documentation for Phase 3 implementation requirements
-- The inventory demo module (`inventory-demo.js`) has the foundation for Phase 3 features
-
-## REFACTORING GOALS:
-1. Split monolithic HTML into logical components
-2. Create proper file structure: src/css/, src/js/, src/components/, src/data/
-3. Maintain all current functionality
-4. Keep deployment working on GitHub Pages
-5. Make it easy to implement Phase 3 of Inventory Overview
-6. Prepare structure for future screen implementations
-
-## CONSTRAINTS:
-- Must remain deployable as static site (GitHub Pages compatible)
-- Preserve all interactive demo controls and functionality
+- The inventory screen auto-initializes when navigated to
+- Sync concept was removed as this is a desktop app with local DB
 
 ## IMPORTANT PROJECT-SPECIFIC INSTRUCTIONS:
 1. **Always create local todo files**: For every major task, create a separate todo file in the `todo/` directory with a numbered filename corresponding to the task (e.g., `001-refactoring-task.md`, `002-feature-xyz.md`)
