@@ -103,6 +103,11 @@ function setupStoreSelectionFilters() {
 
 // Store Selection specific functions
 function selectStore(storeId) {
+    // Get the store data
+    const store = getStoreById(storeId);
+    console.log('Store selected:', store);
+    
+    // Keep the alert for now (non-breaking)
     alert(`Selecting ${storeId} store...\n\n→ Navigating to Inventory Overview\n\nThis would load the inventory screen for the selected store location.`);
 }
 
