@@ -9,6 +9,9 @@ const inventoryDemoControls = {
     currentSort: 'name',
     currentPage: 1,
     
+    // Store context
+    selectedStore: null,
+    
     // Search and filter state
     searchTerm: '',
     categoryFilter: 'all',
@@ -163,6 +166,11 @@ const inventoryDemoControls = {
     // Utility functions
     initializeInventory() {
         this.currentProducts = this.sampleProducts.slice();
+    },
+    
+    setSelectedStore(store) {
+        this.selectedStore = store;
+        console.log('Store context set:', store);
     },
     
     updateProductTable() {

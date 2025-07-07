@@ -129,6 +129,64 @@ function toggleGridView() {
     storeSelectionDemoControls.updateViewMode();
 }
 
+function getStoreById(storeId) {
+    // Define all store data (same as in handleStoreFiltering)
+    const allStores = [
+        {
+            id: 'oxford-street',
+            name: 'Oxford Street',
+            location: 'London, Central',
+            region: 'London',
+            products: 847,
+            alerts: 3,
+            status: 'good',
+            updated: '5 mins ago'
+        },
+        {
+            id: 'birmingham',
+            name: 'Birmingham Central', 
+            location: 'Birmingham, Midlands',
+            region: 'Midlands',
+            products: 692,
+            alerts: 1,
+            status: 'good',
+            updated: '12 mins ago'
+        },
+        {
+            id: 'manchester',
+            name: 'Manchester Trafford',
+            location: 'Manchester, North', 
+            region: 'North',
+            products: 734,
+            alerts: 8,
+            status: 'warning',
+            updated: '1 hour ago'
+        },
+        {
+            id: 'leeds',
+            name: 'Leeds City Centre',
+            location: 'Leeds, Yorkshire',
+            region: 'Yorkshire', 
+            products: 521,
+            alerts: 0,
+            status: 'good',
+            updated: '2 hours ago'
+        },
+        {
+            id: 'bristol',
+            name: 'Bristol Cabot Circus',
+            location: 'Bristol, Southwest',
+            region: 'Southwest',
+            products: 612,
+            alerts: 15,
+            status: 'critical',
+            updated: '4 hours ago'
+        }
+    ];
+    
+    return allStores.find(store => store.id === storeId);
+}
+
 function handleStoreFiltering() {
     const searchInput = document.getElementById('storeSearchInput');
     const regionFilter = document.getElementById('regionFilter');
