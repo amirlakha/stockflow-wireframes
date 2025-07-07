@@ -77,6 +77,8 @@ function showScreen(screenId) {
             }
             // Setup filter event listeners
             setupStoreSelectionFilters();
+            // Initialize store display with all stores
+            setTimeout(() => handleStoreFiltering(), 100);
         }
         
     } catch (error) {

@@ -27,20 +27,20 @@ Wire up the store selection screen to properly navigate to the inventory overvie
 - [x] **User Testing Required**
 - [x] Commit: "Pass store context during navigation"
 
-### Step 4: Update Inventory Header 🔄
+### Step 4: Update Inventory Header ✅
 - [x] Read store context in inventory initialization
 - [x] Update store badge to show selected store name
 - [x] Update breadcrumb with store name
 - [x] Default to "Oxford Street" if no store selected
-- [ ] **User Testing Required**
-- [ ] Commit: "Update inventory header with store context"
+- [x] **User Testing Required**
+- [x] Commit: "Update inventory header with store context"
 
-### Step 5: Add More Sample Stores ⏳
-- [ ] Extend store data array with 8 total stores
-- [ ] Add stores: Camden, Westfield, Kings Road
-- [ ] Each with unique metrics and status
-- [ ] Update product counts to be between 8-50 for realism
-- [ ] Ensure alert counts are reasonable (0-5 for good, 6-10 for warning, 11+ for critical)
+### Step 5: Add More Sample Stores 🔄
+- [x] Extend store data array with 8 total stores
+- [x] Add stores: Camden, Westfield, Kings Road
+- [x] Each with unique metrics and status
+- [x] Update product counts to be between 8-50 for realism
+- [x] Ensure alert counts are reasonable (0-5 for good, 6-10 for warning, 11+ for critical)
 - [ ] **User Testing Required**
 - [ ] Commit: "Add more sample stores for pagination"
 

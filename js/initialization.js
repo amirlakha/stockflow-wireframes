@@ -151,7 +151,7 @@ function getStoreById(storeId) {
             name: 'Oxford Street',
             location: 'London, Central',
             region: 'London',
-            products: 847,
+            products: 45,
             alerts: 3,
             status: 'good',
             updated: '5 mins ago'
@@ -161,7 +161,7 @@ function getStoreById(storeId) {
             name: 'Birmingham Central', 
             location: 'Birmingham, Midlands',
             region: 'Midlands',
-            products: 692,
+            products: 38,
             alerts: 1,
             status: 'good',
             updated: '12 mins ago'
@@ -171,7 +171,7 @@ function getStoreById(storeId) {
             name: 'Manchester Trafford',
             location: 'Manchester, North', 
             region: 'North',
-            products: 734,
+            products: 42,
             alerts: 8,
             status: 'warning',
             updated: '1 hour ago'
@@ -181,7 +181,7 @@ function getStoreById(storeId) {
             name: 'Leeds City Centre',
             location: 'Leeds, Yorkshire',
             region: 'Yorkshire', 
-            products: 521,
+            products: 29,
             alerts: 0,
             status: 'good',
             updated: '2 hours ago'
@@ -191,10 +191,40 @@ function getStoreById(storeId) {
             name: 'Bristol Cabot Circus',
             location: 'Bristol, Southwest',
             region: 'Southwest',
-            products: 612,
+            products: 35,
             alerts: 15,
             status: 'critical',
             updated: '4 hours ago'
+        },
+        {
+            id: 'camden',
+            name: 'Camden Market',
+            location: 'London, North',
+            region: 'London',
+            products: 22,
+            alerts: 4,
+            status: 'good',
+            updated: '30 mins ago'
+        },
+        {
+            id: 'westfield',
+            name: 'Westfield Stratford',
+            location: 'London, East',
+            region: 'London',
+            products: 50,
+            alerts: 7,
+            status: 'warning',
+            updated: '45 mins ago'
+        },
+        {
+            id: 'kings-road',
+            name: 'Kings Road Chelsea',
+            location: 'London, Southwest',
+            region: 'London',
+            products: 18,
+            alerts: 2,
+            status: 'good',
+            updated: '3 hours ago'
         }
     ];
     
@@ -220,7 +250,7 @@ function handleStoreFiltering() {
             name: 'Oxford Street',
             location: 'London, Central',
             region: 'London',
-            products: 847,
+            products: 45,
             alerts: 3,
             status: 'good',
             updated: '5 mins ago'
@@ -230,7 +260,7 @@ function handleStoreFiltering() {
             name: 'Birmingham Central', 
             location: 'Birmingham, Midlands',
             region: 'Midlands',
-            products: 692,
+            products: 38,
             alerts: 1,
             status: 'good',
             updated: '12 mins ago'
@@ -240,7 +270,7 @@ function handleStoreFiltering() {
             name: 'Manchester Trafford',
             location: 'Manchester, North', 
             region: 'North',
-            products: 734,
+            products: 42,
             alerts: 8,
             status: 'warning',
             updated: '1 hour ago'
@@ -250,7 +280,7 @@ function handleStoreFiltering() {
             name: 'Leeds City Centre',
             location: 'Leeds, Yorkshire',
             region: 'Yorkshire', 
-            products: 521,
+            products: 29,
             alerts: 0,
             status: 'good',
             updated: '2 hours ago'
@@ -260,10 +290,40 @@ function handleStoreFiltering() {
             name: 'Bristol Cabot Circus',
             location: 'Bristol, Southwest',
             region: 'Southwest',
-            products: 612,
+            products: 35,
             alerts: 15,
             status: 'critical',
             updated: '4 hours ago'
+        },
+        {
+            id: 'camden',
+            name: 'Camden Market',
+            location: 'London, North',
+            region: 'London',
+            products: 22,
+            alerts: 4,
+            status: 'good',
+            updated: '30 mins ago'
+        },
+        {
+            id: 'westfield',
+            name: 'Westfield Stratford',
+            location: 'London, East',
+            region: 'London',
+            products: 50,
+            alerts: 7,
+            status: 'warning',
+            updated: '45 mins ago'
+        },
+        {
+            id: 'kings-road',
+            name: 'Kings Road Chelsea',
+            location: 'London, Southwest',
+            region: 'London',
+            products: 18,
+            alerts: 2,
+            status: 'good',
+            updated: '3 hours ago'
         }
     ];
 

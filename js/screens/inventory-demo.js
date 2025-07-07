@@ -178,7 +178,7 @@ const inventoryDemoControls = {
         // Default to Oxford Street if no store selected
         const store = this.selectedStore || {
             name: 'Oxford Street',
-            products: 847,
+            products: 45,
             alerts: 3
         };
         
