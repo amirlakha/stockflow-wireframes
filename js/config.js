@@ -13,8 +13,8 @@ const screens = {
         description: 'Grid view of accessible store locations with search, filtering, status indicators, and access control based on user permissions from user_locations table.'
     },
     'inventory': {
-        title: 'Inventory Overview - Phase 2 Complete',
-        description: 'JavaScript foundation implemented with demo controls, sample data, and utility functions. Interactive product table, search, filtering, and real-time updates ready for Phase 3 implementation.'
+        title: 'Inventory Overview',
+        description: 'Real-time inventory management with product search, category filtering, stock level monitoring, and bulk operations. Features sortable columns, pagination, and CSV export functionality.'
     },
     'record-sale': {
         title: 'Record Sale',

@@ -1,5 +1,5 @@
 /* ==================== MODULE: screens/inventory-demo.js ==================== */
-/* Inventory Overview screen demo controls and functionality - Phase 2 */
+/* Inventory Overview screen demo controls and functionality */
 
 const inventoryDemoControls = {
     // Current state
@@ -160,7 +160,7 @@ const inventoryDemoControls = {
         console.log(`Stock update complete: ${updateCount} products updated`);
     },
 
-    // Utility functions (ready for Phase 3)
+    // Utility functions
     initializeInventory() {
         this.currentProducts = this.sampleProducts.slice();
     },
@@ -265,11 +265,6 @@ const inventoryDemoControls = {
         // Update the table and indicators
         this.updateSortIndicators();
         this.updateProductTable();
-    },
-    
-    filterProducts(criteria) {
-        console.log(`Applying filter criteria: ${criteria}`);
-        // Phase 3: Filter products based on category, status, etc.
     },
     
     // Get filtered products based on all active filters
