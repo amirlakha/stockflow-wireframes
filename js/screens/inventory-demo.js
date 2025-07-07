@@ -572,6 +572,91 @@ const inventoryDemoControls = {
         });
     },
     
+    // Initialize quick actions
+    initializeQuickActions() {
+        console.log('Initializing quick actions');
+        
+        // Record Sale button
+        const recordSaleBtn = document.querySelector('.inventory-functional .action-btn-record-sale');
+        if (recordSaleBtn) {
+            recordSaleBtn.onclick = () => this.handleRecordSale();
+        }
+        
+        // Add Stock button
+        const addStockBtn = document.querySelector('.inventory-functional .action-btn-add-stock');
+        if (addStockBtn) {
+            addStockBtn.onclick = () => this.handleAddStock();
+        }
+        
+        // Adjust Stock button
+        const adjustStockBtn = document.querySelector('.inventory-functional .action-btn-adjust-stock');
+        if (adjustStockBtn) {
+            adjustStockBtn.onclick = () => this.handleAdjustStock();
+        }
+        
+        // Export button
+        const exportBtn = document.querySelector('.inventory-functional .action-btn-export');
+        if (exportBtn) {
+            exportBtn.onclick = () => this.handleExport();
+        }
+    },
+    
+    // Quick action handlers
+    handleRecordSale() {
+        console.log('Record Sale clicked');
+        alert('Record Sale\n\nThis would open a dialog to record a sale transaction.\n\nFeatures:\n• Product selection\n• Quantity input\n• Customer details\n• Payment processing');
+    },
+    
+    handleAddStock() {
+        console.log('Add Stock clicked');
+        alert('Add Stock\n\nThis would open a dialog to add new stock.\n\nFeatures:\n• Product selection\n• Quantity to add\n• Supplier info\n• Update inventory levels');
+    },
+    
+    handleAdjustStock() {
+        console.log('Adjust Stock clicked');
+        alert('Adjust Stock\n\nThis would open a dialog for stock adjustments.\n\nFeatures:\n• Select products\n• Adjust quantities\n• Add reason for adjustment\n• Track adjustment history');
+    },
+    
+    handleExport() {
+        console.log('Export clicked');
+        
+        // Simple CSV export implementation
+        const products = this.getFilteredProducts();
+        if (products.length === 0) {
+            alert('No products to export');
+            return;
+        }
+        
+        // Create CSV content
+        const headers = ['Name', 'SKU', 'Category', 'Stock', 'Min Level', 'Price', 'Status', 'Last Updated'];
+        const csvContent = [
+            headers.join(','),
+            ...products.map(p => [
+                `"${p.name}"`,
+                p.sku,
+                p.category,
+                p.stock,
+                p.minLevel,
+                p.price,
+                p.status,
+                `"${p.updated}"`
+            ].join(','))
+        ].join('\n');
+        
+        // Create and download file
+        const blob = new Blob([csvContent], { type: 'text/csv' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `inventory-export-${new Date().toISOString().split('T')[0]}.csv`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+        
+        console.log(`Exported ${products.length} products to CSV`);
+    },
+    
     // Toggle between preview and functional modes
     togglePreviewMode() {
         this.isPreviewMode = !this.isPreviewMode;
@@ -610,6 +695,7 @@ const inventoryDemoControls = {
                 this.initializeCategoryFilter();
                 this.initializeStockLevelFilter();
                 this.initializeSorting();
+                this.initializeQuickActions();
                 
                 // Update the product table
                 this.updateProductTable();

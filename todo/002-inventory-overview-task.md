@@ -86,15 +86,15 @@ Each step will be non-breaking, tested, and committed separately before proceedi
 - [x] Update simulateStockUpdate() with live updates
 - [x] Wire up Back button to navigate to Store Selection
 - [x] **User Testing Required**
-- [ ] Commit: "Update demo controls for functional mode"
+- [x] Commit: "Update demo controls for functional mode"
 
-### Step 10: Implement Quick Actions ⏳
-- [ ] Add initializeQuickActions() function
-- [ ] Wire up Record Sale button with alert
-- [ ] Wire up Add Stock button with alert  
-- [ ] Wire up Adjust Stock button with alert
-- [ ] Implement basic Export to CSV functionality
-- [ ] **User Testing Required**
+### Step 10: Implement Quick Actions ✅
+- [x] Add initializeQuickActions() function
+- [x] Wire up Record Sale button with alert
+- [x] Wire up Add Stock button with alert  
+- [x] Wire up Adjust Stock button with alert
+- [x] Implement basic Export to CSV functionality
+- [x] **User Testing Required**
 - [ ] Commit: "Implement quick action buttons"
 
 ### Step 11: Add Summary Statistics ⏳
