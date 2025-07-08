@@ -51,13 +51,13 @@ The application will feature:
 
 StockFlow will be developed using the following components:
 
-| Layer | Component | Description |
-|-------|-----------|-------------|
-| **User Interface** | Java Swing | GUI forms and dialogs for login, home page, product management, alerts |
-| **Business Logic** | Java classes | Encapsulates validation, stock adjustment logic, CSV generation, etc. |
-| **Database Layer** | SQLite (via JDBC) | Stores users, products, stock levels, and sales data in a local `.db` file |
-| **Email Subsystem** | Jakarta Mail (JavaMail API) | Sends automated low-stock alerts via SMTP |
-| **File Output** | Java I/O | Used for exporting inventory reports in CSV format |
+| Layer               | Component                   | Description                                                                |
+| ------------------- | --------------------------- | -------------------------------------------------------------------------- |
+| **User Interface**  | Java Swing                  | GUI forms and dialogs for login, home page, product management, alerts     |
+| **Business Logic**  | Java classes                | Encapsulates validation, stock adjustment logic, CSV generation, etc.      |
+| **Database Layer**  | SQLite (via JDBC)           | Stores users, products, stock levels, and sales data in a local `.db` file |
+| **Email Subsystem** | Jakarta Mail (JavaMail API) | Sends automated low-stock alerts via SMTP                                  |
+| **File Output**     | Java I/O                    | Used for exporting inventory reports in CSV format                         |
 
 ## 2.3 Key Functional Components
 
@@ -103,8 +103,8 @@ The following tables form the core schema of the StockFlow system:
 
 ### Core Tables and Relationships
 
-| Table           | Description                                      |
-|------------------|--------------------------------------------------|
+| Table            | Description                                     |
+| ---------------- | ----------------------------------------------- |
 | `users`          | Stores login credentials and role information   |
 | `locations`      | Represents each physical store location         |
 | `products`       | Stores product details                          |
@@ -1597,7 +1597,7 @@ Main Dashboard → [Alerts Dashboard | Reports Screen | Product Management]
 - **Alert System**: Visual indicators help prevent stockouts and overstocking
 - **Audit Trail**: Updated timestamps and user tracking support accountability
 
-## 6.9.4 Accessibility Features
+### Accessibility Features
 
 - **High Contrast Design**: Status indicators use both color and icons (not color-only)
 - **Clear Typography**: Sans-serif fonts optimized for screen readability
@@ -1605,13 +1605,852 @@ Main Dashboard → [Alerts Dashboard | Reports Screen | Product Management]
 - **Screen Reader Support**: Proper labels and semantic markup for all interactive elements
 - **Responsive Layout**: Maintains functionality across different screen sizes and devices
 
-## 6.9.5 Performance Considerations
+###  Performance Considerations
 
 - **Efficient Data Loading**: Pagination limits initial load to manageable dataset
 - **Smart Filtering**: Client-side filtering where possible to reduce server requests
 - **Visual Feedback**: Loading states and sync indicators provide user confidence
 - **Caching Strategy**: Recent data cached locally for faster subsequent loads
 
-This Inventory Overview screen serves as the primary working interface where users spend most of their time managing stock levels. The design prioritizes efficiency, clarity, and error prevention while maintaining consistency with the overall StockFlow design system.
+
+# 6.10 Record Sale Screen Wireframe
 
 
+<svg viewBox="0 0 1450 850" xmlns="http://www.w3.org/2000/svg">
+<!-- Background -->
+<rect width="1450" height="820" fill="#e5e5e5"/>
+
+<!-- Title -->
+<text x="725" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#333">StockFlow Record Sale Screen</text>
+
+<!-- Screen Container (increased height to prevent button overlap) -->
+<rect x="50" y="60" width="800" height="730" rx="25" ry="25" fill="#f5f0e8" stroke="#333" stroke-width="3"/>
+
+<!-- Header Section with Store Context -->
+<rect x="70" y="80" width="760" height="65" rx="8" ry="8" fill="#ffffff" stroke="#ddd" stroke-width="1" filter="drop-shadow(0px 2px 4px rgba(0,0,0,0.1))"/>
+<text x="90" y="110" font-family="Arial, sans-serif" font-size="20" font-weight="bold" font-style="italic" fill="#333">StockFlow</text>
+<text x="90" y="130" font-family="Arial, sans-serif" font-size="13" fill="#666">Dashboard > Store Selection > Oxford Street > Record Sale</text>
+
+<!-- Store Info Badge -->
+<rect x="600" y="90" width="120" height="45" rx="8" ry="8" fill="#e8f5e8" stroke="#c3e6c3" stroke-width="1"/>
+<text x="660" y="108" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#2d5a2d">Oxford Street</text>
+<text x="660" y="122" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#2d5a2d">Recording Sale</text>
+
+<rect x="740" y="95" width="80" height="35" rx="17" ry="17" fill="#6c757d"/>
+<text x="780" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="white">← Cancel</text>
+
+<!-- Product Search Section -->
+<rect x="70" y="165" width="760" height="80" rx="8" ry="8" fill="#ffffff" stroke="#ddd" stroke-width="1" filter="drop-shadow(0px 2px 4px rgba(0,0,0,0.1))"/>
+<text x="90" y="190" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#333">Add Products to Sale</text>
+
+<rect x="90" y="205" width="620" height="30" rx="15" ry="15" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1"/>
+<text x="105" y="223" font-family="Arial, sans-serif" font-size="12" fill="#999">🔍 Search products by name or SKU...</text>
+
+<rect x="720" y="205" width="100" height="30" rx="15" ry="15" fill="#d4a574"/>
+<text x="770" y="223" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="white">+ Add to Sale</text>
+
+<!-- Sale Items Section -->
+<rect x="70" y="265" width="760" height="320" rx="8" ry="8" fill="#ffffff" stroke="#ddd" stroke-width="1" filter="drop-shadow(0px 2px 4px rgba(0,0,0,0.1))"/>
+<text x="90" y="290" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#333">Sale Items</text>
+
+<!-- Sale Items Table Header -->
+<rect x="90" y="305" width="720" height="30" rx="4" ry="4" fill="#f8f9fa" stroke="#e9ecef" stroke-width="1"/>
+<text x="100" y="323" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#333">Product</text>
+<text x="300" y="323" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#333">SKU</text>
+<text x="400" y="323" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#333">In Stock</text>
+<text x="480" y="323" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#333">Quantity</text>
+<text x="580" y="323" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#333">Unit Price</text>
+<text x="680" y="323" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#333">Subtotal</text>
+<text x="760" y="323" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#333">Action</text>
+
+<!-- Sale Item 1 -->
+<rect x="90" y="335" width="720" height="50" rx="4" ry="4" fill="#ffffff" stroke="#f1f3f4" stroke-width="1"/>
+<text x="100" y="358" font-family="Arial, sans-serif" font-size="11" fill="#333">Classic Cotton T-Shirt</text>
+<text x="100" y="373" font-family="Arial, sans-serif" font-size="9" fill="#666">Blue, Size M</text>
+<text x="300" y="363" font-family="Arial, sans-serif" font-size="11" fill="#666">TSH-001</text>
+<text x="400" y="363" font-family="Arial, sans-serif" font-size="11" fill="#666">45 units</text>
+
+<!-- Quantity Input -->
+<rect x="470" y="350" width="60" height="25" rx="4" ry="4" fill="#ffffff" stroke="#ced4da" stroke-width="1"/>
+<text x="500" y="366" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#333">3</text>
+<rect x="535" y="350" width="20" height="25" rx="4" ry="4" fill="#f8f9fa" stroke="#ced4da" stroke-width="1"/>
+<text x="545" y="366" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#666">+</text>
+<rect x="445" y="350" width="20" height="25" rx="4" ry="4" fill="#f8f9fa" stroke="#ced4da" stroke-width="1"/>
+<text x="455" y="366" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#666">-</text>
+
+<text x="590" y="363" font-family="Arial, sans-serif" font-size="11" fill="#333">£19.99</text>
+<text x="690" y="363" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#333">£59.97</text>
+<text x="760" y="363" font-family="Arial, sans-serif" font-size="11" fill="#dc3545" text-decoration="underline">Remove</text>
+
+<!-- Sale Item 2 -->
+<rect x="90" y="390" width="720" height="50" rx="4" ry="4" fill="#fff3cd" stroke="#ffeaa7" stroke-width="1"/>
+<text x="100" y="413" font-family="Arial, sans-serif" font-size="11" fill="#333">Denim Jeans - Blue</text>
+<text x="100" y="428" font-family="Arial, sans-serif" font-size="9" fill="#666">Size 32</text>
+<text x="300" y="418" font-family="Arial, sans-serif" font-size="11" fill="#666">JN-004</text>
+<text x="400" y="418" font-family="Arial, sans-serif" font-size="11" fill="#856404">8 units</text>
+<text x="400" y="432" font-family="Arial, sans-serif" font-size="9" fill="#856404">(Low Stock)</text>
+
+<!-- Quantity Input with warning -->
+<rect x="470" y="405" width="60" height="25" rx="4" ry="4" fill="#fff3cd" stroke="#ffc107" stroke-width="1"/>
+<text x="500" y="421" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#333">5</text>
+<rect x="535" y="405" width="20" height="25" rx="4" ry="4" fill="#f8f9fa" stroke="#ced4da" stroke-width="1"/>
+<text x="545" y="421" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#666">+</text>
+<rect x="445" y="405" width="20" height="25" rx="4" ry="4" fill="#f8f9fa" stroke="#ced4da" stroke-width="1"/>
+<text x="455" y="421" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#666">-</text>
+
+<text x="590" y="418" font-family="Arial, sans-serif" font-size="11" fill="#333">£49.99</text>
+<text x="690" y="418" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#333">£249.95</text>
+<text x="760" y="418" font-family="Arial, sans-serif" font-size="11" fill="#dc3545" text-decoration="underline">Remove</text>
+
+<!-- Empty rows indicator -->
+<rect x="90" y="445" width="720" height="80" rx="4" ry="4" fill="#f8f9fa" stroke="#e9ecef" stroke-width="1" stroke-dasharray="5,5"/>
+<text x="450" y="490" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#666">+ Add more products to this sale</text>
+
+<!-- Sale Summary Section -->
+<rect x="90" y="540" width="720" height="30" rx="4" ry="4" fill="#e8f5e8" stroke="#c3e6c3" stroke-width="1"/>
+<text x="600" y="558" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#2d5a2d">Total Items: 8</text>
+<text x="690" y="558" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2d5a2d">Total: £309.92</text>
+
+<!-- Transaction Notes Section -->
+<rect x="70" y="605" width="370" height="95" rx="8" ry="8" fill="#ffffff" stroke="#ddd" stroke-width="1" filter="drop-shadow(0px 2px 4px rgba(0,0,0,0.1))"/>
+<text x="90" y="630" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">Transaction Notes (Optional)</text>
+<rect x="90" y="640" width="330" height="45" rx="4" ry="4" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1"/>
+<text x="100" y="660" font-family="Arial, sans-serif" font-size="11" fill="#999">Add any notes about this sale...</text>
+
+<!-- Stock Impact Preview -->
+<rect x="460" y="605" width="370" height="95" rx="8" ry="8" fill="#fff3cd" stroke="#ffeaa7" stroke-width="1" filter="drop-shadow(0px 2px 4px rgba(0,0,0,0.1))"/>
+<text x="480" y="630" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">⚠️ Stock Impact Preview</text>
+<text x="480" y="650" font-family="Arial, sans-serif" font-size="11" fill="#666">After this sale:</text>
+<text x="480" y="668" font-family="Arial, sans-serif" font-size="11" fill="#333">• Classic Cotton T-Shirt: 45 → 42 units</text>
+<text x="480" y="685" font-family="Arial, sans-serif" font-size="11" fill="#856404">• Denim Jeans: 8 → 3 units (Below minimum!)</text>
+
+<!-- Action Buttons -->
+<rect x="70" y="720" width="760" height="60" rx="8" ry="8" fill="#f1f3f4" stroke="#e9ecef" stroke-width="1"/>
+<rect x="480" y="735" width="160" height="35" rx="17" ry="17" fill="#28a745"/>
+<text x="560" y="755" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="white">✓ Complete Sale</text>
+
+<rect x="660" y="735" width="160" height="35" rx="17" ry="17" fill="#dc3545"/>
+<text x="740" y="755" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="white">✗ Cancel Sale</text>
+
+<rect x="90" y="735" width="140" height="35" rx="17" ry="17" fill="#6c757d"/>
+<text x="160" y="755" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="white">Save as Draft</text>
+
+<!-- Callout Numbers -->
+<circle cx="880" cy="112" r="12" fill="#d32f2f"/>
+<text x="880" y="118" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">1</text>
+
+<circle cx="880" cy="205" r="12" fill="#d32f2f"/>
+<text x="880" y="211" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">2</text>
+
+<circle cx="880" cy="365" r="12" fill="#d32f2f"/>
+<text x="880" y="371" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">3</text>
+
+<circle cx="565" cy="405" r="12" fill="#d32f2f"/>
+<text x="565" y="411" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">4</text>
+
+<circle cx="880" cy="555" r="12" fill="#d32f2f"/>
+<text x="880" y="561" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">5</text>
+
+<circle cx="880" cy="650" r="12" fill="#d32f2f"/>
+<text x="880" y="656" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">6</text>
+
+<circle cx="880" cy="750" r="12" fill="#d32f2f"/>
+<text x="880" y="756" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">7</text>
+
+<!-- Annotation Boxes -->
+<!-- Annotation 1 -->
+<rect x="920" y="70" width="450" height="90" rx="6" ry="6" fill="white" stroke="#666" stroke-width="1" filter="drop-shadow(2px 2px 6px rgba(0,0,0,0.15))"/>
+<circle cx="945" cy="95" r="12" fill="#d32f2f"/>
+<text x="945" y="101" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">1</text>
+<text x="970" y="100" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">Header with Transaction Context:</text>
+<text x="970" y="118" font-family="Arial, sans-serif" font-size="12" fill="#333">Shows complete navigation path including current action.</text>
+<text x="970" y="134" font-family="Arial, sans-serif" font-size="12" fill="#333">Store badge indicates "Recording Sale" status.</text>
+<text x="970" y="150" font-family="Arial, sans-serif" font-size="12" fill="#333">Cancel button returns to inventory without saving.</text>
+
+<!-- Annotation 2 -->
+<rect x="920" y="180" width="450" height="90" rx="6" ry="6" fill="white" stroke="#666" stroke-width="1" filter="drop-shadow(2px 2px 6px rgba(0,0,0,0.15))"/>
+<circle cx="945" cy="205" r="12" fill="#d32f2f"/>
+<text x="945" y="211" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">2</text>
+<text x="970" y="210" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">Product Search Interface:</text>
+<text x="970" y="228" font-family="Arial, sans-serif" font-size="12" fill="#333">Search by product name or SKU for quick product lookup.</text>
+<text x="970" y="244" font-family="Arial, sans-serif" font-size="12" fill="#333">"Add to Sale" button becomes active after product selection.</text>
+<text x="970" y="260" font-family="Arial, sans-serif" font-size="12" fill="#333">Search results show available stock for selected location.</text>
+
+<!-- Annotation 3 -->
+<rect x="920" y="295" width="450" height="90" rx="6" ry="6" fill="white" stroke="#666" stroke-width="1" filter="drop-shadow(2px 2px 6px rgba(0,0,0,0.15))"/>
+<circle cx="945" cy="320" r="12" fill="#d32f2f"/>
+<text x="945" y="326" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">3</text>
+<text x="970" y="325" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">Sale Items Table:</text>
+<text x="970" y="343" font-family="Arial, sans-serif" font-size="12" fill="#333">Lists all products being sold with current stock levels.</text>
+<text x="970" y="359" font-family="Arial, sans-serif" font-size="12" fill="#333">Automatic subtotal calculation based on quantity × unit price.</text>
+<text x="970" y="375" font-family="Arial, sans-serif" font-size="12" fill="#333">Remove link allows deletion of items from sale.</text>
+
+<!-- Annotation 4 -->
+<rect x="920" y="405" width="450" height="90" rx="6" ry="6" fill="white" stroke="#666" stroke-width="1" filter="drop-shadow(2px 2px 6px rgba(0,0,0,0.15))"/>
+<circle cx="945" cy="430" r="12" fill="#d32f2f"/>
+<text x="945" y="436" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">4</text>
+<text x="970" y="435" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">Quantity Controls with Validation:</text>
+<text x="970" y="453" font-family="Arial, sans-serif" font-size="12" fill="#333">Plus/minus buttons for easy quantity adjustment.</text>
+<text x="970" y="469" font-family="Arial, sans-serif" font-size="12" fill="#333">Yellow highlight warns when selling low-stock items.</text>
+<text x="970" y="485" font-family="Arial, sans-serif" font-size="12" fill="#333">Cannot exceed available stock (validation prevents errors).</text>
+
+<!-- Annotation 5 -->
+<rect x="920" y="515" width="450" height="90" rx="6" ry="6" fill="white" stroke="#666" stroke-width="1" filter="drop-shadow(2px 2px 6px rgba(0,0,0,0.15))"/>
+<circle cx="945" cy="540" r="12" fill="#d32f2f"/>
+<text x="945" y="546" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">5</text>
+<text x="970" y="545" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">Sale Summary:</text>
+<text x="970" y="563" font-family="Arial, sans-serif" font-size="12" fill="#333">Real-time calculation of total items and sale amount.</text>
+<text x="970" y="579" font-family="Arial, sans-serif" font-size="12" fill="#333">Green background indicates healthy transaction.</text>
+<text x="970" y="595" font-family="Arial, sans-serif" font-size="12" fill="#333">Updates automatically as items are added or removed.</text>
+
+<!-- Annotation 6 -->
+<rect x="920" y="625" width="450" height="90" rx="6" ry="6" fill="white" stroke="#666" stroke-width="1" filter="drop-shadow(2px 2px 6px rgba(0,0,0,0.15))"/>
+<circle cx="945" cy="650" r="12" fill="#d32f2f"/>
+<text x="945" y="656" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">6</text>
+<text x="970" y="655" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">Stock Impact Preview:</text>
+<text x="970" y="673" font-family="Arial, sans-serif" font-size="12" fill="#333">Shows how stock levels will change after sale completion.</text>
+<text x="970" y="689" font-family="Arial, sans-serif" font-size="12" fill="#333">Yellow warning box alerts to items going below minimum.</text>
+<text x="970" y="705" font-family="Arial, sans-serif" font-size="12" fill="#333">Helps prevent stockouts before confirming transaction.</text>
+
+<!-- Annotation 7 -->
+<rect x="920" y="735" width="450" height="70" rx="6" ry="6" fill="white" stroke="#666" stroke-width="1" filter="drop-shadow(2px 2px 6px rgba(0,0,0,0.15))"/>
+<circle cx="945" cy="755" r="12" fill="#d32f2f"/>
+<text x="945" y="761" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">7</text>
+<text x="970" y="760" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">Transaction Actions:</text>
+<text x="970" y="778" font-family="Arial, sans-serif" font-size="12" fill="#333">Complete Sale: Confirms transaction and updates inventory.</text>
+<text x="970" y="794" font-family="Arial, sans-serif" font-size="12" fill="#333">Save as Draft: Stores incomplete sale for later completion.</text>
+</svg>
+## 6.10.1 Component Specifications
+
+### Header with Transaction Context (Callout 1)
+
+- **Application Branding**: Maintains consistent StockFlow logo positioning
+- **Extended Breadcrumb**: Shows complete path "Dashboard > Store Selection > Oxford Street > Record Sale"
+- **Transaction Status Badge**: Green badge displays "Oxford Street - Recording Sale" to confirm active transaction
+- **Cancel Button**: "← Cancel" button abandons the sale and returns to inventory without saving
+- **Visual Design**: Header maintains consistency while clearly indicating transaction mode
+
+### Product Search Interface (Callout 2)
+
+- **Search Field**: Large text input with placeholder "🔍 Search products by name or SKU..."
+- **Add to Sale Button**: Brown/tan color (#d4a574) becomes active when a product is selected
+- **Real-time Search**: Results appear as user types, showing matching products with stock levels
+- **Validation**: Only allows adding products that are currently in stock at the selected location
+
+### Sale Items Table (Callout 3)
+
+- **Column Structure**: Product, SKU, In Stock, Quantity, Unit Price, Subtotal, Action
+- **Product Details**: Shows product name with variant information (size, color) on second line
+- **Stock Visibility**: Current stock level displayed to prevent overselling
+- **Automatic Calculations**: Subtotal updates instantly as quantities change
+- **Remove Function**: Red "Remove" link allows deletion of items from the sale
+- **Visual Feedback**: Alternating row colors for better readability
+
+### Quantity Controls with Validation (Callout 4)
+
+- **Input Field**: Centered number display with white background
+- **Adjustment Buttons**: Plus (+) and minus (-) buttons flank the quantity field
+- **Stock Validation**: Cannot exceed available stock quantity (prevents negative inventory)
+- **Warning Indicators**: Yellow background highlights low-stock items
+- **Minimum Quantity**: Enforces minimum of 1 unit per line item
+- **Keyboard Entry**: Direct number input supported with validation
+
+### Sale Summary (Callout 5)
+
+- **Total Items Count**: Displays sum of all quantities across line items
+- **Total Amount**: Shows calculated sale total with currency symbol
+- **Visual Design**: Green background bar indicates healthy transaction status
+- **Real-time Updates**: Recalculates automatically as items are added, removed, or quantities change
+- **Prominent Positioning**: Placed at bottom of items table for easy reference
+
+### Stock Impact Preview (Callout 6)
+
+- **Warning Container**: Yellow background alerts user to important stock changes
+- **Before/After Display**: Shows current stock → projected stock after sale
+- **Critical Warnings**: Red text for items that will fall below minimum levels
+- **Visual Icon**: Warning triangle (⚠️) draws attention to the preview
+- **Preventive Design**: Helps users avoid creating stockout situations
+
+### Transaction Actions (Callout 7)
+
+- **Complete Sale Button**: Green color (#28a745) with checkmark icon for primary action
+- **Cancel Sale Button**: Red color (#dc3545) with X icon for abandoning transaction
+- **Save as Draft Button**: Grey color (#6c757d) for saving incomplete sales
+- **Button Positioning**: Right-aligned primary actions, left-aligned secondary action
+- **Visual Hierarchy**: Color and size emphasize the complete sale action
+
+## 6.10.2 User Interaction Flow
+
+### Adding Products to Sale
+
+1. User arrives at Record Sale screen from Inventory Overview
+2. Store context is maintained in header badge
+3. User searches for products using:
+    - Product name search
+    - SKU lookup
+4. Search results show available products with current stock levels
+5. User clicks "Add to Sale" to add selected product to the transaction
+
+### Managing Sale Items
+
+1. **Adding Quantities**:
+    
+    - Default quantity of 1 is added initially
+    - User adjusts using +/- buttons or direct input
+    - System validates against available stock
+    - Warning appears if quantity would create low stock
+2. **Removing Items**:
+    
+    - Click "Remove" link to delete line item
+    - Sale totals update automatically
+    - No confirmation required for removal
+3. **Stock Warnings**:
+    
+    - Yellow highlighting for low-stock items
+    - Stock impact preview shows post-sale levels
+    - Critical warnings in red for below-minimum situations
+
+### Completing the Transaction
+
+1. **Review Sale**:
+    
+    - Check item quantities and totals
+    - Review stock impact preview
+    - Add optional transaction notes
+2. **Action Options**:
+    
+    - Complete Sale: Finalizes transaction and updates inventory
+    - Save as Draft: Stores incomplete sale for later
+    - Cancel Sale: Abandons transaction without saving
+3. **Post-Transaction**:
+    
+    - System updates stock levels in database
+    - Transaction logged with timestamp and user ID
+    - Low-stock alerts triggered if applicable
+    - User returned to Inventory Overview with confirmation message
+
+## 6.10.3 Design Rationale
+
+### Error Prevention Focus
+
+- **Stock Validation**: Real-time validation prevents overselling
+- **Visual Warnings**: Yellow/red indicators catch attention before problems occur
+- **Stock Impact Preview**: Shows consequences before committing transaction
+- **Clear Stock Levels**: Current inventory visible throughout process
+
+### Efficiency Considerations
+
+- **Keyboard Navigation**: Supports both mouse and keyboard workflows
+- **Auto-calculations**: Reduces manual math and potential errors
+- **Save as Draft**: Allows interruption without losing work
+
+### User Experience Design
+
+- **Consistent Patterns**: Follows established design language from other screens
+- **Clear Visual Hierarchy**: Important information and actions are prominent
+- **Responsive Feedback**: Immediate updates as user makes changes
+- **Contextual Information**: Stock levels and warnings provided where needed
+
+### Business Logic Integration
+
+- **Inventory Protection**: Cannot sell more than available stock
+- **Audit Trail**: All sales linked to user and timestamp
+- **Alert Integration**: Automatic low-stock notifications triggered
+- **Draft Functionality**: Supports real-world interruptions in sales process
+
+### Accessibility Features
+
+- **Color Plus Symbol**: Warnings use both color and text/icons
+- **Keyboard Support**: All functions accessible without mouse
+- **Clear Labels**: All buttons and fields clearly labeled
+- **Sufficient Contrast**: Text remains readable on colored backgrounds
+
+## 6.10.4 Validation Rules
+
+### Product Addition
+
+- Product must be in stock at current location
+- Product must be active (not discontinued)
+- User must have permission to sell at this location
+
+### Quantity Validation
+
+- Minimum quantity: 1 unit
+- Maximum quantity: Current stock level
+- Must be whole number (no decimals)
+- Cannot exceed predefined sale limits (if configured)
+
+### Transaction Completion
+
+- At least one item must be in the sale
+- All quantities must be valid
+- User must be logged in with active session
+- Store must be currently selected
+
+### Stock Impact
+
+- Warning triggered when stock would go below minimum
+- Alert created if stock reaches critical level
+- Email notification sent based on alert configuration
+- Transaction still allowed but with clear warnings
+
+# 6.11 Record Purchase Screen Wireframe
+
+
+<svg viewBox="0 0 1450 920" xmlns="http://www.w3.org/2000/svg">
+<!-- Background -->
+<rect width="1450" height="920" fill="#e5e5e5"/>
+
+<!-- Title -->
+<text x="725" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#333">StockFlow Record Purchase Screen</text>
+
+<!-- Screen Container (increased height to prevent overlap) -->
+<rect x="50" y="60" width="800" height="790" rx="25" ry="25" fill="#f5f0e8" stroke="#333" stroke-width="3"/>
+
+<!-- Header Section with Store Context -->
+<rect x="70" y="80" width="760" height="65" rx="8" ry="8" fill="#ffffff" stroke="#ddd" stroke-width="1" filter="drop-shadow(0px 2px 4px rgba(0,0,0,0.1))"/>
+<text x="90" y="110" font-family="Arial, sans-serif" font-size="20" font-weight="bold" font-style="italic" fill="#333">StockFlow</text>
+<text x="90" y="130" font-family="Arial, sans-serif" font-size="13" fill="#666">Dashboard > Store Selection > Oxford Street > Record Purchase</text>
+
+<!-- Store Info Badge -->
+<rect x="600" y="90" width="120" height="45" rx="8" ry="8" fill="#e8f5e8" stroke="#c3e6c3" stroke-width="1"/>
+<text x="660" y="108" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#2d5a2d">Oxford Street</text>
+<text x="660" y="122" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#2d5a2d">Receiving Stock</text>
+
+<rect x="740" y="95" width="80" height="35" rx="17" ry="17" fill="#6c757d"/>
+<text x="780" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="white">← Cancel</text>
+
+<!-- Supplier Information Section -->
+<rect x="70" y="165" width="760" height="80" rx="8" ry="8" fill="#ffffff" stroke="#ddd" stroke-width="1" filter="drop-shadow(0px 2px 4px rgba(0,0,0,0.1))"/>
+<text x="90" y="190" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#333">Purchase Details</text>
+
+<rect x="90" y="205" width="260" height="30" rx="15" ry="15" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1"/>
+<text x="105" y="223" font-family="Arial, sans-serif" font-size="11" fill="#999">Supplier name (optional)...</text>
+
+<rect x="380" y="205" width="260" height="30" rx="15" ry="15" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1"/>
+<text x="395" y="223" font-family="Arial, sans-serif" font-size="11" fill="#999">Invoice/Reference #...</text>
+
+<rect x="670" y="205" width="140" height="30" rx="15" ry="15" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1"/>
+<text x="685" y="223" font-family="Arial, sans-serif" font-size="11" fill="#999">Delivery date...</text>
+
+<!-- Product Search Section (increased height) -->
+<rect x="70" y="265" width="760" height="75" rx="8" ry="8" fill="#f1f3f4" stroke="#e9ecef" stroke-width="1"/>
+<text x="90" y="290" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">Add Products to Purchase</text>
+
+<rect x="90" y="295" width="620" height="25" rx="12" ry="12" fill="#ffffff" stroke="#dee2e6" stroke-width="1"/>
+<text x="105" y="310" font-family="Arial, sans-serif" font-size="11" fill="#999">🔍 Search products by name or SKU...</text>
+
+<rect x="720" y="295" width="100" height="25" rx="12" ry="12" fill="#28a745"/>
+<text x="770" y="310" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white">+ Add Product</text>
+
+<!-- Purchase Items Section (moved down and increased height) -->
+<rect x="70" y="360" width="760" height="295" rx="8" ry="8" fill="#ffffff" stroke="#ddd" stroke-width="1" filter="drop-shadow(0px 2px 4px rgba(0,0,0,0.1))"/>
+<text x="90" y="385" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#333">Purchase Items</text>
+
+<!-- Purchase Items Table Header -->
+<rect x="90" y="400" width="720" height="30" rx="4" ry="4" fill="#f8f9fa" stroke="#e9ecef" stroke-width="1"/>
+<text x="100" y="418" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#333">Product</text>
+<text x="280" y="418" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#333">SKU</text>
+<text x="370" y="418" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#333">Current Stock</text>
+<text x="470" y="418" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#333">Quantity</text>
+<text x="560" y="418" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#333">Unit Cost</text>
+<text x="650" y="418" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#333">Subtotal</text>
+<text x="740" y="418" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#333">Action</text>
+
+<!-- Purchase Item 1 -->
+<rect x="90" y="430" width="720" height="50" rx="4" ry="4" fill="#e8f5e8" stroke="#c3e6c3" stroke-width="1"/>
+<text x="100" y="453" font-family="Arial, sans-serif" font-size="11" fill="#333">Classic Cotton T-Shirt</text>
+<text x="100" y="468" font-family="Arial, sans-serif" font-size="9" fill="#666">Blue, Size M</text>
+<text x="280" y="458" font-family="Arial, sans-serif" font-size="11" fill="#666">TSH-001</text>
+<text x="370" y="458" font-family="Arial, sans-serif" font-size="11" fill="#666">45 units</text>
+
+<!-- Quantity Input -->
+<rect x="460" y="445" width="60" height="25" rx="4" ry="4" fill="#ffffff" stroke="#28a745" stroke-width="1"/>
+<text x="490" y="461" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#333">50</text>
+<rect x="525" y="445" width="20" height="25" rx="4" ry="4" fill="#f8f9fa" stroke="#ced4da" stroke-width="1"/>
+<text x="535" y="461" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#666">+</text>
+<rect x="435" y="445" width="20" height="25" rx="4" ry="4" fill="#f8f9fa" stroke="#ced4da" stroke-width="1"/>
+<text x="445" y="461" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#666">-</text>
+
+<!-- Unit Cost Input -->
+<rect x="550" y="445" width="70" height="25" rx="4" ry="4" fill="#ffffff" stroke="#ced4da" stroke-width="1"/>
+<text x="585" y="461" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#333">£8.50</text>
+
+<text x="660" y="458" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#333">£425.00</text>
+<text x="740" y="458" font-family="Arial, sans-serif" font-size="11" fill="#dc3545" text-decoration="underline">Remove</text>
+
+<!-- Purchase Item 2 -->
+<rect x="90" y="485" width="720" height="50" rx="4" ry="4" fill="#e8f5e8" stroke="#c3e6c3" stroke-width="1"/>
+<text x="100" y="508" font-family="Arial, sans-serif" font-size="11" fill="#333">Denim Jeans - Blue</text>
+<text x="100" y="523" font-family="Arial, sans-serif" font-size="9" fill="#666">Size 32</text>
+<text x="280" y="513" font-family="Arial, sans-serif" font-size="11" fill="#666">JN-004</text>
+<text x="370" y="513" font-family="Arial, sans-serif" font-size="11" fill="#666">8 units</text>
+
+<!-- Quantity Input -->
+<rect x="460" y="500" width="60" height="25" rx="4" ry="4" fill="#ffffff" stroke="#28a745" stroke-width="1"/>
+<text x="490" y="516" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#333">30</text>
+<rect x="525" y="500" width="20" height="25" rx="4" ry="4" fill="#f8f9fa" stroke="#ced4da" stroke-width="1"/>
+<text x="535" y="516" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#666">+</text>
+<rect x="435" y="500" width="20" height="25" rx="4" ry="4" fill="#f8f9fa" stroke="#ced4da" stroke-width="1"/>
+<text x="445" y="516" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#666">-</text>
+
+<!-- Unit Cost Input -->
+<rect x="550" y="500" width="70" height="25" rx="4" ry="4" fill="#ffffff" stroke="#ced4da" stroke-width="1"/>
+<text x="585" y="516" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#333">£22.00</text>
+
+<text x="660" y="513" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#333">£660.00</text>
+<text x="740" y="513" font-family="Arial, sans-serif" font-size="11" fill="#dc3545" text-decoration="underline">Remove</text>
+
+<!-- Empty rows indicator -->
+<rect x="90" y="540" width="720" height="60" rx="4" ry="4" fill="#f8f9fa" stroke="#e9ecef" stroke-width="1" stroke-dasharray="5,5"/>
+
+<!-- Purchase Summary Section -->
+<rect x="90" y="610" width="720" height="25" rx="4" ry="4" fill="#e8f5e8" stroke="#c3e6c3" stroke-width="1"/>
+<text x="550" y="625" font-family="Arial, sans-serif" font-size="12" fill="#2d5a2d">Total Items: 80 units</text>
+<text x="660" y="625" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#2d5a2d">Total Cost: £1,085.00</text>
+
+<!-- Purchase Notes Section (moved down for more margin) -->
+<rect x="70" y="675" width="370" height="85" rx="8" ry="8" fill="#ffffff" stroke="#ddd" stroke-width="1" filter="drop-shadow(0px 2px 4px rgba(0,0,0,0.1))"/>
+<text x="90" y="700" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">Purchase Notes (Optional)</text>
+<rect x="90" y="710" width="330" height="40" rx="4" ry="4" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1"/>
+<text x="100" y="730" font-family="Arial, sans-serif" font-size="11" fill="#999">Add notes about this delivery...</text>
+
+<!-- Stock Impact Preview (moved down for more margin) -->
+<rect x="460" y="675" width="370" height="85" rx="8" ry="8" fill="#e8f5e8" stroke="#c3e6c3" stroke-width="1" filter="drop-shadow(0px 2px 4px rgba(0,0,0,0.1))"/>
+<text x="480" y="700" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">📦 Stock Update Preview</text>
+<text x="480" y="720" font-family="Arial, sans-serif" font-size="11" fill="#666">After this purchase:</text>
+<text x="480" y="738" font-family="Arial, sans-serif" font-size="11" fill="#2d5a2d">• Classic Cotton T-Shirt: 45 → 95 units ↑</text>
+<text x="480" y="755" font-family="Arial, sans-serif" font-size="11" fill="#2d5a2d">• Denim Jeans: 8 → 38 units ↑ (Above minimum)</text>
+
+<!-- Action Buttons (moved down to fit within container) -->
+<rect x="70" y="780" width="760" height="60" rx="8" ry="8" fill="#f1f3f4" stroke="#e9ecef" stroke-width="1"/>
+<rect x="480" y="795" width="170" height="35" rx="17" ry="17" fill="#28a745"/>
+<text x="565" y="815" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="white">✓ Complete Purchase</text>
+
+<rect x="660" y="795" width="160" height="35" rx="17" ry="17" fill="#dc3545"/>
+<text x="740" y="815" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="white">✗ Cancel Purchase</text>
+
+<rect x="90" y="795" width="140" height="35" rx="17" ry="17" fill="#6c757d"/>
+<text x="160" y="815" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="white">Save as Draft</text>
+
+<!-- Callout Numbers -->
+<circle cx="880" cy="112" r="12" fill="#d32f2f"/>
+<text x="880" y="118" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">1</text>
+
+<circle cx="880" cy="205" r="12" fill="#d32f2f"/>
+<text x="880" y="211" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">2</text>
+
+<circle cx="880" cy="307" r="12" fill="#d32f2f"/>
+<text x="880" y="313" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">3</text>
+
+<circle cx="880" cy="458" r="12" fill="#d32f2f"/>
+<text x="880" y="464" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">4</text>
+
+<circle cx="635" cy="500" r="12" fill="#d32f2f"/>
+<text x="635" y="506" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">5</text>
+
+<circle cx="880" cy="622" r="12" fill="#d32f2f"/>
+<text x="880" y="628" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">6</text>
+
+<circle cx="880" cy="717" r="12" fill="#d32f2f"/>
+<text x="880" y="723" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">7</text>
+
+<circle cx="880" cy="812" r="12" fill="#d32f2f"/>
+<text x="880" y="818" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">8</text>
+
+<!-- Annotation Boxes -->
+<!-- Annotation 1 -->
+<rect x="920" y="70" width="450" height="90" rx="6" ry="6" fill="white" stroke="#666" stroke-width="1" filter="drop-shadow(2px 2px 6px rgba(0,0,0,0.15))"/>
+<circle cx="945" cy="95" r="12" fill="#d32f2f"/>
+<text x="945" y="101" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">1</text>
+<text x="970" y="100" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">Header with Transaction Context:</text>
+<text x="970" y="118" font-family="Arial, sans-serif" font-size="12" fill="#333">Shows complete navigation path including current action.</text>
+<text x="970" y="134" font-family="Arial, sans-serif" font-size="12" fill="#333">Store badge indicates "Receiving Stock" status.</text>
+<text x="970" y="150" font-family="Arial, sans-serif" font-size="12" fill="#333">Cancel button returns to inventory without saving.</text>
+
+<!-- Annotation 2 -->
+<rect x="920" y="180" width="450" height="90" rx="6" ry="6" fill="white" stroke="#666" stroke-width="1" filter="drop-shadow(2px 2px 6px rgba(0,0,0,0.15))"/>
+<circle cx="945" cy="205" r="12" fill="#d32f2f"/>
+<text x="945" y="211" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">2</text>
+<text x="970" y="210" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">Purchase Details Section:</text>
+<text x="970" y="228" font-family="Arial, sans-serif" font-size="12" fill="#333">Optional fields for supplier name and invoice reference.</text>
+<text x="970" y="244" font-family="Arial, sans-serif" font-size="12" fill="#333">Delivery date field for accurate record keeping.</text>
+<text x="970" y="260" font-family="Arial, sans-serif" font-size="12" fill="#333">Helps maintain audit trail for stock receipts.</text>
+
+<!-- Annotation 3 -->
+<rect x="920" y="295" width="450" height="90" rx="6" ry="6" fill="white" stroke="#666" stroke-width="1" filter="drop-shadow(2px 2px 6px rgba(0,0,0,0.15))"/>
+<circle cx="945" cy="320" r="12" fill="#d32f2f"/>
+<text x="945" y="326" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">3</text>
+<text x="970" y="325" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">Product Search Bar:</text>
+<text x="970" y="343" font-family="Arial, sans-serif" font-size="12" fill="#333">Search by product name or SKU to add items.</text>
+<text x="970" y="359" font-family="Arial, sans-serif" font-size="12" fill="#333">Green "Add Product" button for positive action.</text>
+<text x="970" y="375" font-family="Arial, sans-serif" font-size="12" fill="#333">Gray background section for clear separation.</text>
+
+<!-- Annotation 4 -->
+<rect x="920" y="415" width="450" height="90" rx="6" ry="6" fill="white" stroke="#666" stroke-width="1" filter="drop-shadow(2px 2px 6px rgba(0,0,0,0.15))"/>
+<circle cx="945" cy="440" r="12" fill="#d32f2f"/>
+<text x="945" y="446" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">4</text>
+<text x="970" y="445" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">Purchase Items Table:</text>
+<text x="970" y="463" font-family="Arial, sans-serif" font-size="12" fill="#333">Shows current stock alongside new quantities being added.</text>
+<text x="970" y="479" font-family="Arial, sans-serif" font-size="12" fill="#333">Green row highlighting indicates positive stock impact.</text>
+<text x="970" y="495" font-family="Arial, sans-serif" font-size="12" fill="#333">Includes unit cost field for financial tracking.</text>
+
+<!-- Annotation 5 -->
+<rect x="920" y="520" width="450" height="90" rx="6" ry="6" fill="white" stroke="#666" stroke-width="1" filter="drop-shadow(2px 2px 6px rgba(0,0,0,0.15))"/>
+<circle cx="945" cy="545" r="12" fill="#d32f2f"/>
+<text x="945" y="551" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">5</text>
+<text x="970" y="550" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">Cost Input Controls:</text>
+<text x="970" y="568" font-family="Arial, sans-serif" font-size="12" fill="#333">Editable unit cost field for each product line.</text>
+<text x="970" y="584" font-family="Arial, sans-serif" font-size="12" fill="#333">Automatic subtotal calculation (quantity × unit cost).</text>
+<text x="970" y="600" font-family="Arial, sans-serif" font-size="12" fill="#333">Supports different costs for same product if needed.</text>
+
+<!-- Annotation 6 -->
+<rect x="920" y="620" width="450" height="90" rx="6" ry="6" fill="white" stroke="#666" stroke-width="1" filter="drop-shadow(2px 2px 6px rgba(0,0,0,0.15))"/>
+<circle cx="945" cy="645" r="12" fill="#d32f2f"/>
+<text x="945" y="651" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">6</text>
+<text x="970" y="650" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">Purchase Summary:</text>
+<text x="970" y="668" font-family="Arial, sans-serif" font-size="12" fill="#333">Total units being received and total purchase cost.</text>
+<text x="970" y="684" font-family="Arial, sans-serif" font-size="12" fill="#333">Green background indicates positive inventory action.</text>
+<text x="970" y="700" font-family="Arial, sans-serif" font-size="12" fill="#333">Updates in real-time as items are added or modified.</text>
+
+<!-- Annotation 7 -->
+<rect x="920" y="725" width="450" height="90" rx="6" ry="6" fill="white" stroke="#666" stroke-width="1" filter="drop-shadow(2px 2px 6px rgba(0,0,0,0.15))"/>
+<circle cx="945" cy="750" r="12" fill="#d32f2f"/>
+<text x="945" y="756" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">7</text>
+<text x="970" y="755" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">Stock Update Preview:</text>
+<text x="970" y="773" font-family="Arial, sans-serif" font-size="12" fill="#333">Shows positive stock changes with up arrows (↑).</text>
+<text x="970" y="789" font-family="Arial, sans-serif" font-size="12" fill="#333">Green box and text indicate healthy stock increases.</text>
+<text x="970" y="805" font-family="Arial, sans-serif" font-size="12" fill="#333">Confirms items moving above minimum levels.</text>
+
+<!-- Annotation 8 -->
+<rect x="920" y="830" width="450" height="70" rx="6" ry="6" fill="white" stroke="#666" stroke-width="1" filter="drop-shadow(2px 2px 6px rgba(0,0,0,0.15))"/>
+<circle cx="945" cy="850" r="12" fill="#d32f2f"/>
+<text x="945" y="856" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">8</text>
+<text x="970" y="855" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">Transaction Actions:</text>
+<text x="970" y="873" font-family="Arial, sans-serif" font-size="12" fill="#333">Complete Purchase: Confirms receipt and updates stock.</text>
+<text x="970" y="889" font-family="Arial, sans-serif" font-size="12" fill="#333">Save as Draft: Stores incomplete purchase for later.</text>
+</svg>
+
+
+## 6.11.1 Component Specifications
+
+### Header with Transaction Context (Callout 1)
+
+- **Application Branding**: Maintains consistent StockFlow logo positioning
+- **Extended Breadcrumb**: Shows complete path "Dashboard > Store Selection > Oxford Street > Record Purchase"
+- **Transaction Status Badge**: Green badge displays "Oxford Street - Receiving Stock" to confirm active transaction
+- **Cancel Button**: "← Cancel" button abandons the purchase and returns to inventory without saving
+- **Visual Design**: Header maintains consistency while clearly indicating stock receiving mode
+
+### Purchase Details Section (Callout 2)
+
+- **Supplier Name Field**: Optional text input for vendor identification (260px width)
+- **Invoice/Reference Field**: Optional field for purchase order or invoice numbers (260px width)
+- **Delivery Date Field**: Date input for accurate receipt tracking (140px width)
+- **Field Layout**: Even distribution across full container width with 30px gaps
+- **Purpose**: Maintains audit trail and enables better purchase history tracking
+
+### Product Search Bar (Callout 3)
+
+- **Search Field**: Large text input with placeholder "🔍 Search products by name or SKU..."
+- **Add Product Button**: Green color (#28a745) for positive inventory action
+- **Gray Background**: Light gray (#f1f3f4) section provides clear visual separation
+- **Container Height**: 75px provides adequate spacing below search elements
+- **Functionality**: Real-time search with filtered results based on input
+
+### Purchase Items Table (Callout 4)
+
+- **Column Structure**: Product, SKU, Current Stock, Quantity, Unit Cost, Subtotal, Action
+- **Row Highlighting**: Green background (#e8f5e8) indicates positive inventory impact
+- **Current Stock Display**: Shows existing inventory levels for reference
+- **Unit Cost Field**: Editable field for purchase price tracking
+- **Visual Feedback**: Green borders on quantity inputs reinforce positive action
+- **Container Height**: 295px allows proper spacing after summary bar
+
+### Cost Input Controls (Callout 5)
+
+- **Unit Cost Fields**: Editable inputs for each product line's purchase price
+- **Input Format**: Currency symbol with decimal support
+- **Flexibility**: Allows different costs for same product in single purchase
+- **Validation**: Ensures positive values with proper decimal formatting
+- **Auto-calculation**: Updates subtotal in real-time as cost changes
+
+### Purchase Summary (Callout 6)
+
+- **Total Units Display**: Sum of all quantities being received
+- **Total Cost Display**: Calculated purchase value with currency formatting
+- **Visual Design**: Green background bar (#e8f5e8) indicates positive action
+- **Real-time Updates**: Recalculates as items are added, removed, or modified
+- **Position**: Bottom of table for easy reference during data entry
+
+### Stock Update Preview (Callout 7)
+
+- **Container Design**: Green background (#e8f5e8) with box icon (📦)
+- **Before/After Display**: Shows current stock → new stock with up arrows (↑)
+- **Positive Messaging**: Green text indicates healthy inventory increases
+- **Status Updates**: Notes when items move above minimum stock levels
+- **Purpose**: Confirms positive impact before committing transaction
+
+### Transaction Actions (Callout 8)
+
+- **Complete Purchase Button**: Green color (#28a745) with checkmark for primary action
+- **Cancel Purchase Button**: Red color (#dc3545) with X icon for abandoning transaction
+- **Save as Draft Button**: Grey color (#6c757d) for saving incomplete purchases
+- **Button Layout**: Primary actions right-aligned, secondary action left-aligned
+- **Container Fit**: Properly positioned within screen bounds at 790px height
+
+## 6.11.2 User Interaction Flow
+
+### Initial Purchase Setup
+
+1. User arrives from Inventory Overview by clicking "Add Stock" button
+2. Store context maintained in header badge showing "Receiving Stock"
+3. Optional purchase details can be entered:
+    - Supplier name for vendor tracking
+    - Invoice/Reference number for documentation
+    - Delivery date for receipt timing
+4. Fields auto-save as draft if user navigates away
+
+### Adding Products to Purchase
+
+1. **Product Search**:
+    
+    - User types product name or SKU in search field
+    - Real-time results show matching products
+    - Current stock levels displayed in search results
+    - Click "Add Product" to include in purchase
+2. **Quantity Entry**:
+    
+    - Default quantity starts at 1
+    - Use +/- buttons or direct keyboard input
+    - No maximum limit (unlike sales)
+    - Green highlighting reinforces positive action
+3. **Cost Entry**:
+    
+    - Enter unit purchase cost for each line item
+    - Supports different costs for same product
+    - Automatic subtotal calculation
+    - Tab key moves between cost fields efficiently
+
+### Managing Purchase Items
+
+- **Multiple Products**: Add unlimited products to single purchase
+- **Inline Editing**: Modify quantities and costs directly in table
+- **Remove Items**: Click "Remove" link to delete line items
+- **Bulk Entry**: Optimized for entering multiple products quickly
+- **Running Totals**: Summary updates with each change
+
+### Completing the Purchase
+
+1. **Review Entries**:
+    
+    - Verify quantities and costs
+    - Check stock update preview
+    - Add optional notes about delivery
+2. **Action Options**:
+    
+    - Complete Purchase: Finalizes receipt and updates all stock levels
+    - Save as Draft: Preserves incomplete purchase for later
+    - Cancel Purchase: Abandons without saving
+3. **Post-Transaction**:
+    
+    - Stock levels updated in database
+    - Purchase logged with timestamp and user ID
+    - Supplier information saved if provided
+    - Return to Inventory Overview with confirmation
+
+## 6.11.3 Design Rationale
+
+### Positive Action Emphasis
+
+- **Green Color Scheme**: Reinforces inventory increase throughout interface
+- **Upward Arrows**: Visual indicators of stock growth
+- **Encouraging Language**: "Above minimum" messaging for positive reinforcement
+- **Container Heights**: Generous spacing prevents cramped appearance
+
+### Efficiency Features
+
+- **Optional Fields**: Supplier details not required for quick receipts
+- **Bulk Entry Support**: Optimized for receiving multiple items
+- **Tab Navigation**: Efficient keyboard movement between fields
+- **Auto-calculations**: Reduces manual computation errors
+
+### Financial Tracking
+
+- **Unit Cost Capture**: Essential for inventory valuation
+- **Flexible Pricing**: Same product can have different costs
+- **Total Visibility**: Running cost total for budget awareness
+- **Invoice Reference**: Links to source documentation
+
+### Visual Design Consistency
+
+- **Header Pattern**: Matches established navigation structure
+- **Button Styling**: Consistent colors and positioning
+- **Form Elements**: Uniform field styling across sections
+- **Status Indicators**: Green theme for positive inventory actions
+
+## 6.11.4 Validation Rules
+
+### Product Addition
+
+- Product must exist in system catalog
+- No duplicate products in same purchase
+- At least one product required to complete purchase
+
+### Quantity Validation
+
+- Minimum quantity: 1 unit
+- Must be positive whole number
+- No maximum limit (storage capacity assumed unlimited)
+- Zero not allowed (use Remove instead)
+
+### Cost Validation
+
+- Must be positive number
+- Supports up to 2 decimal places
+- Currency symbol handled automatically
+- Zero cost allowed with warning
+
+### Purchase Completion
+
+- At least one line item required
+- All costs must be entered
+- Optional fields truly optional
+- User session must be active
+
+### Data Integrity
+
+- Stock updates atomic (all or nothing)
+- Transaction logged before stock changes
+- Timestamp recorded in UTC
+- User ID captured for audit trail
+
+## 6.11.5 Business Process Integration
+
+### Supplier Management
+
+- Optional supplier tracking for future reporting
+- Invoice references support reconciliation
+- Delivery dates enable aging analysis
+- Foundation for purchase order system
+
+### Inventory Valuation
+
+- Unit costs enable FIFO/LIFO calculations
+- Supports weighted average costing
+- Historical cost data preserved
+- Links to financial reporting needs
+
+### Audit Compliance
+
+- Complete transaction history maintained
+- User accountability through ID tracking
+- Timestamp precision for investigations
+- Optional notes field for explanations
+
+### Workflow Support
+
+- Draft functionality handles interruptions
+- Bulk entry reduces receipt processing time
+- Visual confirmations prevent errors
+- Quick access from main inventory screen
