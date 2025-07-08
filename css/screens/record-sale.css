@@ -1,0 +1,270 @@
+/* ==================== MODULE: record-sale.css ==================== */
+/* Record Sale screen specific styles */
+
+/* Transaction Header */
+#record-sale .transaction-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+#record-sale .breadcrumb-nav {
+    display: flex;
+    align-items: center;
+    color: #666;
+    font-size: 13px;
+}
+
+#record-sale .breadcrumb-nav .separator {
+    margin: 0 10px;
+    color: #999;
+}
+
+#record-sale .breadcrumb-nav .current-page {
+    color: #333;
+    font-weight: 600;
+}
+
+#record-sale .store-context-badge {
+    background: #e8f5e8;
+    border: 1px solid #c3e6c3;
+    border-radius: 8px;
+    padding: 10px 20px;
+}
+
+#record-sale .store-info strong {
+    display: block;
+    color: #2d5a2d;
+    font-size: 14px;
+}
+
+#record-sale .store-info span {
+    font-size: 12px;
+    color: #4a7c4a;
+}
+
+#record-sale .cancel-button {
+    background: #6c757d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s;
+}
+
+#record-sale .cancel-button:hover {
+    background: #5a6268;
+}
+
+/* Product Search Section */
+#record-sale .product-search-section {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+#record-sale .product-search-section h3 {
+    margin: 0 0 15px 0;
+    color: #333;
+    font-size: 18px;
+}
+
+#record-sale .search-controls {
+    display: flex;
+    gap: 10px;
+    position: relative;
+}
+
+#record-sale .product-search-input {
+    flex: 1;
+    padding: 12px 20px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+#record-sale .product-search-input:focus {
+    outline: none;
+    border-color: #d4a574;
+}
+
+#record-sale .search-button {
+    background: #d4a574;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background 0.3s;
+}
+
+#record-sale .search-button:hover {
+    background: #c09660;
+}
+
+#record-sale .search-results-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-top: 5px;
+    max-height: 300px;
+    overflow-y: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+}
+
+/* Sale Items Section */
+#record-sale .sale-items-section {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+#record-sale .sale-items-section h3 {
+    margin: 0 0 15px 0;
+    color: #333;
+    font-size: 18px;
+}
+
+#record-sale .items-table-container {
+    overflow-x: auto;
+}
+
+#record-sale .sale-items-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#record-sale .sale-items-table th {
+    background: #f8f9fa;
+    padding: 12px;
+    text-align: left;
+    font-weight: 600;
+    color: #495057;
+    border-bottom: 2px solid #dee2e6;
+}
+
+#record-sale .sale-items-table td {
+    padding: 12px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+#record-sale .sale-items-table .empty-state {
+    text-align: center;
+    color: #999;
+    font-style: italic;
+}
+
+/* Transaction Summary */
+#record-sale .transaction-summary {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    max-width: 400px;
+    margin-left: auto;
+}
+
+#record-sale .summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    font-size: 14px;
+}
+
+#record-sale .summary-row.total {
+    border-top: 2px solid #e9ecef;
+    margin-top: 10px;
+    padding-top: 15px;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+#record-sale .process-sale-button {
+    width: 100%;
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background 0.3s;
+}
+
+#record-sale .process-sale-button:hover:not(:disabled) {
+    background: #218838;
+}
+
+#record-sale .process-sale-button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+/* Demo Controls */
+#record-sale .demo-controls {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+#record-sale .demo-controls h3 {
+    font-size: 16px;
+    margin: 0 0 10px 0;
+    color: #666;
+}
+
+#record-sale .demo-controls button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: background 0.3s;
+}
+
+#record-sale .demo-controls button:hover {
+    background: #0056b3;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #record-sale .transaction-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    #record-sale .breadcrumb-nav {
+        font-size: 12px;
+    }
+    
+    #record-sale .transaction-summary {
+        max-width: 100%;
+    }
+}

@@ -23,15 +23,20 @@ Add fully interactive Record Sale and Purchase screens to the StockFlow wirefram
 
 ## Phase 2: Basic CSS Styling (Non-breaking)
 ### Step 2.1: Create CSS files
-- [ ] Create css/screens/record-sale.css
-- [ ] Create css/screens/record-purchase.css
-- [ ] Add basic screen layout styles (hidden by default)
-- [ ] Test: No visual changes to existing screens
+- [x] Create css/screens/record-sale.css
+- [x] Create css/screens/record-purchase.css
+- [x] Add basic screen layout styles (hidden by default)
+- [x] Test: No visual changes to existing screens
 
 ### Step 2.2: Import CSS files
-- [ ] Add CSS imports to index.html
-- [ ] Verify CSS loads without errors
-- [ ] Test: Check browser console for any CSS errors
+- [x] Add CSS imports to index.html
+- [x] Verify CSS loads without errors
+- [x] Test: Check browser console for any CSS errors
+
+### Step 2.3: Commit Phase 2
+- [ ] Review all changes with git status
+- [ ] Stage and commit CSS files and imports
+- [ ] Commit message: "Add CSS styling for Record Sale and Purchase screens"
 
 ## Phase 3: Core JavaScript Structure (Non-breaking)
 ### Step 3.1: Create JavaScript modules
@@ -46,6 +51,11 @@ Add fully interactive Record Sale and Purchase screens to the StockFlow wirefram
 - [ ] Keep screens non-functional (just log initialization)
 - [ ] Test: Console shows initialization logs when navigating
 
+### Step 3.3: Commit Phase 3
+- [ ] Review all changes with git status
+- [ ] Stage and commit JavaScript structure files
+- [ ] Commit message: "Add JavaScript module structure for transaction screens"
+
 ## Phase 4: Navigation Integration (First visible change)
 ### Step 4.1: Enable navigation
 - [ ] Update navigation menu to make new items clickable
@@ -58,6 +68,11 @@ Add fully interactive Record Sale and Purchase screens to the StockFlow wirefram
 - [ ] Implement breadcrumb trail for Record Purchase
 - [ ] Include store context in breadcrumbs
 - [ ] Test: Breadcrumbs show correct path
+
+### Step 4.3: Commit Phase 4
+- [ ] Review all changes with git status
+- [ ] Stage and commit navigation integration
+- [ ] Commit message: "Enable navigation to Record Sale and Purchase screens"
 
 ## Phase 5: Record Sale Screen Implementation
 ### Step 5.1: Static layout
@@ -88,6 +103,11 @@ Add fully interactive Record Sale and Purchase screens to the StockFlow wirefram
 - [ ] Update local product quantities
 - [ ] Test: Sale reduces inventory numbers
 
+### Step 5.5: Commit Phase 5
+- [ ] Review all changes with git status
+- [ ] Stage and commit Record Sale implementation
+- [ ] Commit message: "Implement Record Sale screen functionality"
+
 ## Phase 6: Record Purchase Screen Implementation
 ### Step 6.1: Static layout
 - [ ] Add header with store context
@@ -117,6 +137,11 @@ Add fully interactive Record Sale and Purchase screens to the StockFlow wirefram
 - [ ] Update local product quantities
 - [ ] Test: Purchase increases inventory
 
+### Step 6.5: Commit Phase 6
+- [ ] Review all changes with git status
+- [ ] Stage and commit Record Purchase implementation
+- [ ] Commit message: "Implement Record Purchase screen functionality"
+
 ## Phase 7: Advanced Features
 ### Step 7.1: Demo controls
 - [ ] Add demo control buttons for Record Sale
@@ -139,6 +164,11 @@ Add fully interactive Record Sale and Purchase screens to the StockFlow wirefram
 - [ ] Handle browser refresh
 - [ ] Test: Drafts persist correctly
 
+### Step 7.4: Commit Phase 7
+- [ ] Review all changes with git status
+- [ ] Stage and commit advanced features
+- [ ] Commit message: "Add advanced features to transaction screens"
+
 ## Phase 8: Integration and Polish
 ### Step 8.1: Cross-screen updates
 - [ ] Update dashboard after transactions
@@ -160,6 +190,11 @@ Add fully interactive Record Sale and Purchase screens to the StockFlow wirefram
 - [ ] Add keyboard shortcuts
 - [ ] Ensure mobile responsiveness
 - [ ] Test: Professional user experience
+
+### Step 8.4: Commit Phase 8
+- [ ] Review all changes with git status
+- [ ] Stage and commit final integration
+- [ ] Commit message: "Complete transaction screens with integration and polish"
 
 ## Testing Checklist (Run after each phase)
 - [ ] All existing screens still function
