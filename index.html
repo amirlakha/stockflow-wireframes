@@ -415,14 +415,14 @@
                             <span class="separator">></span>
                             <span>Store Selection</span>
                             <span class="separator">></span>
-                            <span class="store-name">Oxford Street</span>
+                            <span class="store-name" id="sale-store-name">Store</span>
                             <span class="separator">></span>
                             <span class="current-page">Record Sale</span>
                         </div>
                     </div>
                     <div class="store-context-badge">
                         <div class="store-info">
-                            <strong>Oxford Street</strong>
+                            <strong id="sale-store-badge">Store</strong>
                             <span>Recording Sale</span>
                         </div>
                     </div>
@@ -434,11 +434,9 @@
                     <h3>Add Products to Sale</h3>
                     <div class="search-controls">
                         <input type="text" class="product-search-input" placeholder="Search by product name, SKU, or scan barcode...">
-                        <button class="search-button">Search</button>
+                        <button class="search-button">Add to Sale</button>
                     </div>
-                    <div class="search-results-dropdown" style="display: none;">
-                        <!-- Dynamic search results will appear here -->
-                    </div>
+                    <!-- Search results dropdown will be added dynamically -->
                 </div>
 
                 <!-- Selected Items Table -->
@@ -450,6 +448,7 @@
                                 <tr>
                                     <th>Product</th>
                                     <th>SKU</th>
+                                    <th>In Stock</th>
                                     <th>Unit Price</th>
                                     <th>Quantity</th>
                                     <th>Subtotal</th>
@@ -458,28 +457,39 @@
                             </thead>
                             <tbody>
                                 <tr class="empty-state">
-                                    <td colspan="6">No items added to sale yet. Search for products above.</td>
+                                    <td colspan="7">No items added to sale yet. Search for products above.</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
+                    <!-- Transaction Summary Bar -->
+                    <div class="transaction-summary-bar">
+                        <div class="summary-content">
+                            <span class="summary-label">Subtotal: <span class="subtotal-amount">£0.00</span></span>
+                            <span class="summary-label">VAT (20%): <span class="vat-amount">£0.00</span></span>
+                            <span class="summary-label total">Total: <span class="total-amount">£0.00</span></span>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Transaction Summary -->
-                <div class="transaction-summary">
-                    <div class="summary-row">
-                        <span>Subtotal:</span>
-                        <span class="subtotal-amount">£0.00</span>
+                <!-- Bottom Section -->
+                <div class="bottom-section">
+                    <div class="transaction-notes">
+                        <h3>Transaction Notes (Optional)</h3>
+                        <textarea placeholder="Add any notes about this sale..." rows="4"></textarea>
                     </div>
-                    <div class="summary-row">
-                        <span>VAT (20%):</span>
-                        <span class="vat-amount">£0.00</span>
+                    <div class="stock-impact-preview">
+                        <h3>Stock Impact Preview</h3>
+                        <div class="preview-content">
+                            <p class="preview-message">Add items to see stock impact</p>
+                        </div>
                     </div>
-                    <div class="summary-row total">
-                        <span>Total:</span>
-                        <span class="total-amount">£0.00</span>
-                    </div>
-                    <button class="process-sale-button" disabled>Complete Sale</button>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button class="complete-sale-button" disabled>Complete Sale</button>
+                    <button class="cancel-sale-button">Cancel</button>
                 </div>
             </div>
 
@@ -503,7 +513,7 @@
                     </div>
                     <div class="store-context-badge">
                         <div class="store-info">
-                            <strong>Oxford Street</strong>
+                            <strong id="purchase-store-badge">Store</strong>
                             <span>Receiving Stock</span>
                         </div>
                     </div>
@@ -534,47 +544,47 @@
                                 <tr>
                                     <th>Product</th>
                                     <th>SKU</th>
+                                    <th>Current Stock</th>
                                     <th>Quantity</th>
                                     <th>Unit Cost</th>
-                                    <th>Total Cost</th>
+                                    <th>Subtotal</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr class="empty-state">
-                                    <td colspan="6">No items added yet. Click "Add Product" to begin.</td>
+                                    <td colspan="7">No items added yet. Click "Add Product" to begin.</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
+                    <!-- Transaction Summary Bar -->
+                    <div class="transaction-summary-bar">
+                        <div class="summary-content">
+                            <span class="summary-label">Total Items: <span class="total-items">0 units</span></span>
+                            <span class="summary-label total">Total Cost: <span class="total-cost">£0.00</span></span>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Purchase Summary -->
-                <div class="purchase-summary">
-                    <div class="summary-section">
-                        <h4>Purchase Summary</h4>
-                        <div class="summary-row">
-                            <span>Total Items:</span>
-                            <span class="total-items">0</span>
-                        </div>
-                        <div class="summary-row">
-                            <span>Total Units:</span>
-                            <span class="total-units">0</span>
-                        </div>
-                        <div class="summary-row total">
-                            <span>Total Cost:</span>
-                            <span class="total-cost">£0.00</span>
+                <!-- Bottom Section -->
+                <div class="bottom-section">
+                    <div class="purchase-notes">
+                        <h3>Purchase Notes (Optional)</h3>
+                        <textarea placeholder="Add any notes about this purchase..." rows="4"></textarea>
+                    </div>
+                    <div class="stock-update-preview">
+                        <h3>Stock Update Preview</h3>
+                        <div class="preview-content">
+                            <p class="preview-message">Add items to see stock update</p>
                         </div>
                     </div>
-                    
-                    <div class="stock-preview-section">
-                        <h4>Stock Update Preview</h4>
-                        <div class="preview-message">
-                            Add items to see how stock levels will change
-                        </div>
-                    </div>
-                    
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
                     <button class="complete-purchase-button" disabled>Complete Purchase</button>
+                    <button class="cancel-purchase-button">Cancel</button>
                 </div>
             </div>
 

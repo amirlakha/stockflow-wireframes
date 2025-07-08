@@ -402,6 +402,9 @@ const inventoryDemoControls = {
             const baseProducts = this.storeProducts['oxford-street'];
             this.currentProducts = this.generateAdditionalProducts('oxford-street', baseProducts, 45);
         }
+        
+        // Update sessionStorage after initializing products
+        this.updateSessionStorage();
     },
     
     setSelectedStore(store) {
@@ -410,6 +413,26 @@ const inventoryDemoControls = {
         // Reinitialize inventory with store-specific products
         this.initializeInventory();
         this.updateInventoryHeader();
+        
+        // Update sessionStorage with the store including products
+        if (store && this.currentProducts) {
+            const storeWithProducts = {
+                ...store,
+                products: this.currentProducts
+            };
+            sessionStorage.setItem('selectedStore', JSON.stringify(storeWithProducts));
+        }
+    },
+    
+    updateSessionStorage() {
+        // Update sessionStorage with current store and products
+        if (this.selectedStore && this.currentProducts) {
+            const storeWithProducts = {
+                ...this.selectedStore,
+                products: this.currentProducts
+            };
+            sessionStorage.setItem('selectedStore', JSON.stringify(storeWithProducts));
+        }
     },
     
     updateInventoryHeader() {

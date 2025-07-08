@@ -2,10 +2,25 @@
 /* Demo functionality for Record Purchase screen */
 
 const recordPurchaseDemo = {
+    // Store reference
+    selectedStore: null,
+    
     // Initialize the screen
     init() {
         console.log('Record Purchase screen initialized');
-        // TODO: Add initialization logic in Phase 6
+        
+        // Get store context from sessionStorage
+        const storeContext = sessionStorage.getItem('selectedStore');
+        if (storeContext) {
+            this.selectedStore = JSON.parse(storeContext);
+            console.log('Store context loaded:', this.selectedStore.name);
+            
+            // Update store name in UI
+            const storeNameElement = document.getElementById('purchase-store-name');
+            const storeBadgeElement = document.getElementById('purchase-store-badge');
+            if (storeNameElement) storeNameElement.textContent = this.selectedStore.name;
+            if (storeBadgeElement) storeBadgeElement.textContent = this.selectedStore.name;
+        }
     },
 
     // Demo: Show single item purchase

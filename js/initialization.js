@@ -156,8 +156,17 @@ function selectStore(storeId) {
     // Pass store data to inventory before navigation
     if (store && inventoryDemoControls) {
         inventoryDemoControls.setSelectedStore(store);
-        // Save selected store to session storage
-        sessionStorage.setItem('selectedStore', JSON.stringify(store));
+        
+        // Get the actual products for this store
+        let storeWithProducts = {...store};
+        if (inventoryDemoControls.storeProducts && inventoryDemoControls.storeProducts[storeId]) {
+            const baseProducts = inventoryDemoControls.storeProducts[storeId];
+            const targetCount = store.products;
+            storeWithProducts.products = inventoryDemoControls.generateAdditionalProducts(storeId, baseProducts, targetCount);
+        }
+        
+        // Save selected store with products to session storage
+        sessionStorage.setItem('selectedStore', JSON.stringify(storeWithProducts));
     }
     
     // Navigate directly to inventory without alert
