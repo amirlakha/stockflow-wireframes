@@ -87,6 +87,32 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(inventoryScreen, { attributes: true, attributeFilter: ['class'] });
     }
     
+    // Initialize Record Sale screen when it becomes active
+    const recordSaleScreen = document.getElementById('record-sale');
+    if (recordSaleScreen) {
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.target.classList.contains('active')) {
+                    recordSaleDemo.init();
+                }
+            });
+        });
+        observer.observe(recordSaleScreen, { attributes: true, attributeFilter: ['class'] });
+    }
+    
+    // Initialize Record Purchase screen when it becomes active
+    const recordPurchaseScreen = document.getElementById('record-purchase');
+    if (recordPurchaseScreen) {
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.target.classList.contains('active')) {
+                    recordPurchaseDemo.init();
+                }
+            });
+        });
+        observer.observe(recordPurchaseScreen, { attributes: true, attributeFilter: ['class'] });
+    }
+    
     // Add event listeners for store selection filters
     setupStoreSelectionFilters();
 });
