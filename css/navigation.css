@@ -51,3 +51,14 @@
     border-bottom-color: #d4a574;
     background: #faf9f7;
 }
+
+.nav-button.nav-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.nav-button.nav-disabled:hover {
+    background: none;
+    color: #666;
+}

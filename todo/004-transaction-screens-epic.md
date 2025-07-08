@@ -10,16 +10,16 @@ Add fully interactive Record Sale and Purchase screens to the StockFlow wirefram
 
 ## Phase 1: Static HTML Structure (Non-breaking)
 ### Step 1.1: Add HTML sections for both screens
-- [ ] Add Record Sale screen HTML section to index.html
-- [ ] Add Record Purchase screen HTML section to index.html
-- [ ] Ensure screens are hidden by default (display: none)
-- [ ] Test: Verify existing screens still work, new screens don't appear
+- [x] Add Record Sale screen HTML section to index.html
+- [x] Add Record Purchase screen HTML section to index.html
+- [x] Ensure screens are hidden by default (display: none)
+- [x] Test: Verify existing screens still work, new screens don't appear
 
 ### Step 1.2: Update navigation menu
-- [ ] Add "Record Sale" menu item (after Inventory Overview)
-- [ ] Add "Record Purchase" menu item (after Record Sale)
-- [ ] Keep menu items disabled/grayed out initially
-- [ ] Test: Menu shows new items but they're not clickable yet
+- [x] Add "Record Sale" menu item (after Inventory Overview)
+- [x] Add "Record Purchase" menu item (after Record Sale)
+- [x] Keep menu items disabled/grayed out initially
+- [x] Test: Menu shows new items but they're not clickable yet
 
 ## Phase 2: Basic CSS Styling (Non-breaking)
 ### Step 2.1: Create CSS files

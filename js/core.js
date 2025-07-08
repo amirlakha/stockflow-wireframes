@@ -4,6 +4,12 @@
 // Navigation functionality with proper button activation
 function showScreenAndActivate(buttonElement, screenId) {
     try {
+        // Check if button is disabled
+        if (buttonElement && buttonElement.classList.contains('nav-disabled')) {
+            console.log('Navigation blocked: Button is disabled');
+            return;
+        }
+        
         // Remove active class from all nav buttons
         document.querySelectorAll('.nav-button').forEach(button => {
             button.classList.remove('active');
@@ -149,14 +155,22 @@ function showScreenContent(screenId) {
 
 // Utility navigation functions
 function navigateTo(screenId) {
+    // Check if the target screen's nav button is disabled
+    const targetButton = Array.from(document.querySelectorAll('.nav-button')).find(button => {
+        return button.onclick && button.onclick.toString().includes(screenId);
+    });
+    
+    if (targetButton && targetButton.classList.contains('nav-disabled')) {
+        console.log('Navigation blocked: Screen is disabled');
+        showAlert('This feature is coming soon!');
+        return;
+    }
+    
     if (screens[screenId]) {
         showScreen(screenId);
         // Update the nav button
         document.querySelectorAll('.nav-button').forEach(button => {
             button.classList.remove('active');
-        });
-        const targetButton = Array.from(document.querySelectorAll('.nav-button')).find(button => {
-            return button.onclick && button.onclick.toString().includes(screenId);
         });
         if (targetButton) {
             targetButton.classList.add('active');
