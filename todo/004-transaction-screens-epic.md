@@ -52,24 +52,32 @@ Add fully interactive Record Sale and Purchase screens to the StockFlow wirefram
 - [x] Test: Console shows initialization logs when navigating
 
 ### Step 3.3: Commit Phase 3
-- [ ] Review all changes with git status
-- [ ] Stage and commit JavaScript structure files
-- [ ] Commit message: "Add JavaScript module structure for transaction screens"
+- [x] Review all changes with git status
+- [x] Stage and commit JavaScript structure files
+- [x] Commit message: "Add JavaScript module structure for transaction screens"
 
 ## Phase 4: Navigation Integration (First visible change)
 ### Step 4.1: Enable navigation
-- [ ] Update navigation menu to make new items clickable
-- [ ] Add screen switching logic in core.js
-- [ ] Ensure proper screen hiding/showing
-- [ ] Test: Can navigate to new screens (they'll be empty)
+- [x] Update navigation menu to make new items clickable
+- [x] Add screen switching logic in core.js
+- [x] Ensure proper screen hiding/showing
+- [x] Test: Can navigate to new screens (they'll be empty)
 
 ### Step 4.2: Add breadcrumb navigation
-- [ ] Implement breadcrumb trail for Record Sale
-- [ ] Implement breadcrumb trail for Record Purchase
-- [ ] Include store context in breadcrumbs
-- [ ] Test: Breadcrumbs show correct path
+- [x] Implement breadcrumb trail for Record Sale
+- [x] Implement breadcrumb trail for Record Purchase
+- [x] Include store context in breadcrumbs
+- [x] Test: Breadcrumbs show correct path
 
-### Step 4.3: Commit Phase 4
+### Step 4.3: Fix wireframe consistency issues
+- [x] Move demo controls outside screen content (like other screens)
+- [x] Fix breadcrumb alignment - all on one line
+- [x] Update button labels: "Process Sale" → "Complete Sale" 
+- [x] Update button colors: Complete Sale (green), Cancel (gray)
+- [x] Make Record Purchase screen consistent with Record Sale fixes
+- [x] Test: Screens match wireframe structure
+
+### Step 4.4: Commit Phase 4
 - [ ] Review all changes with git status
 - [ ] Stage and commit navigation integration
 - [ ] Commit message: "Enable navigation to Record Sale and Purchase screens"
@@ -78,9 +86,13 @@ Add fully interactive Record Sale and Purchase screens to the StockFlow wirefram
 ### Step 5.1: Static layout
 - [ ] Add header with store context badge
 - [ ] Create product search section
-- [ ] Add selected items table structure
-- [ ] Include transaction summary panel
-- [ ] Test: Visual layout matches wireframe
+- [ ] Add selected items table structure (include "In Stock" column)
+- [ ] Add transaction summary as green bar under table (not separate box)
+- [ ] Add bottom section with two columns:
+  - Transaction Notes (Optional) on left
+  - Stock Impact Preview (yellow box) on right
+- [ ] Add two action buttons at bottom: Complete Sale (green), Cancel Sale (gray)
+- [ ] Test: Visual layout matches wireframe exactly
 
 ### Step 5.2: Product search functionality
 - [ ] Implement product search input
@@ -111,10 +123,14 @@ Add fully interactive Record Sale and Purchase screens to the StockFlow wirefram
 ## Phase 6: Record Purchase Screen Implementation
 ### Step 6.1: Static layout
 - [ ] Add header with store context
-- [ ] Create supplier details section
-- [ ] Add product entry table
-- [ ] Include purchase summary panel
-- [ ] Test: Visual layout matches wireframe
+- [ ] Create supplier details section (3 input fields in row)
+- [ ] Add product entry table (with Current Stock column)
+- [ ] Add total summary bar under table
+- [ ] Add bottom section with two columns:
+  - Purchase Notes (Optional) on left
+  - Stock Update Preview (green box) on right
+- [ ] Add two action buttons at bottom: Complete Purchase (green), Cancel Purchase (gray)
+- [ ] Test: Visual layout matches wireframe exactly
 
 ### Step 6.2: Product entry system
 - [ ] Implement add product row functionality

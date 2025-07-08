@@ -1,6 +1,17 @@
 /* ==================== MODULE: record-sale.css ==================== */
 /* Record Sale screen specific styles */
 
+/* Container styling to match other screens */
+.screen-content#record-sale {
+    background: #f5f0e8;
+    border: 3px solid #333;
+    border-radius: 25px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 20px auto;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
 /* Transaction Header */
 #record-sale .transaction-header {
     display: flex;
@@ -8,9 +19,24 @@
     align-items: center;
     background: white;
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
+    gap: 20px;
+}
+
+#record-sale .header-left {
+    flex: 1;
+    min-width: 0;
+}
+
+#record-sale .header-left h1 {
+    font-size: 20px;
+    font-weight: bold;
+    font-style: italic;
+    color: #333;
+    margin: 0 0 5px 0;
 }
 
 #record-sale .breadcrumb-nav {
@@ -18,11 +44,28 @@
     align-items: center;
     color: #666;
     font-size: 13px;
+    white-space: nowrap;
+    flex-wrap: nowrap;
+}
+
+#record-sale .breadcrumb-nav span {
+    font-family: inherit;
+    font-size: 13px;
+    line-height: 1;
+    display: inline;
+    white-space: nowrap;
 }
 
 #record-sale .breadcrumb-nav .separator {
-    margin: 0 10px;
+    margin: 0 8px;
     color: #999;
+}
+
+#record-sale .breadcrumb-nav .store-name {
+    color: #666;
+    font-weight: normal;
+    margin: 0;
+    font-size: 13px;
 }
 
 #record-sale .breadcrumb-nav .current-page {

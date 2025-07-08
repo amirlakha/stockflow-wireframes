@@ -20,6 +20,10 @@ const screens = {
         title: 'Record Sale',
         description: 'Transaction processing interface for recording customer sales, validating stock availability, and automatically updating inventory levels with full audit trail.'
     },
+    'record-purchase': {
+        title: 'Record Purchase',
+        description: 'Stock receiving interface for recording new inventory arrivals, tracking supplier information, costs, and automatically updating stock levels with purchase history.'
+    },
     'alerts': {
         title: 'Alerts Dashboard',
         description: 'Monitor and manage low-stock notifications across all accessible stores with severity indicators, historical tracking, and email notification controls.'

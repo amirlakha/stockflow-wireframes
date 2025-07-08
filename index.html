@@ -30,8 +30,8 @@
         <button class="nav-button" onclick="showScreenAndActivate(this, 'dashboard')">Main Dashboard</button>
         <button class="nav-button" onclick="showScreenAndActivate(this, 'store-selection')">Store Selection</button>
         <button class="nav-button" onclick="showScreenAndActivate(this, 'inventory')">Inventory Overview</button>
-        <button class="nav-button nav-disabled" onclick="showScreenAndActivate(this, 'record-sale')">Record Sale</button>
-        <button class="nav-button nav-disabled" onclick="showScreenAndActivate(this, 'record-purchase')">Record Purchase</button>
+        <button class="nav-button" onclick="showScreenAndActivate(this, 'record-sale')">Record Sale</button>
+        <button class="nav-button" onclick="showScreenAndActivate(this, 'record-purchase')">Record Purchase</button>
         <button class="nav-button" onclick="showScreenAndActivate(this, 'alerts')">Alerts Dashboard</button>
     </nav>
 
@@ -408,22 +408,25 @@
             <div id="record-sale" class="screen-content">
                 <!-- Header Section -->
                 <div class="transaction-header">
-                    <div class="breadcrumb-nav">
-                        <span>Dashboard</span>
-                        <span class="separator">></span>
-                        <span>Store Selection</span>
-                        <span class="separator">></span>
-                        <span class="store-name">Oxford Street</span>
-                        <span class="separator">></span>
-                        <span class="current-page">Record Sale</span>
+                    <div class="header-left">
+                        <h1>StockFlow</h1>
+                        <div class="breadcrumb-nav">
+                            <span>Dashboard</span>
+                            <span class="separator">></span>
+                            <span>Store Selection</span>
+                            <span class="separator">></span>
+                            <span class="store-name">Oxford Street</span>
+                            <span class="separator">></span>
+                            <span class="current-page">Record Sale</span>
+                        </div>
                     </div>
                     <div class="store-context-badge">
                         <div class="store-info">
                             <strong>Oxford Street</strong>
-                            <span>Processing Sale</span>
+                            <span>Recording Sale</span>
                         </div>
                     </div>
-                    <button class="cancel-button">← Back to Inventory</button>
+                    <button class="cancel-button">← Cancel</button>
                 </div>
 
                 <!-- Product Search Section -->
@@ -476,16 +479,7 @@
                         <span>Total:</span>
                         <span class="total-amount">£0.00</span>
                     </div>
-                    <button class="process-sale-button" disabled>Process Sale</button>
-                </div>
-
-                <!-- Demo Controls -->
-                <div class="demo-controls">
-                    <h3>Demo Controls</h3>
-                    <button onclick="recordSaleDemo.showNormalSale()">Normal Sale</button>
-                    <button onclick="recordSaleDemo.showMultiItemSale()">Multi-Item Sale</button>
-                    <button onclick="recordSaleDemo.showLowStockWarning()">Low Stock Warning</button>
-                    <button onclick="recordSaleDemo.clearSale()">Clear Sale</button>
+                    <button class="process-sale-button" disabled>Complete Sale</button>
                 </div>
             </div>
 
@@ -495,14 +489,17 @@
             <div id="record-purchase" class="screen-content">
                 <!-- Header Section -->
                 <div class="transaction-header">
-                    <div class="breadcrumb-nav">
-                        <span>Dashboard</span>
-                        <span class="separator">></span>
-                        <span>Store Selection</span>
-                        <span class="separator">></span>
-                        <span class="store-name">Oxford Street</span>
-                        <span class="separator">></span>
-                        <span class="current-page">Record Purchase</span>
+                    <div class="header-left">
+                        <h1>StockFlow</h1>
+                        <div class="breadcrumb-nav">
+                            <span>Dashboard</span>
+                            <span class="separator">></span>
+                            <span>Store Selection</span>
+                            <span class="separator">></span>
+                            <span class="store-name">Oxford Street</span>
+                            <span class="separator">></span>
+                            <span class="current-page">Record Purchase</span>
+                        </div>
                     </div>
                     <div class="store-context-badge">
                         <div class="store-info">
@@ -579,15 +576,6 @@
                     
                     <button class="complete-purchase-button" disabled>Complete Purchase</button>
                 </div>
-
-                <!-- Demo Controls -->
-                <div class="demo-controls">
-                    <h3>Demo Controls</h3>
-                    <button onclick="recordPurchaseDemo.showSingleItem()">Single Item Purchase</button>
-                    <button onclick="recordPurchaseDemo.showBulkPurchase()">Bulk Purchase</button>
-                    <button onclick="recordPurchaseDemo.showWithSupplier()">With Supplier Info</button>
-                    <button onclick="recordPurchaseDemo.clearPurchase()">Clear Purchase</button>
-                </div>
             </div>
 
             <!-- ==================== MODULE: screens/alerts-dashboard.html ==================== -->
@@ -660,7 +648,27 @@
             </div>
 
             <div id="record-sale-demo" class="demo-controls-content">
-                <p style="color: #666; text-align: center; padding: 20px;">Demo controls will be available when this screen is built.</p>
+                <div class="demo-controls-grid">
+                    <button class="demo-button" onclick="recordSaleDemo.showNormalSale()">Normal Sale</button>
+                    <button class="demo-button" onclick="recordSaleDemo.showMultiItemSale()">Multi-Item Sale</button>
+                    <button class="demo-button" onclick="recordSaleDemo.showLowStockWarning()">Low Stock Warning</button>
+                    <button class="demo-button" onclick="recordSaleDemo.clearSale()">Clear Sale</button>
+                </div>
+                <p style="margin-top: 15px; font-size: 13px; color: #666;">
+                    <strong>Note:</strong> Demo functionality will be implemented in Phase 5.
+                </p>
+            </div>
+            
+            <div id="record-purchase-demo" class="demo-controls-content">
+                <div class="demo-controls-grid">
+                    <button class="demo-button" onclick="recordPurchaseDemo.showSingleItem()">Single Item Purchase</button>
+                    <button class="demo-button" onclick="recordPurchaseDemo.showBulkPurchase()">Bulk Purchase</button>
+                    <button class="demo-button" onclick="recordPurchaseDemo.showWithSupplier()">With Supplier Info</button>
+                    <button class="demo-button" onclick="recordPurchaseDemo.clearPurchase()">Clear Purchase</button>
+                </div>
+                <p style="margin-top: 15px; font-size: 13px; color: #666;">
+                    <strong>Note:</strong> Demo functionality will be implemented in Phase 6.
+                </p>
             </div>
 
             <div id="alerts-demo" class="demo-controls-content">
