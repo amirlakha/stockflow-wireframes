@@ -862,8 +862,8 @@ const inventoryDemoControls = {
     },
     
     handleAddStock() {
-        console.log('Add Stock clicked');
-        alert('Add Stock\n\nThis would open a dialog to add new stock.\n\nFeatures:\n• Product selection\n• Quantity to add\n• Supplier info\n• Update inventory levels');
+        console.log('Add Stock clicked - navigating to Record Purchase screen');
+        navigateTo('record-purchase');
     },
     
     handleAdjustStock() {

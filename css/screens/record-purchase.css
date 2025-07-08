@@ -141,6 +141,105 @@
     border-color: #d4a574;
 }
 
+/* Product Search Section */
+#record-purchase .product-search-section {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+#record-purchase .product-search-section h3 {
+    margin: 0 0 15px 0;
+    color: #333;
+    font-size: 18px;
+}
+
+#record-purchase .search-controls {
+    position: relative;
+}
+
+#record-purchase .product-search-input {
+    width: 100%;
+    padding: 12px 20px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+#record-purchase .product-search-input:focus {
+    outline: none;
+    border-color: #c3e6c3;
+}
+
+
+#record-purchase .search-results-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-top: 5px;
+    max-height: 300px;
+    overflow-y: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+}
+
+#record-purchase .search-result-item {
+    padding: 12px 15px;
+    border-bottom: 1px solid #f0f0f0;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.2s;
+}
+
+#record-purchase .search-result-item.selected {
+    background: #f8f9fa;
+}
+
+#record-purchase .search-result-item:last-child {
+    border-bottom: none;
+}
+
+#record-purchase .product-info {
+    flex: 1;
+}
+
+#record-purchase .product-name {
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 4px;
+}
+
+#record-purchase .product-details {
+    font-size: 12px;
+    color: #666;
+}
+
+#record-purchase .product-details span {
+    margin-right: 15px;
+}
+
+#record-purchase .product-price {
+    font-weight: 600;
+    color: #28a745;
+    font-size: 16px;
+}
+
+#record-purchase .no-results {
+    padding: 20px;
+    text-align: center;
+    color: #999;
+    font-style: italic;
+}
+
 /* Product Entry Section */
 #record-purchase .product-entry-section {
     background: white;
@@ -348,35 +447,107 @@
     background: #5a6268;
 }
 
-/* Demo Controls */
-#record-purchase .demo-controls {
+/* Table controls styling */
+#record-purchase .product-select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+#record-purchase .quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+#record-purchase .qty-decrease,
+#record-purchase .qty-increase {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ddd;
     background: #f8f9fa;
-    padding: 15px;
-    border-radius: 8px;
-    margin-top: 20px;
-}
-
-#record-purchase .demo-controls h3 {
+    border-radius: 4px;
+    cursor: pointer;
     font-size: 16px;
-    margin: 0 0 10px 0;
-    color: #666;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
 }
 
-#record-purchase .demo-controls button {
-    background: #007bff;
+#record-purchase .qty-decrease:hover,
+#record-purchase .qty-increase:hover {
+    background: #e9ecef;
+    border-color: #adb5bd;
+}
+
+#record-purchase .qty-input {
+    width: 60px;
+    height: 30px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+#record-purchase .cost-input {
+    width: 100px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    text-align: right;
+}
+
+#record-purchase .subtotal-cell {
+    font-weight: 600;
+    text-align: right;
+}
+
+#record-purchase .remove-item {
+    background: #dc3545;
     color: white;
     border: none;
-    padding: 8px 16px;
-    border-radius: 5px;
-    margin-right: 10px;
-    margin-bottom: 5px;
+    padding: 6px 12px;
+    border-radius: 4px;
     cursor: pointer;
     font-size: 13px;
-    transition: background 0.3s;
+    transition: background 0.2s;
 }
 
-#record-purchase .demo-controls button:hover {
-    background: #0056b3;
+#record-purchase .remove-item:hover {
+    background: #c82333;
+}
+
+/* Stock update preview styles */
+#record-purchase .update-summary h4 {
+    margin: 0 0 10px 0;
+    font-size: 14px;
+    color: #2d5a2d;
+}
+
+#record-purchase .update-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    font-size: 13px;
+    border-bottom: 1px solid #c3e6c3;
+}
+
+#record-purchase .update-item:last-child {
+    border-bottom: none;
+}
+
+#record-purchase .update-change {
+    color: #28a745;
+    font-weight: 600;
+}
+
+#record-purchase .new-stock {
+    color: #666;
+    font-size: 12px;
 }
 
 /* Responsive adjustments */

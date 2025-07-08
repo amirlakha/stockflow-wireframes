@@ -426,7 +426,7 @@
                             <span>Recording Sale</span>
                         </div>
                     </div>
-                    <button class="cancel-button">← Cancel</button>
+                    <button class="cancel-button" onclick="navigateTo('inventory')">← Back to Inventory</button>
                 </div>
 
                 <!-- Product Search Section -->
@@ -434,7 +434,6 @@
                     <h3>Add Products to Sale</h3>
                     <div class="search-controls">
                         <input type="text" class="product-search-input" placeholder="Search by product name, SKU, or scan barcode...">
-                        <button class="search-button">Add to Sale</button>
                     </div>
                     <!-- Search results dropdown will be added dynamically -->
                 </div>
@@ -506,7 +505,7 @@
                             <span class="separator">></span>
                             <span>Store Selection</span>
                             <span class="separator">></span>
-                            <span class="store-name">Oxford Street</span>
+                            <span class="store-name" id="purchase-store-name">Store</span>
                             <span class="separator">></span>
                             <span class="current-page">Record Purchase</span>
                         </div>
@@ -517,7 +516,7 @@
                             <span>Receiving Stock</span>
                         </div>
                     </div>
-                    <button class="cancel-button">← Cancel</button>
+                    <button class="cancel-button" onclick="navigateTo('inventory')">← Back to Inventory</button>
                 </div>
 
                 <!-- Purchase Details Section -->
@@ -530,13 +529,18 @@
                     </div>
                 </div>
 
+                <!-- Product Search Section -->
+                <div class="product-search-section">
+                    <h3>Add Products to Purchase</h3>
+                    <div class="search-controls">
+                        <input type="text" class="product-search-input" placeholder="Search by product name, SKU, or scan barcode...">
+                    </div>
+                    <!-- Search results dropdown will be added dynamically -->
+                </div>
+
                 <!-- Product Entry Section -->
                 <div class="product-entry-section">
-                    <div class="section-header">
-                        <h3>Purchase Items</h3>
-                        <button class="add-product-button">+ Add Product</button>
-                        <button class="add-multiple-button">Add Multiple</button>
-                    </div>
+                    <h3>Purchase Items</h3>
                     
                     <div class="purchase-items-table-container">
                         <table class="purchase-items-table">
@@ -658,27 +662,11 @@
             </div>
 
             <div id="record-sale-demo" class="demo-controls-content">
-                <div class="demo-controls-grid">
-                    <button class="demo-button" onclick="recordSaleDemo.showNormalSale()">Normal Sale</button>
-                    <button class="demo-button" onclick="recordSaleDemo.showMultiItemSale()">Multi-Item Sale</button>
-                    <button class="demo-button" onclick="recordSaleDemo.showLowStockWarning()">Low Stock Warning</button>
-                    <button class="demo-button" onclick="recordSaleDemo.clearSale()">Clear Sale</button>
-                </div>
-                <p style="margin-top: 15px; font-size: 13px; color: #666;">
-                    <strong>Note:</strong> Demo functionality will be implemented in Phase 5.
-                </p>
+                <p style="color: #666; text-align: center; padding: 20px;">No demo controls needed - screen is fully interactive.</p>
             </div>
             
             <div id="record-purchase-demo" class="demo-controls-content">
-                <div class="demo-controls-grid">
-                    <button class="demo-button" onclick="recordPurchaseDemo.showSingleItem()">Single Item Purchase</button>
-                    <button class="demo-button" onclick="recordPurchaseDemo.showBulkPurchase()">Bulk Purchase</button>
-                    <button class="demo-button" onclick="recordPurchaseDemo.showWithSupplier()">With Supplier Info</button>
-                    <button class="demo-button" onclick="recordPurchaseDemo.clearPurchase()">Clear Purchase</button>
-                </div>
-                <p style="margin-top: 15px; font-size: 13px; color: #666;">
-                    <strong>Note:</strong> Demo functionality will be implemented in Phase 6.
-                </p>
+                <p style="color: #666; text-align: center; padding: 20px;">No demo controls needed - screen is fully interactive.</p>
             </div>
 
             <div id="alerts-demo" class="demo-controls-content">
@@ -895,41 +883,115 @@
                 </div>
             </div>
 
-            <div id="record-sale-notes" class="notes-content">
-                <div class="flow-notes">
-                    <h4>Coming Soon:</h4>
-                    <ul>
-                        <li>Detailed implementation notes will be added when this screen is built</li>
-                        <li>User flow documentation</li>
-                        <li>Technical specifications</li>
-                        <li>Database integration details</li>
-                    </ul>
-                </div>
-            </div>
-
             <!-- Record Sale Notes -->
             <div id="record-sale-notes" class="notes-content">
                 <div class="flow-notes">
-                    <h4>Implementation Status:</h4>
+                    <h4>User Flow & Process:</h4>
                     <ul>
-                        <li>Static HTML structure in place</li>
-                        <li>JavaScript functionality pending</li>
-                        <li>Store context integration planned</li>
-                        <li>Demo controls ready for implementation</li>
+                        <li>Screen displays store context from previous selection</li>
+                        <li>Search for products by name, SKU, or barcode</li>
+                        <li>Click search results to add products to sale</li>
+                        <li>Adjust quantities with +/- buttons or type directly</li>
+                        <li>Remove items with individual remove buttons</li>
+                        <li>View real-time calculations (subtotal, VAT 20%, total)</li>
+                        <li>Preview stock impact in yellow warning box</li>
+                        <li>Add optional transaction notes in text area</li>
+                        <li>Complete sale button enabled when items added</li>
+                        <li>Back/Cancel buttons return to inventory screen</li>
                     </ul>
+                </div>
+                
+                <div class="technical-notes">
+                    <div class="note-card">
+                        <h5>🔍 Search & Selection</h5>
+                        <ul>
+                            <li>Live search as user types (no button needed)</li>
+                            <li>Keyboard navigation: Arrow keys to navigate, Enter to select</li>
+                            <li>Mouse hover highlights items independently</li>
+                            <li>Click outside dropdown to close</li>
+                            <li>Search clears after selection</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="note-card">
+                        <h5>📊 Inventory Management</h5>
+                        <ul>
+                            <li>Products loaded from store's sessionStorage context</li>
+                            <li>Current stock shown in search results</li>
+                            <li>Quantity validation prevents exceeding stock</li>
+                            <li>Stock impact preview shows remaining quantities</li>
+                            <li>In-memory updates only (no backend persistence)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="note-card">
+                        <h5>💡 Implementation Details</h5>
+                        <ul>
+                            <li>VAT calculated at 20% automatically</li>
+                            <li>Empty quantity inputs default to 1 on blur</li>
+                            <li>Quantity inputs only accept positive integers</li>
+                            <li>Summary bar uses green styling (#e8f5e8)</li>
+                            <li>Stock preview uses yellow warning styling</li>
+                            <li>Breadcrumb dynamically shows selected store</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 
             <!-- Record Purchase Notes -->
             <div id="record-purchase-notes" class="notes-content">
                 <div class="flow-notes">
-                    <h4>Implementation Status:</h4>
+                    <h4>User Flow & Process:</h4>
                     <ul>
-                        <li>Static HTML structure in place</li>
-                        <li>JavaScript functionality pending</li>
-                        <li>Bulk entry feature planned</li>
-                        <li>Demo scenarios ready for implementation</li>
+                        <li>Screen displays store context from previous selection</li>
+                        <li>Enter supplier details (optional but recommended)</li>
+                        <li>Search for products using same interface as Record Sale</li>
+                        <li>Click search results to add products to purchase</li>
+                        <li>Set quantities with +/- buttons or type directly</li>
+                        <li>Enter unit costs (defaults to current price)</li>
+                        <li>View subtotals and total cost in real-time</li>
+                        <li>Preview stock increases in green info box</li>
+                        <li>Add optional purchase notes in text area</li>
+                        <li>Complete purchase button enabled when items added</li>
+                        <li>Back/Cancel buttons return to inventory screen</li>
                     </ul>
+                </div>
+                
+                <div class="technical-notes">
+                    <div class="note-card">
+                        <h5>💰 Purchase Details</h5>
+                        <ul>
+                            <li>Supplier name: Free text input</li>
+                            <li>Invoice number: Free text input</li>
+                            <li>Delivery date: Date picker input</li>
+                            <li>All supplier fields are optional</li>
+                            <li>Form data cleared on completion</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="note-card">
+                        <h5>📦 Product Entry</h5>
+                        <ul>
+                            <li>Search interface identical to Record Sale</li>
+                            <li>Current stock shown for reference</li>
+                            <li>Quantity inputs accept positive integers only</li>
+                            <li>Unit cost allows decimals (£0.00 format)</li>
+                            <li>Cost field maintains focus during typing</li>
+                            <li>Subtotals update without losing input focus</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="note-card">
+                        <h5>💡 Implementation Details</h5>
+                        <ul>
+                            <li>Summary bar uses green styling (matches inventory)</li>
+                            <li>Stock preview shows "+X units" format</li>
+                            <li>Unit cost defaults to product's current price</li>
+                            <li>Format cost to 2 decimal places on blur</li>
+                            <li>No "Add Multiple" or bulk import features yet</li>
+                            <li>Breadcrumb dynamically shows selected store</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 

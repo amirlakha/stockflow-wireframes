@@ -105,10 +105,10 @@ function showScreenContent(screenId) {
             demoElement.classList.add('active');
         }
         
-        // Hide demo controls section entirely for dashboard
+        // Hide demo controls section entirely for screens that don't need them
         const demoSection = document.querySelector('.demo-controls-section');
         if (demoSection) {
-            if (screenId === 'dashboard') {
+            if (screenId === 'dashboard' || screenId === 'record-sale' || screenId === 'record-purchase') {
                 demoSection.style.display = 'none';
             } else {
                 demoSection.style.display = 'block';

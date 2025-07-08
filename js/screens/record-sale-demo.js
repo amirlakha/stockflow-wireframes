@@ -40,27 +40,9 @@ const recordSaleDemo = {
         this.updateSummary();
     },
 
-    // Demo: Show normal sale scenario
-    showNormalSale() {
-        console.log('Demo: Normal sale scenario');
-        // TODO: Implement in Phase 5
-    },
-
-    // Demo: Show multi-item sale
-    showMultiItemSale() {
-        console.log('Demo: Multi-item sale scenario');
-        // TODO: Implement in Phase 5
-    },
-
-    // Demo: Show low stock warning
-    showLowStockWarning() {
-        console.log('Demo: Low stock warning scenario');
-        // TODO: Implement in Phase 5
-    },
-
-    // Demo: Clear the sale
+    // Clear the current sale
     clearSale() {
-        console.log('Demo: Clearing sale');
+        console.log('Clearing sale');
         this.saleItems = [];
         this.updateSaleTable();
         this.updateSummary();
@@ -69,12 +51,11 @@ const recordSaleDemo = {
     // Initialize search functionality
     initializeSearch() {
         const searchInput = document.querySelector('#record-sale .product-search-input');
-        const searchButton = document.querySelector('#record-sale .search-button');
         
-        console.log('Initializing search - Input:', searchInput, 'Button:', searchButton);
+        console.log('Initializing search - Input:', searchInput);
         
-        if (!searchInput || !searchButton) {
-            console.log('Search elements not found!');
+        if (!searchInput) {
+            console.log('Search input not found!');
             return;
         }
         
@@ -88,40 +69,51 @@ const recordSaleDemo = {
             searchControls.appendChild(dropdown);
         }
         
+        // Track selected index
+        this.selectedSearchIndex = -1;
+        
         // Search input event - live search as user types
         searchInput.addEventListener('input', (e) => {
             const query = e.target.value.trim();
             if (query.length > 0) {
                 this.performSearch(query);
+                this.selectedSearchIndex = -1;
             } else {
                 this.hideSearchResults();
             }
         });
         
-        // Add to Sale button - adds first search result
-        searchButton.addEventListener('click', () => {
-            const query = searchInput.value.trim();
-            if (query.length > 0 && this.selectedStore && this.selectedStore.products) {
-                // Find first matching product
-                const firstMatch = this.selectedStore.products.find(product => 
-                    product.name.toLowerCase().includes(query.toLowerCase()) ||
-                    product.sku.toLowerCase().includes(query.toLowerCase())
-                );
-                
-                if (firstMatch) {
-                    this.addProductToSale(firstMatch);
-                    searchInput.value = '';
-                    this.hideSearchResults();
-                } else {
-                    alert('No products found matching: ' + query);
-                }
-            }
-        });
-        
-        // Enter key to add first result
-        searchInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                searchButton.click();
+        // Keyboard navigation
+        searchInput.addEventListener('keydown', (e) => {
+            const dropdown = document.querySelector('#record-sale .search-results-dropdown');
+            const items = dropdown ? dropdown.querySelectorAll('.search-result-item') : [];
+            
+            if (items.length === 0 && e.key === 'Enter') return;
+            
+            switch(e.key) {
+                case 'ArrowDown':
+                    e.preventDefault();
+                    if (dropdown.style.display !== 'none') {
+                        this.selectedSearchIndex = Math.min(this.selectedSearchIndex + 1, items.length - 1);
+                        this.updateSelectedItem(items);
+                    }
+                    break;
+                    
+                case 'ArrowUp':
+                    e.preventDefault();
+                    if (dropdown.style.display !== 'none') {
+                        this.selectedSearchIndex = Math.max(this.selectedSearchIndex - 1, -1);
+                        this.updateSelectedItem(items);
+                    }
+                    break;
+                    
+                case 'Enter':
+                    e.preventDefault();
+                    if (this.selectedSearchIndex >= 0 && items[this.selectedSearchIndex]) {
+                        items[this.selectedSearchIndex].click();
+                    }
+                    break;
+                    
             }
         });
         
@@ -129,6 +121,19 @@ const recordSaleDemo = {
         document.addEventListener('click', (e) => {
             if (!e.target.closest('#record-sale .search-controls')) {
                 this.hideSearchResults();
+            }
+        });
+    },
+    
+    // Update selected item highlighting
+    updateSelectedItem(items) {
+        items.forEach((item, index) => {
+            if (index === this.selectedSearchIndex) {
+                item.classList.add('selected');
+                // Ensure selected item is visible
+                item.scrollIntoView({ block: 'nearest' });
+            } else {
+                item.classList.remove('selected');
             }
         });
     },
@@ -196,7 +201,8 @@ const recordSaleDemo = {
             `).join('');
             
             // Add click handlers to results
-            dropdown.querySelectorAll('.search-result-item').forEach(item => {
+            const allItems = dropdown.querySelectorAll('.search-result-item');
+            allItems.forEach((item, index) => {
                 item.addEventListener('click', () => {
                     const sku = item.getAttribute('data-sku');
                     const product = this.selectedStore.products.find(p => p.sku === sku);
@@ -205,6 +211,12 @@ const recordSaleDemo = {
                         this.hideSearchResults();
                         document.querySelector('#record-sale .product-search-input').value = '';
                     }
+                });
+                
+                // Update selection on mouse hover
+                item.addEventListener('mouseenter', () => {
+                    this.selectedSearchIndex = index;
+                    this.updateSelectedItem(allItems);
                 });
             });
         }
@@ -265,8 +277,8 @@ const recordSaleDemo = {
                     <td>
                         <div class="quantity-controls">
                             <button class="qty-decrease" data-index="${index}">-</button>
-                            <input type="number" class="qty-input" value="${item.quantity}" 
-                                   min="1" max="${item.stock}" data-index="${index}" readonly>
+                            <input type="text" class="qty-input" value="${item.quantity}" 
+                                   data-index="${index}">
                             <button class="qty-increase" data-index="${index}">+</button>
                         </div>
                     </td>
@@ -289,6 +301,41 @@ const recordSaleDemo = {
                 btn.addEventListener('click', (e) => {
                     const index = parseInt(e.target.dataset.index);
                     this.increaseQuantity(index);
+                });
+            });
+            
+            tbody.querySelectorAll('.qty-input').forEach(input => {
+                input.addEventListener('input', (e) => {
+                    const index = parseInt(e.target.dataset.index);
+                    // Remove non-digits from input
+                    const cleanValue = e.target.value.replace(/[^\d]/g, '');
+                    e.target.value = cleanValue;
+                    
+                    const quantity = parseInt(cleanValue) || 0;
+                    
+                    if (quantity > 0 && quantity <= this.saleItems[index].stock) {
+                        this.saleItems[index].quantity = quantity;
+                        this.updateSummary();
+                        this.updateStockImpactPreview();
+                    } else if (quantity > this.saleItems[index].stock) {
+                        // Limit to available stock
+                        e.target.value = this.saleItems[index].stock;
+                        this.saleItems[index].quantity = this.saleItems[index].stock;
+                        this.updateSummary();
+                        this.updateStockImpactPreview();
+                    } else if (cleanValue === '') {
+                        // Allow empty during typing
+                        this.saleItems[index].quantity = 1;
+                    }
+                });
+                
+                // Restore value on blur if empty
+                input.addEventListener('blur', (e) => {
+                    if (e.target.value === '') {
+                        const index = parseInt(e.target.dataset.index);
+                        e.target.value = this.saleItems[index].quantity;
+                        this.updateSummary();
+                    }
                 });
             });
             
@@ -382,10 +429,12 @@ const recordSaleDemo = {
         if (this.saleItems.length > 0) {
             if (confirm('Cancel this sale? All items will be removed.')) {
                 this.clearSale();
+                navigateTo('inventory');
             }
         } else {
-            // Navigate back or close
+            // Navigate back to inventory
             console.log('Cancelling sale');
+            navigateTo('inventory');
         }
     }
 };
