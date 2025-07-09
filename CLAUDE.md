@@ -32,6 +32,8 @@ js/
     dashboard-demo.js       /* Dashboard demo controls */
     inventory-demo.js       /* Inventory screen demo (Phase 3 complete) */
     store-selection-demo.js /* Store selection demo */
+    record-sale-demo.js     /* Record Sale screen (Phase 5 complete) */
+    record-purchase-demo.js /* Record Purchase screen (Phase 5 complete) */
   initialization.js         /* App initialization */
 
 index.html             /* Main entry point */
@@ -49,7 +51,9 @@ Each screen follows this pattern:
 - **Phase 2 Complete**: Inventory Overview JavaScript foundation
 - **Phase 3 Complete**: Inventory Overview (fully interactive with search, filters, sorting, pagination, and summary stats)
 - **Phase 4 Complete**: Store-Inventory Connection (context passing, dynamic products, real dashboard data)
-- **Future Screens Planned**: Record Sale, Alerts Dashboard
+- **Phase 5 Complete**: Record Sale & Purchase Screens (fully interactive with real-time inventory updates)
+- **Phase 6 Complete**: Transaction Integration (inventory updates persist, dashboard reflects changes)
+- **Future Screens Planned**: Alerts Dashboard, Reports
 
 ## Key Development Patterns
 1. **Demo Controls**: Each screen has buttons to demonstrate different states (normal, error, busy)
@@ -68,6 +72,9 @@ Each screen follows this pattern:
 - The inventory screen auto-initializes when navigated to
 - Dashboard shows real data calculated from all 8 stores
 - Store selection maintains context through navigation
+- Transaction screens update inventory in real-time (persisted in sessionStorage)
+- Draft transactions are saved automatically and restored on navigation
+- Stock status changes automatically based on quantity thresholds
 - Sync concept was removed as this is a desktop app with local DB
 
 ## IMPORTANT PROJECT-SPECIFIC INSTRUCTIONS:
