@@ -507,12 +507,60 @@ const recordSaleDemo = {
             return;
         }
         
+        // Update inventory quantities
+        this.updateInventoryQuantities();
+        
         // In a real app, this would update the backend
         alert('Sale completed successfully!');
         this.clearSale();
         
         // Navigate back to inventory
         navigateTo('inventory');
+    },
+    
+    // Update inventory quantities after sale
+    updateInventoryQuantities() {
+        if (!this.selectedStore) {
+            console.error('No store selected');
+            return;
+        }
+        
+        // Get current store data from sessionStorage
+        const storeData = sessionStorage.getItem('selectedStore');
+        if (!storeData) {
+            console.error('No store data in sessionStorage');
+            return;
+        }
+        
+        const store = JSON.parse(storeData);
+        
+        // Update quantities for each sold item
+        this.saleItems.forEach(saleItem => {
+            const productIndex = store.products.findIndex(p => p.sku === saleItem.sku);
+            if (productIndex !== -1) {
+                // Decrease the stock quantity
+                store.products[productIndex].stock -= saleItem.quantity;
+                
+                // Update status based on new stock level
+                const newStock = store.products[productIndex].stock;
+                if (newStock <= 5) {
+                    store.products[productIndex].status = 'critical';
+                } else if (newStock <= 20) {
+                    store.products[productIndex].status = 'warning';
+                } else {
+                    store.products[productIndex].status = 'good';
+                }
+                
+                console.log(`Updated ${saleItem.name}: ${saleItem.stock} -> ${newStock}`);
+            }
+        });
+        
+        // Save updated store data back to sessionStorage
+        sessionStorage.setItem('selectedStore', JSON.stringify(store));
+        console.log('Inventory updated in sessionStorage');
+        
+        // Trigger inventory refresh flag
+        sessionStorage.setItem('inventoryNeedsRefresh', 'true');
     },
     
     // Validate sale before completion

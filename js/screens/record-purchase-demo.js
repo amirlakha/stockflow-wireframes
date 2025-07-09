@@ -594,6 +594,9 @@ const recordPurchaseDemo = {
             items: this.purchaseItems.filter(item => item.product)
         });
         
+        // Update inventory quantities
+        this.updateInventoryQuantities();
+        
         alert('Purchase recorded successfully!');
         this.clearPurchase();
         
@@ -641,6 +644,51 @@ const recordPurchaseDemo = {
     showValidationErrors(errors) {
         const errorMessage = 'Cannot complete purchase:\n\n' + errors.map(e => '• ' + e).join('\n');
         alert(errorMessage);
+    },
+    
+    // Update inventory quantities after purchase
+    updateInventoryQuantities() {
+        if (!this.selectedStore) {
+            console.error('No store selected');
+            return;
+        }
+        
+        // Get current store data from sessionStorage
+        const storeData = sessionStorage.getItem('selectedStore');
+        if (!storeData) {
+            console.error('No store data in sessionStorage');
+            return;
+        }
+        
+        const store = JSON.parse(storeData);
+        
+        // Update quantities for each purchased item
+        this.purchaseItems.filter(item => item.product).forEach(purchaseItem => {
+            const productIndex = store.products.findIndex(p => p.sku === purchaseItem.product.sku);
+            if (productIndex !== -1) {
+                // Increase the stock quantity
+                store.products[productIndex].stock += purchaseItem.quantity;
+                
+                // Update status based on new stock level
+                const newStock = store.products[productIndex].stock;
+                if (newStock <= 5) {
+                    store.products[productIndex].status = 'critical';
+                } else if (newStock <= 20) {
+                    store.products[productIndex].status = 'warning';
+                } else {
+                    store.products[productIndex].status = 'good';
+                }
+                
+                console.log(`Updated ${purchaseItem.product.name}: ${purchaseItem.product.stock} -> ${newStock}`);
+            }
+        });
+        
+        // Save updated store data back to sessionStorage
+        sessionStorage.setItem('selectedStore', JSON.stringify(store));
+        console.log('Inventory updated in sessionStorage');
+        
+        // Trigger inventory refresh flag
+        sessionStorage.setItem('inventoryNeedsRefresh', 'true');
     },
     
     // Cancel purchase

@@ -391,16 +391,23 @@ const inventoryDemoControls = {
 
     // Utility functions
     initializeInventory() {
-        // Use store-specific products if a store is selected
-        if (this.selectedStore && this.storeProducts[this.selectedStore.id]) {
+        // First check if we have products in the selected store from sessionStorage
+        if (this.selectedStore && this.selectedStore.products && Array.isArray(this.selectedStore.products)) {
+            // Use existing products from sessionStorage (these may have been updated by transactions)
+            this.currentProducts = this.selectedStore.products;
+            console.log('Loaded existing products from sessionStorage:', this.currentProducts.length);
+        } else if (this.selectedStore && this.storeProducts[this.selectedStore.id]) {
+            // Generate new products only if none exist in sessionStorage
             const baseProducts = this.storeProducts[this.selectedStore.id];
-            const targetCount = this.selectedStore.products;
+            const targetCount = this.selectedStore.products || 45;
             // Generate additional products to match the store's product count
             this.currentProducts = this.generateAdditionalProducts(this.selectedStore.id, baseProducts, targetCount);
+            console.log('Generated new products:', this.currentProducts.length);
         } else {
             // Default to Oxford Street products with full count
             const baseProducts = this.storeProducts['oxford-street'];
             this.currentProducts = this.generateAdditionalProducts('oxford-street', baseProducts, 45);
+            console.log('Using default Oxford Street products:', this.currentProducts.length);
         }
         
         // Update sessionStorage after initializing products
@@ -410,8 +417,21 @@ const inventoryDemoControls = {
     setSelectedStore(store) {
         this.selectedStore = store;
         console.log('Store context set:', store);
-        // Reinitialize inventory with store-specific products
-        this.initializeInventory();
+        
+        // Only reinitialize if we don't have products or if the store changed
+        const needsInit = !this.currentProducts || this.currentProducts.length === 0 || 
+                         (this.previousStoreId && this.previousStoreId !== store.id);
+        
+        if (needsInit) {
+            // Reinitialize inventory with store-specific products
+            this.initializeInventory();
+        } else if (store.products && Array.isArray(store.products)) {
+            // Use the products from the store object if available
+            this.currentProducts = store.products;
+            console.log('Using products from store object:', this.currentProducts.length);
+        }
+        
+        this.previousStoreId = store.id;
         this.updateInventoryHeader();
         
         // Update sessionStorage with the store including products

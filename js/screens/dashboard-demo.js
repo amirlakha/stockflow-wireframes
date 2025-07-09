@@ -16,6 +16,24 @@ const dashboardDemoControls = {
             { id: 'kings-road', name: 'Kings Road Chelsea', products: 18, alerts: 2 }
         ];
         
+        // Check if we have updated data for the selected store in sessionStorage
+        const selectedStoreData = sessionStorage.getItem('selectedStore');
+        if (selectedStoreData) {
+            const selectedStore = JSON.parse(selectedStoreData);
+            const storeIndex = allStores.findIndex(s => s.id === selectedStore.id);
+            
+            if (storeIndex !== -1 && selectedStore.products) {
+                // Update the store's product count and alerts based on actual data
+                allStores[storeIndex].products = selectedStore.products.length;
+                
+                // Calculate alerts (warning + critical status items)
+                const alertCount = selectedStore.products.filter(p => 
+                    p.status === 'warning' || p.status === 'critical'
+                ).length;
+                allStores[storeIndex].alerts = alertCount;
+            }
+        }
+        
         const totalStores = allStores.length;
         const totalAlerts = allStores.reduce((sum, store) => sum + store.alerts, 0);
         const totalProducts = allStores.reduce((sum, store) => sum + store.products, 0);

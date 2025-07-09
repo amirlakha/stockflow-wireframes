@@ -56,21 +56,43 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize store selection demo controls
     storeSelectionDemoControls.initialize();
     
+    // Initialize dashboard screen observer to update stats when it becomes active
+    const dashboardScreen = document.getElementById('dashboard');
+    if (dashboardScreen) {
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.target.classList.contains('active')) {
+                    // Always update dashboard stats when screen becomes active
+                    dashboardDemoControls.updateDashboardStats();
+                }
+            });
+        });
+        observer.observe(dashboardScreen, { attributes: true, attributeFilter: ['class'] });
+    }
+    
     // Initialize inventory screen when it becomes active
     const inventoryScreen = document.getElementById('inventory');
     if (inventoryScreen) {
         const observer = new MutationObserver(function(mutations) {
             mutations.forEach(function(mutation) {
                 if (mutation.target.classList.contains('active')) {
+                    // Check if inventory needs refresh (after a sale or purchase)
+                    const needsRefresh = sessionStorage.getItem('inventoryNeedsRefresh');
+                    
                     // Restore selected store from session if available
                     const savedStore = sessionStorage.getItem('selectedStore');
-                    if (savedStore && !inventoryDemoControls.selectedStore) {
+                    if (savedStore) {
                         const store = JSON.parse(savedStore);
+                        
+                        // Always set the selected store to ensure we have the latest data
                         inventoryDemoControls.setSelectedStore(store);
-                    }
-                    
-                    // Initialize inventory when screen becomes active
-                    if (inventoryDemoControls.currentProducts.length === 0) {
+                        
+                        // Clear the refresh flag if it was set
+                        if (needsRefresh === 'true') {
+                            sessionStorage.removeItem('inventoryNeedsRefresh');
+                        }
+                    } else if (inventoryDemoControls.currentProducts.length === 0) {
+                        // Only initialize if we have no products and no saved store
                         inventoryDemoControls.initializeInventory();
                     }
                     inventoryDemoControls.updateInventoryHeader();
