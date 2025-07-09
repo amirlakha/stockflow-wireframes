@@ -34,10 +34,60 @@ const recordSaleDemo = {
             this.initialized = true;
         }
         
-        // Clear any existing sale items
-        this.saleItems = [];
+        // Try to restore draft sale
+        this.restoreDraft();
+    },
+    
+    // Restore draft sale from sessionStorage
+    restoreDraft() {
+        const draftKey = `draft_sale_${this.selectedStore ? this.selectedStore.id : 'default'}`;
+        const draftData = sessionStorage.getItem(draftKey);
+        
+        if (draftData) {
+            try {
+                const draft = JSON.parse(draftData);
+                this.saleItems = draft.items || [];
+                
+                // Restore transaction notes
+                const notesTextarea = document.querySelector('#record-sale .transaction-notes textarea');
+                if (notesTextarea && draft.notes) {
+                    notesTextarea.value = draft.notes;
+                }
+                
+                console.log('Draft sale restored:', this.saleItems.length, 'items');
+            } catch (e) {
+                console.error('Error restoring draft:', e);
+                this.saleItems = [];
+            }
+        } else {
+            this.saleItems = [];
+        }
+        
         this.updateSaleTable();
         this.updateSummary();
+        this.saveDraft();
+    },
+    
+    // Save draft sale to sessionStorage
+    saveDraft() {
+        const draftKey = `draft_sale_${this.selectedStore ? this.selectedStore.id : 'default'}`;
+        
+        const notesTextarea = document.querySelector('#record-sale .transaction-notes textarea');
+        const draft = {
+            items: this.saleItems,
+            notes: notesTextarea ? notesTextarea.value : '',
+            timestamp: new Date().toISOString()
+        };
+        
+        sessionStorage.setItem(draftKey, JSON.stringify(draft));
+        console.log('Draft sale saved');
+    },
+    
+    // Clear draft from sessionStorage
+    clearDraft() {
+        const draftKey = `draft_sale_${this.selectedStore ? this.selectedStore.id : 'default'}`;
+        sessionStorage.removeItem(draftKey);
+        console.log('Draft sale cleared');
     },
 
     // Clear the current sale
@@ -46,6 +96,13 @@ const recordSaleDemo = {
         this.saleItems = [];
         this.updateSaleTable();
         this.updateSummary();
+        this.clearDraft();
+        
+        // Clear transaction notes
+        const notesTextarea = document.querySelector('#record-sale .transaction-notes textarea');
+        if (notesTextarea) {
+            notesTextarea.value = '';
+        }
     },
     
     // Initialize search functionality
@@ -151,6 +208,14 @@ const recordSaleDemo = {
         if (cancelBtn) {
             cancelBtn.addEventListener('click', () => this.cancelSale());
         }
+        
+        // Transaction notes - save draft on change
+        const notesTextarea = document.querySelector('#record-sale .transaction-notes textarea');
+        if (notesTextarea) {
+            notesTextarea.addEventListener('input', () => {
+                this.saveDraft();
+            });
+        }
     },
     
     // Perform product search
@@ -254,6 +319,7 @@ const recordSaleDemo = {
         
         this.updateSaleTable();
         this.updateSummary();
+        this.saveDraft();
     },
     
     // Update sale table
@@ -317,12 +383,14 @@ const recordSaleDemo = {
                         this.saleItems[index].quantity = quantity;
                         this.updateSummary();
                         this.updateStockImpactPreview();
+                        this.saveDraft();
                     } else if (quantity > this.saleItems[index].stock) {
                         // Limit to available stock
                         e.target.value = this.saleItems[index].stock;
                         this.saleItems[index].quantity = this.saleItems[index].stock;
                         this.updateSummary();
                         this.updateStockImpactPreview();
+                        this.saveDraft();
                     } else if (cleanValue === '') {
                         // Allow empty during typing
                         this.saleItems[index].quantity = 1;
@@ -414,14 +482,103 @@ const recordSaleDemo = {
         this.saleItems.splice(index, 1);
         this.updateSaleTable();
         this.updateSummary();
+        this.saveDraft();
     },
     
     // Complete sale
     completeSale() {
         console.log('Completing sale:', this.saleItems);
+        
+        // Validation checks
+        const errors = this.validateSale();
+        if (errors.length > 0) {
+            this.showValidationErrors(errors);
+            return;
+        }
+        
+        // Show confirmation with sale details
+        const subtotal = this.saleItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        const vat = subtotal * 0.20;
+        const total = subtotal + vat;
+        
+        const confirmMessage = `Complete this sale?\n\nItems: ${this.saleItems.length}\nTotal: £${total.toFixed(2)}`;
+        
+        if (!confirm(confirmMessage)) {
+            return;
+        }
+        
         // In a real app, this would update the backend
         alert('Sale completed successfully!');
         this.clearSale();
+        
+        // Navigate back to inventory
+        navigateTo('inventory');
+    },
+    
+    // Validate sale before completion
+    validateSale() {
+        const errors = [];
+        
+        // Check if there are items
+        if (this.saleItems.length === 0) {
+            errors.push('No items added to sale');
+        }
+        
+        // Check stock availability
+        const stockErrors = this.checkStockAvailability();
+        if (stockErrors.length > 0) {
+            errors.push(...stockErrors);
+        }
+        
+        // Check for zero quantities
+        const zeroQuantityItems = this.saleItems.filter(item => item.quantity === 0);
+        if (zeroQuantityItems.length > 0) {
+            errors.push('Some items have zero quantity');
+        }
+        
+        return errors;
+    },
+    
+    // Check if all items have sufficient stock
+    checkStockAvailability() {
+        const errors = [];
+        
+        this.saleItems.forEach(item => {
+            if (item.quantity > item.stock) {
+                errors.push(`Insufficient stock for ${item.name} (requested: ${item.quantity}, available: ${item.stock})`);
+            }
+        });
+        
+        return errors;
+    },
+    
+    // Show validation errors
+    showValidationErrors(errors) {
+        const errorMessage = 'Cannot complete sale:\n\n' + errors.map(e => '• ' + e).join('\n');
+        alert(errorMessage);
+    },
+    
+    // Show inline error message
+    showInlineError(row, message) {
+        // Remove any existing error message
+        const existingError = row.querySelector('.inline-error');
+        if (existingError) {
+            existingError.remove();
+        }
+        
+        // Create error message element
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'inline-error';
+        errorDiv.textContent = message;
+        
+        // Insert after the row
+        row.parentNode.insertBefore(errorDiv, row.nextSibling);
+        
+        // Remove after 3 seconds
+        setTimeout(() => {
+            errorDiv.remove();
+            row.classList.remove('error');
+        }, 3000);
     },
     
     // Cancel sale

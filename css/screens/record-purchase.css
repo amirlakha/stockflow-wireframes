@@ -551,6 +551,27 @@
 }
 
 /* Responsive adjustments */
+/* Validation and Error Styles */
+#record-purchase .purchase-items-table tr.error {
+    background-color: #ffebee;
+}
+
+#record-purchase .inline-error {
+    color: #d32f2f;
+    font-size: 12px;
+    padding: 5px 10px;
+    background-color: #ffebee;
+    border-left: 3px solid #d32f2f;
+    margin: 0;
+}
+
+#record-purchase .qty-input.error,
+#record-purchase .cost-input.error {
+    border-color: #d32f2f;
+    background-color: #ffebee;
+}
+
+/* Responsive adjustments */
 @media (max-width: 768px) {
     #record-purchase .transaction-header {
         flex-direction: column;

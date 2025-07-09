@@ -177,9 +177,9 @@ Add fully interactive Record Sale and Purchase screens to the StockFlow wirefram
 - [x] Implemented proper subtotal calculations without losing focus
 
 ### Step 6.6: Commit Phase 6
-- [ ] Review all changes with git status
-- [ ] Stage and commit Record Purchase implementation
-- [ ] Commit message: "Implement Record Purchase screen functionality"
+- [x] Review all changes with git status
+- [x] Stage and commit Record Purchase implementation
+- [x] Commit message: "Implement Record Purchase screen functionality"
 
 ## Phase 7: Advanced Features
 ### Step 7.1: Demo controls (Removed)
@@ -187,18 +187,18 @@ Add fully interactive Record Sale and Purchase screens to the StockFlow wirefram
 - [x] Updated implementation notes with comprehensive documentation instead
 
 ### Step 7.1: Validation and error handling
-- [ ] Add comprehensive validation rules
-- [ ] Show inline error messages
-- [ ] Prevent invalid submissions
-- [ ] Handle edge cases gracefully
-- [ ] Test: All validation rules work
+- [x] Add comprehensive validation rules
+- [x] Show inline error messages
+- [x] Prevent invalid submissions
+- [x] Handle edge cases gracefully
+- [x] Test: All validation rules work
 
 ### Step 7.2: State persistence
-- [ ] Save draft transactions in sessionStorage
-- [ ] Restore drafts when returning to screen
-- [ ] Clear drafts after completion
-- [ ] Handle browser refresh
-- [ ] Test: Drafts persist correctly
+- [x] Save draft transactions in sessionStorage
+- [x] Restore drafts when returning to screen
+- [x] Clear drafts after completion
+- [x] Handle browser refresh
+- [x] Test: Drafts persist correctly
 
 ### Step 7.3: Commit Phase 7
 - [ ] Review all changes with git status

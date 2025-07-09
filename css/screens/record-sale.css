@@ -453,6 +453,25 @@
     background: #5a6268;
 }
 
+/* Validation and Error Styles */
+#record-sale .sale-items-table tr.error {
+    background-color: #ffebee;
+}
+
+#record-sale .inline-error {
+    color: #d32f2f;
+    font-size: 12px;
+    padding: 5px 10px;
+    background-color: #ffebee;
+    border-left: 3px solid #d32f2f;
+    margin: 0;
+}
+
+#record-sale .qty-input.error {
+    border-color: #d32f2f;
+    background-color: #ffebee;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
     #record-sale .transaction-header {

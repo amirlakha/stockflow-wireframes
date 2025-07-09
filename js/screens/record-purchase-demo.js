@@ -33,11 +33,68 @@ const recordPurchaseDemo = {
             this.initialized = true;
         }
         
-        // Clear any existing purchase items
-        this.purchaseItems = [];
-        this.nextItemId = 1;
+        // Try to restore draft purchase
+        this.restoreDraft();
+    },
+    
+    // Restore draft purchase from sessionStorage
+    restoreDraft() {
+        const draftKey = `draft_purchase_${this.selectedStore ? this.selectedStore.id : 'default'}`;
+        const draftData = sessionStorage.getItem(draftKey);
+        
+        if (draftData) {
+            try {
+                const draft = JSON.parse(draftData);
+                this.purchaseItems = draft.items || [];
+                this.nextItemId = draft.nextItemId || 1;
+                
+                // Restore purchase details
+                if (draft.supplier) document.querySelector('#record-purchase .supplier-input').value = draft.supplier;
+                if (draft.invoice) document.querySelector('#record-purchase .invoice-input').value = draft.invoice;
+                if (draft.deliveryDate) document.querySelector('#record-purchase .delivery-date-input').value = draft.deliveryDate;
+                if (draft.notes) {
+                    const notesTextarea = document.querySelector('#record-purchase .purchase-notes textarea');
+                    if (notesTextarea) notesTextarea.value = draft.notes;
+                }
+                
+                console.log('Draft purchase restored:', this.purchaseItems.length, 'items');
+            } catch (e) {
+                console.error('Error restoring draft:', e);
+                this.purchaseItems = [];
+                this.nextItemId = 1;
+            }
+        } else {
+            this.purchaseItems = [];
+            this.nextItemId = 1;
+        }
+        
         this.updatePurchaseTable();
         this.updateSummary();
+    },
+    
+    // Save draft purchase to sessionStorage
+    saveDraft() {
+        const draftKey = `draft_purchase_${this.selectedStore ? this.selectedStore.id : 'default'}`;
+        
+        const draft = {
+            items: this.purchaseItems,
+            nextItemId: this.nextItemId,
+            supplier: document.querySelector('#record-purchase .supplier-input').value,
+            invoice: document.querySelector('#record-purchase .invoice-input').value,
+            deliveryDate: document.querySelector('#record-purchase .delivery-date-input').value,
+            notes: document.querySelector('#record-purchase .purchase-notes textarea')?.value || '',
+            timestamp: new Date().toISOString()
+        };
+        
+        sessionStorage.setItem(draftKey, JSON.stringify(draft));
+        console.log('Draft purchase saved');
+    },
+    
+    // Clear draft from sessionStorage
+    clearDraft() {
+        const draftKey = `draft_purchase_${this.selectedStore ? this.selectedStore.id : 'default'}`;
+        sessionStorage.removeItem(draftKey);
+        console.log('Draft purchase cleared');
     },
 
     // Clear the current purchase
@@ -47,11 +104,15 @@ const recordPurchaseDemo = {
         this.nextItemId = 1;
         this.updatePurchaseTable();
         this.updateSummary();
+        this.saveDraft();
+        this.clearDraft();
         
         // Clear input fields
         document.querySelector('#record-purchase .supplier-input').value = '';
         document.querySelector('#record-purchase .invoice-input').value = '';
         document.querySelector('#record-purchase .delivery-date-input').value = '';
+        const notesTextarea = document.querySelector('#record-purchase .purchase-notes textarea');
+        if (notesTextarea) notesTextarea.value = '';
     },
     
     // Initialize event listeners
@@ -72,6 +133,18 @@ const recordPurchaseDemo = {
         if (cancelBtn) {
             cancelBtn.addEventListener('click', () => this.cancelPurchase());
         }
+        
+        // Purchase detail inputs - save draft on change
+        const supplierInput = document.querySelector('#record-purchase .supplier-input');
+        const invoiceInput = document.querySelector('#record-purchase .invoice-input');
+        const deliveryDateInput = document.querySelector('#record-purchase .delivery-date-input');
+        const notesTextarea = document.querySelector('#record-purchase .purchase-notes textarea');
+        
+        [supplierInput, invoiceInput, deliveryDateInput, notesTextarea].forEach(input => {
+            if (input) {
+                input.addEventListener('input', () => this.saveDraft());
+            }
+        });
     },
     
     // Initialize search functionality
@@ -249,6 +322,7 @@ const recordPurchaseDemo = {
         
         this.updatePurchaseTable();
         this.updateSummary();
+        this.saveDraft();
     },
     
     // Update purchase table
@@ -333,6 +407,7 @@ const recordPurchaseDemo = {
                     }
                     this.updateSummary();
                     this.updateStockUpdatePreview();
+                    this.saveDraft();
                 } else if (cleanValue === '') {
                     // Allow empty during typing
                     this.purchaseItems[index].quantity = 1;
@@ -385,6 +460,7 @@ const recordPurchaseDemo = {
                     subtotalCell.textContent = `£${(this.purchaseItems[index].quantity * cost).toFixed(2)}`;
                 }
                 this.updateSummary();
+                this.saveDraft();
             });
             
             // Format on blur
@@ -418,24 +494,28 @@ const recordPurchaseDemo = {
         this.purchaseItems[index].quantity++;
         this.updatePurchaseTable();
         this.updateSummary();
+        this.saveDraft();
     },
     
     updateQuantity(index, quantity) {
         this.purchaseItems[index].quantity = Math.max(1, quantity);
         this.updatePurchaseTable();
         this.updateSummary();
+        this.saveDraft();
     },
     
     updateUnitCost(index, cost) {
         this.purchaseItems[index].unitCost = Math.max(0, cost);
         this.updatePurchaseTable();
         this.updateSummary();
+        this.saveDraft();
     },
     
     removeItem(index) {
         this.purchaseItems.splice(index, 1);
         this.updatePurchaseTable();
         this.updateSummary();
+        this.saveDraft();
     },
     
     // Update summary
@@ -490,6 +570,23 @@ const recordPurchaseDemo = {
         const invoice = document.querySelector('#record-purchase .invoice-input').value;
         const date = document.querySelector('#record-purchase .delivery-date-input').value;
         
+        // Validation checks
+        const errors = this.validatePurchase();
+        if (errors.length > 0) {
+            this.showValidationErrors(errors);
+            return;
+        }
+        
+        // Calculate total
+        const total = this.purchaseItems.reduce((sum, item) => sum + (item.quantity * item.unitCost), 0);
+        
+        // Show confirmation with purchase details
+        const confirmMessage = `Complete this purchase?\n\nSupplier: ${supplier || 'Not specified'}\nItems: ${this.purchaseItems.filter(item => item.product).length}\nTotal Cost: £${total.toFixed(2)}`;
+        
+        if (!confirm(confirmMessage)) {
+            return;
+        }
+        
         console.log('Completing purchase:', {
             supplier,
             invoice,
@@ -499,6 +596,51 @@ const recordPurchaseDemo = {
         
         alert('Purchase recorded successfully!');
         this.clearPurchase();
+        
+        // Navigate back to inventory
+        navigateTo('inventory');
+    },
+    
+    // Validate purchase before completion
+    validatePurchase() {
+        const errors = [];
+        
+        // Check if there are items
+        const validItems = this.purchaseItems.filter(item => item.product);
+        if (validItems.length === 0) {
+            errors.push('No items added to purchase');
+        }
+        
+        // Check for zero quantities
+        const zeroQuantityItems = validItems.filter(item => item.quantity === 0);
+        if (zeroQuantityItems.length > 0) {
+            errors.push('Some items have zero quantity');
+        }
+        
+        // Check for zero costs
+        const zeroCostItems = validItems.filter(item => item.unitCost === 0);
+        if (zeroCostItems.length > 0) {
+            errors.push('Some items have zero unit cost');
+        }
+        
+        // Check if delivery date is in the future
+        const deliveryDate = document.querySelector('#record-purchase .delivery-date-input').value;
+        if (deliveryDate) {
+            const selectedDate = new Date(deliveryDate);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            if (selectedDate > today) {
+                errors.push('Delivery date cannot be in the future');
+            }
+        }
+        
+        return errors;
+    },
+    
+    // Show validation errors
+    showValidationErrors(errors) {
+        const errorMessage = 'Cannot complete purchase:\n\n' + errors.map(e => '• ' + e).join('\n');
+        alert(errorMessage);
     },
     
     // Cancel purchase
