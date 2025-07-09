@@ -175,16 +175,36 @@ function selectStore(storeId) {
     const store = getStoreById(storeId);
     console.log('Store selected:', store);
     
+    // Check if we already have products for this store in sessionStorage
+    const existingStoreData = sessionStorage.getItem('selectedStore');
+    let useExistingProducts = false;
+    
+    if (existingStoreData) {
+        const existingStore = JSON.parse(existingStoreData);
+        // If it's the same store and it has products, reuse them
+        if (existingStore.id === storeId && existingStore.products && Array.isArray(existingStore.products)) {
+            useExistingProducts = true;
+            console.log('Using existing products for store:', storeId);
+        }
+    }
+    
     // Pass store data to inventory before navigation
     if (store && inventoryDemoControls) {
         inventoryDemoControls.setSelectedStore(store);
         
         // Get the actual products for this store
         let storeWithProducts = {...store};
-        if (inventoryDemoControls.storeProducts && inventoryDemoControls.storeProducts[storeId]) {
+        
+        if (useExistingProducts) {
+            // Reuse existing products (preserves transaction updates)
+            const existingStore = JSON.parse(existingStoreData);
+            storeWithProducts.products = existingStore.products;
+        } else if (inventoryDemoControls.storeProducts && inventoryDemoControls.storeProducts[storeId]) {
+            // Generate new products only if we don't have existing ones
             const baseProducts = inventoryDemoControls.storeProducts[storeId];
             const targetCount = store.products;
             storeWithProducts.products = inventoryDemoControls.generateAdditionalProducts(storeId, baseProducts, targetCount);
+            console.log('Generated new products for store:', storeId);
         }
         
         // Save selected store with products to session storage
